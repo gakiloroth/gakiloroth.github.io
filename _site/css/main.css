@@ -4,3 +4,11 @@
 .subtitle{
   font-size: 20px;
 }
+.custom-select{
+  color:#fff !important;
+  background-color:#303030 !important
+}
+.input-group-text{
+  color:#fff !important;
+  background-color:#303030 !important
+}

@@ -4,26 +4,80 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="FGO battle simulator to test farming teams.">
+    <meta name="description" content="FGO Battle Simulator to test farming teams.">
     <meta name="author" content="https://github.com/gakiloroth">
     <link rel="icon" type="image/png" href="images/rainbowbox.png">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO Battle Simulator</title>
+    <title>FGO 3T Simulator**WIP**</title>
   </head>
+
   <body class="w3-theme-dark">
 
     <div class="container">
-      <div class="py-5 text-center">          
-        <h1 class="title">FGO Battle Simulator
+      <div class="py-5 text-center">
+        <h1 class="title">FGO 3T Simulator **WIP**
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
         <h3 class="subtitle">For all your farming needs.</h3>
       </div>
+
+      <div class="row">
+        <div class="col-md-4 order-md-1 mb-4">
+          <div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupClass">Class</label>
+            </div>
+            <select class="custom-select" name="inputGroupClass">
+              <option value="" selected="true">Choose...</option>
+              <option value="Saber">Saber</option>
+              <option value="Archer">Archer</option>
+              <option value="Lancer">Lancer</option>
+              <option value="Rider">Rider</option>
+              <option value="Caster">Caster</option>
+              <option value="Assassin">Assassin</option>
+              <option value="Berserker">Berserker</option>
+              <option value="Ruler">Ruler</option>
+              <option value="Avenger">Avenger</option>
+              <option value="Moon Cancer">Moon Cancer</option>
+              <option value="Alter Ego">Alter Ego</option>
+              <option value="Foreigner">Foreigner</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a class.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4 order-md-2 mb-4">
+          <div class="input-group mb-4">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupServant">Servant</label>
+            </div>
+            <select class="custom-select" name="inputGroupServant">
+              <option value="" selected="true" disabled>Choose a class first!</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a servant.
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
     </div>
 
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class ="mb-1">created by
+        <a href="https://twitter.com/gakiloroth">gakiloroth</a>
+      </p>
+      <ul class="list-inline">inspired by:
+        <li class="list-inline-item"><a href="https://maketakunai.github.io/">maketakunai</a></li>
+      </ul>
+    </footer>
 
   </body>
 </html>
