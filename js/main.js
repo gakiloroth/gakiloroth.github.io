@@ -149,7 +149,6 @@ document.getElementById('addServant').onclick = function(){
   if(saveServant()){
     reset();
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-    $('#inputClass').val(0);
 
     // display saved servants
     updateSavedServantsDisplay();
@@ -199,4 +198,6 @@ function reset() {
   $('#AttackUpPercent').val(0);
   $('#FlatAttackUp').val(0);
   $('#addServant').attr('disabled', true);
+  $('#inputClass').val(0);
+  $('#inputCE').val("");
 }
