@@ -31,7 +31,7 @@
               <label class="input-group-text" for="inputClass">Class</label>
             </div>
             <select class="custom-select" id="inputClass">
-              <option value="" selected="true">Choose...</option>
+              <option value="" selected="true" disabled>Choose...</option>
               <option value="Saber">Saber</option>
               <option value="Archer">Archer</option>
               <option value="Lancer">Lancer</option>
@@ -54,9 +54,9 @@
         <div class="col-md-3 order-md-2">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupServant">Servant</label>
+              <label class="input-group-text" for="inputServant">Servant</label>
             </div>
-            <select class="custom-select" id="inputGroupServant">
+            <select class="custom-select" id="inputServant">
               <option value="" selected="true" disabled>Choose a class first!</option>
             </select>
             <div class="invalid-feedback">
@@ -85,10 +85,10 @@
           <div class="input-group">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputNPLevel">NP Level &nbsp
-                <img src="images/nplevel.png" alt="" height="23">
+                <img src="images/npupgrade.png" id="hasNPupgrade" height="23" data-toggle="tooltip" data-html="true" title="This servant has an available NP upgrade, and it is automatically calculated in."></img>
               </label>
             </div>
-            <select class="custom-select" id="inputGroupServant">
+            <select class="custom-select" id="inputNPLevel">
               <option value="1" selected="true">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -98,31 +98,52 @@
           </div>
         </div>
 
-        <div class="col-md-5 mt-4">
-          <div class="custom-control custom-checkbox custom-control-inline">
-            <input type="checkbox" class="custom-control-input" id="maxGrailed" disabled>
-            <label class="custom-control-label" for="maxGrailed">Max Grailed</label>
-          </div>
-
-          <div class="custom-control custom-checkbox custom-control-inline">
-            <input type="checkbox" class="custom-control-input" id="maxFou">
-            <label class="custom-control-label" for="maxFou">Max Fou</label>
-          </div>
-          <div class="custom-control custom-checkbox custom-control-inline">
-            <input type="checkbox" class="custom-control-input" id="maxGoldFou" disabled>
-            <label class="custom-control-label" for="maxGoldFou">Max Gold Fou</label>
-          </div>
-        </div>
-
-        <div class="col-md-4 mt-4">
-          <div class="form-group">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="inputCE">Craft Essence</label>
-              <input type="text" class="form-control" id="inputCE" placeholder="Enter Craft Essence">
+        <div class="col-md-3 mt-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="NPDamagePercent">NP Damage %</label>
+            </div>
+              <input type="percentage" class="form-control" id="attack" placeholder="0" value="" min="0" data-bind"value:attack" required>
+              <div class="invalid-feedback">
+                Valid NP multiplier required.
+              </div>
+            <div class="input-group-append">
+              <label class="input-group-text" for="percent">%</label>
             </div>
           </div>
         </div>
 
+        <div class="col-md-6 mt-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputCE">Craft Essence</label>
+            </div>
+            <select class="custom-select" id="inputCE">
+              <option value="" selected="true" disabled>Choose...</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a Craft Essence.
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-5 mt-4">
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" id="maxGrailed">
+          <label class="custom-control-label" for="maxGrailed">Max Grailed</label>
+        </div>
+
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" id="maxFou">
+          <label class="custom-control-label" for="maxFou">Max Fou</label>
+        </div>
+
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" class="custom-control-input" id="maxGoldFou" disabled>
+          <label class="custom-control-label" for="maxGoldFou">Max Gold Fou</label>
+        </div>
       </div>
     </div>
 
@@ -142,6 +163,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/servant-list.js" type="text/javascript"></script>
+    <script src="js/ce-list.js" type="text/javascript"></script>
     <script src="js/main.js" type="text/javascript"></script>
 
   </body>
