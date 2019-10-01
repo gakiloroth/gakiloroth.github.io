@@ -1,8 +1,4 @@
-/* 0 = ID, 1 = Name, 2 = Attack, 3 = Superattack, 4 = NP Multiplier, 5 = NP Start Charge, 6 = NP Generation, 7 = Buster Eff., 8 = Arts Eff., 9 = Quick Eff.
-* MLB bonus = [amt_bonus, which stat bonus effects, next amt bonus, next stat to affect]
-*/
-
-const ceList = [{"id":00,"name":"N/A(Use if CE not added)","attack":"","superattack":"","npmultiplier":"","npstartcharge":"","npgeneration":"","busterup":"","artsup":"","quickup":"","mlbbonus":""},
+const servantSkillList = [{"id":00,"name":"N/A(Use if CE not added)","attack":"","superattack":"","npmultiplier":"","npstartcharge":"","npgeneration":"","busterup":"","artsup":"","quickup":"","mlbbonus":""},
 {"id":31,"name":"Formal Craft","attack":"500","superattack":"2000","npmultiplier":"","npstartcharge":"","npgeneration":"","busterup":"","artsup":"25","quickup":"","mlbbonus":"5,8"},
 {"id":32,"name":"Imaginary Around","attack":"500","superattack":"2000","npmultiplier":"","npstartcharge":"","npgeneration":"","busterup":"","artsup":"","quickup":"25","mlbbonus":"5,9"},
 {"id":33,"name":"Limited/Zero Over","attack":"500","superattack":"2000","npmultiplier":"","npstartcharge":"","npgeneration":"","busterup":"","artsup":"","quickup":"25","mlbbonus":"5,7"},
