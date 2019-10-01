@@ -1,11 +1,12 @@
 var servantName = "";
-var savedServants = new Array;
+var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 
 // actions to do when the page is loaded
 $(document).ready(function() {
   ceList.forEach(function(ce) {
     $("#inputCE").append($('<option></option').val(ce.id).html(`${ce.id}: ${ce.name}`));
   });
+  updateSavedServantsDisplay();
 });
 
 // filter out a list of servants based on class
@@ -132,12 +133,24 @@ document.getElementById('reset').onclick = function(){
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
 };
 
+// delete all saved servants
+document.getElementById('deleteAllServants').onclick = function(){
+  if(savedServants.length == 0){
+   return;
+  }
+  if(confirm('Do you want to delete ALL saved servants?')){
+    deleteAllServants();
+  }
+};
+
+
 // save servant data into array
 document.getElementById('addServant').onclick = function(){
   if(saveServant()){
     reset();
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
     $('#inputClass').val(0);
+
     // display saved servants
     updateSavedServantsDisplay();
   }
@@ -158,8 +171,15 @@ function saveServant(){
     return false;
   }
   savedServants.push({"name": servantName});
-  //alert("added servant: " + savedServants.toString() + ", saved servant list size: " + savedServants.length);
+  localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
+}
+
+// delete servants and save
+function deleteAllServants(){
+  savedServants = [];
+  localStorage.setItem("savedServants", JSON.stringify(savedServants));
+  updateSavedServantsDisplay();
 }
 
 function reset() {
