@@ -27,7 +27,7 @@
       <div class="text-left">
         <p>
            Please enter all stats the servant would have, including their CE stats
-           and innate stats, and then hit "Add Servant" to add them to your party.
+           and innate stats, and then hit "Add Servant" to save them.
         </p>
       </div>
 
@@ -38,7 +38,7 @@
               <label class="input-group-text" for="inputClass">Class</label>
             </div>
             <select class="custom-select" id="inputClass">
-              <option value="" selected="true" disabled>Choose...</option>
+              <option value="0" selected="true" disabled>Choose...</option>
               <option value="Saber">Saber</option>
               <option value="Archer">Archer</option>
               <option value="Lancer">Lancer</option>
@@ -224,6 +224,15 @@
           <label class="custom-control-label" for="maxGoldFou">Max Gold Fou</label>
         </div>
       </div>
+
+      <div class="col-md-7 mt-4">
+        <div class="form-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputCE">Craft Essence</label>
+            <input type="text" class="form-control" id="inputCE" placeholder="Enter Craft Essence">
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="row">
@@ -231,8 +240,12 @@
         <button type="reset" id="reset" class="btn btn-outline-danger btn-md btn-block">Reset</button>
       </div>
       <div class="col-md-8 mt-5">
-        <button type="submit" id="addServant" class="btn btn-outline-success btn-md btn-block">Add Servant</button>
+        <button type="submit" id="addServant" class="btn btn-outline-success btn-md btn-block" disabled>Add Servant</button>
       </div>
+    </div>
+
+    <div class="container" id="testSavedServants">
+
     </div>
 
       <footer class="my-5 pt-5 text-muted text-center text-small">

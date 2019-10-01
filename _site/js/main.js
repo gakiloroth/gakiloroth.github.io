@@ -1,12 +1,12 @@
+var servantName = "";
+var savedServants = new Array;
+
 // actions to do when the page is loaded
 $(document).ready(function() {
   ceList.forEach(function(ce) {
     $("#inputCE").append($('<option></option').val(ce.id).html(`${ce.id}: ${ce.name}`));
   });
 });
-
-var servants = new Array;
-
 
 // filter out a list of servants based on class
 $("#inputClass").change(function(){
@@ -59,10 +59,12 @@ $('#inputServant').on('change', function(){
   $('#maxFou').prop('disabled', false);
   $('#hasNPupgrade').hide();
   $('#NPDamagePercent').val(0);
+  $('#addServant').attr('disabled', false);
 
   // find servant in list
   for(let i = 0; i < servantList.length; i++){
     if($('#inputServant').val() == servantList[i].id){
+      servantName = servantList[i].name;
       let npcard = ``;
       switch(servantList[i].deck[6]){
         case "Q":
@@ -124,12 +126,43 @@ $('#inputServant').on('change', function(){
   }
 });
 
+// reset form
 document.getElementById('reset').onclick = function(){
   reset();
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
 };
 
-function reset () {
+// save servant data into array
+document.getElementById('addServant').onclick = function(){
+  if(saveServant()){
+    reset();
+    $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
+    $('#inputClass').val(0);
+    // display saved servants
+    updateSavedServantsDisplay();
+  }
+};
+
+// update saved servant display
+function updateSavedServantsDisplay(){
+  let parsed = "";
+  for(let i = 0; i < savedServants.length; i++){
+    parsed += savedServants[i].name + "<br>";
+  }
+  $('#testSavedServants').html(parsed);
+}
+
+// save servant data into party
+function saveServant(){
+  if(savedServants.length > 200){
+    return false;
+  }
+  savedServants.push({"name": servantName});
+  //alert("added servant: " + savedServants.toString() + ", saved servant list size: " + savedServants.length);
+  return true;
+}
+
+function reset() {
   $('#hasNPupgrade').hide();
   $('#maxGrailed').prop('disabled', true);
   $('#maxGrailed').prop('checked', false);
@@ -145,4 +178,5 @@ function reset () {
   $('#QuickUpPercentage').val(0);
   $('#AttackUpPercent').val(0);
   $('#FlatAttackUp').val(0);
+  $('#addServant').attr('disabled', true);
 }
