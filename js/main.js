@@ -139,7 +139,7 @@ document.getElementById('reset').onclick = function(){
 };
 
 // reset form
-document.getElementById('deleteAllQuests').onclick = function(){
+document.getElementById('deleteAllPartyMembers').onclick = function(){
   party = [];
   localStorage.setItem("party", JSON.stringify(party));
 };
@@ -173,6 +173,7 @@ document.getElementById('addServant').onclick = function(){
     updateSavedServantsDisplay();
     //updatePartyToggles();
     reset();
+    location.reload();
   }
 };
 
@@ -200,6 +201,10 @@ function updateSavedServantsDisplay(){
 
     // link up delete button
     document.getElementById("deleteServant" + i).addEventListener("click", function(){
+      if(party.length !== 0){
+        alert("You cannot delete servants while you still have party members! Please empty the party first.");
+        return;
+      }
       savedServants.splice(i,1);
       localStorage.setItem("savedServants", JSON.stringify(savedServants));
       updateSavedServantsDisplay();
@@ -223,16 +228,15 @@ function updateSavedServantsDisplay(){
       }
       localStorage.setItem("party", JSON.stringify(party));
       parsed = JSON.stringify(party);
+
+      // see party updates instantly for debug
+      //ocation.reload();
     });
   }
   parsed = JSON.stringify(party);
   $('#test').empty().append(parsed);
 }
 
-// shift party over when a seravnt is deleted
-function updatePartyDelete(i){
-  
-}
 // make sure party buttons are toggled correctly
 function updatePartyToggles(){
   for(let i = 0; i < party.length; i++){
