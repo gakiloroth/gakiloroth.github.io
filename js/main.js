@@ -131,7 +131,8 @@ $('#inputServant').on('change', function(){
 document.getElementById('reset').onclick = function(){
   reset();
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-};
+  $('#contactform').boostrapValidator('resetForm', true);
+});
 
 // delete all saved servants
 document.getElementById('deleteAllServants').onclick = function(){
@@ -143,24 +144,31 @@ document.getElementById('deleteAllServants').onclick = function(){
   }
 };
 
-
 // save servant data into array
-document.getElementById('addServant').onclick = function(){
-  if(saveServant()){
-    reset();
-    $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
+document.getElementById('addServant').onclick function(){
+  let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
 
+  if(valid && saveServant()){
+    //reset();
+    $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
     // display saved servants
     updateSavedServantsDisplay();
   }
-};
+});
 
 // update saved servant display
 function updateSavedServantsDisplay(){
   let parsed = "";
-  /*for(let i = 0; i < savedServants.length; i++){
-    parsed += savedServants[i].name + " " + savedServants[i].class + "<br>";
-  }*/
   parsed = JSON.stringify(savedServants);
   $('#testSavedServants').html(parsed);
 }
@@ -170,10 +178,11 @@ function saveServant(){
   if(savedServants.length > 200){
     return false;
   }
+
   savedServants.push({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-    "npdamageup": $('#NPDamageUp').val(),"craftessence": $('#inputCE').val()});
+    "npdamageup": $('#NPDamageUp').val(),"npstartcharge": $('#NPStartCharge').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
 }
@@ -185,6 +194,7 @@ function deleteAllServants(){
   updateSavedServantsDisplay();
 }
 
+// rest form
 function reset() {
   $('#hasNPupgrade').hide();
   $('#maxGrailed').prop('disabled', true);
@@ -193,15 +203,16 @@ function reset() {
   $('#maxGoldFou').prop('checked', false);
   $('#maxGoldFou').prop('disabled', true);
   $('#inputNPLevel').val(1);
-  $('#NPDamagePercent').val("");
-  $('#attack').val("");
-  $('#NPDamageUp').val("");
-  $('#BusterUpPercentage').val("");
-  $('#ArtsUpPercentage').val("");
-  $('#QuickUpPercentage').val("");
-  $('#AttackUpPercentage').val("");
-  $('#FlatAttackUp').val("");
+  $('#NPDamagePercent').val(0);
+  $('#attack').val(0);
+  $('#NPDamageUp').val(0);
+  $('#NPStartCharge').val(0);
+  $('#BusterUpPercentage').val(0);
+  $('#ArtsUpPercentage').val(0);
+  $('#QuickUpPercentage').val(0);
+  $('#AttackUpPercentage').val(0);
+  $('#FlatAttackUp').val(0);
   $('#addServant').attr('disabled', true);
   $('#inputClass').val(0);
-  $('#inputCE').val("");
+  $('#inputCE').val(0);
 }

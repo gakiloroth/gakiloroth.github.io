@@ -31,6 +31,7 @@
         </p>
       </div>
 
+    <form class="needs-validation" novalidate>
       <div class="row">
         <div class="col-md-3">
           <div class="input-group">
@@ -73,9 +74,11 @@
         </div>
 
         <div class="col-md-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="attack">Total Attack</label>
-            <input type="number" class="form-control" id="attack" placeholder="0" value="" min="0" data-bind"value:attack" required>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="attack">Total Attack</label>
+            </div>
+            <input type="number" class="form-control" id="attack" value="0" min="0" required>
             <div class="invalid-feedback">
               Valid attack value required.
             </div>
@@ -106,12 +109,12 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="NPDamagePercent">NP Damage </label>
             </div>
-              <input type="number" class="form-control" id="NPDamagePercent" placeholder="0" value="" min="0" data-bind"value:attack" required>
-              <div class="invalid-feedback">
-                Valid NP multiplier required.
-              </div>
+            <input type="number" class="form-control" id="NPDamagePercent" value="0" min="0" required>
             <div class="input-group-append">
               <label class="input-group-text" for="percent">%</label>
+            </div>
+            <div class="invalid-feedback">
+              Valid NP damage multiplier required.
             </div>
           </div>
         </div>
@@ -121,12 +124,12 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="BusterUpPercentage">Buster Up</label>
             </div>
-              <input type="number" class="form-control" id="BusterUpPercentage" placeholder="0" value="" min="0" data-bind"value:attack" required>
-              <div class="invalid-feedback">
-                Valid Buster effectiveness up required.
-              </div>
+            <input type="number" class="form-control" id="BusterUpPercentage" value="0" min="0" required>
             <div class="input-group-append">
               <label class="input-group-text" for="percent">%</label>
+            </div>
+            <div class="invalid-feedback">
+              Valid Buster effectiveness up required.
             </div>
           </div>
       </div>
@@ -136,13 +139,14 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="ArtsUpPercentage">Arts Up</label>
           </div>
-            <input type="number" class="form-control" id="ArtsUpPercentage" placeholder="0" value="" min="0" data-bind"value:attack" required>
-            <div class="invalid-feedback">
-              Valid Arts effectiveness up required.
-            </div>
+          <input type="number" class="form-control" id="ArtsUpPercentage" value="0" min="0" required>
           <div class="input-group-append">
             <label class="input-group-text" for="percent">%</label>
           </div>
+          <div class="invalid-feedback">
+            Valid Arts effectiveness up required.
+          </div>
+
         </div>
       </div>
 
@@ -151,56 +155,71 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="QuickUpPercentage">Quick Up</label>
           </div>
-            <input type="number" class="form-control" id="QuickUpPercentage" placeholder="0" value="" min="0" data-bind"value:attack" required>
-            <div class="invalid-feedback">
-              Valid Quick effectiveness up required.
-            </div>
+          <input type="number" class="form-control" id="QuickUpPercentage" value="0" min="0"required>
           <div class="input-group-append">
             <label class="input-group-text" for="percent">%</label>
+          </div>
+          <div class="invalid-feedback">
+            Valid Quick effectiveness up required.
           </div>
         </div>
       </div>
     </div>
 
     <div class="row">
-      <div class="col-md-4 mt-4">
+      <div class="col-md-3 mt-4">
         <div class="input-group">
           <div class="input-group-prepend">
             <label class="input-group-text" for="AttackUpPercentage">Attack Up</label>
           </div>
-            <input type="number" class="form-control" id="AttackUpPercentage" placeholder="0" value="" min="0" data-bind"value:attack" required>
-            <div class="invalid-feedback">
-              Valid Attack Up Percentage required.
-            </div>
+          <input type="number" class="form-control" id="AttackUpPercentage" value="0" min="0" required>
           <div class="input-group-append">
             <label class="input-group-text" for="percent">%</label>
+          </div>
+          <div class="invalid-feedback">
+            Valid Attack Up percentage required.
           </div>
         </div>
       </div>
 
-      <div class="col-md-4 mt-4">
+      <div class="col-md-3 mt-4">
         <div class="input-group">
           <div class="input-group-prepend">
             <label class="input-group-text" for="FlatAttackUp">Flat Attack Up</label>
           </div>
-            <input type="number" class="form-control" id="FlatAttackUp" placeholder="0" value="" min="0" data-bind"value:attack" required>
-            <div class="invalid-feedback">
-              Valid Flat Attack up required.
-            </div>
+          <input type="number" class="form-control" id="FlatAttackUp" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid Flat Attack up required.
+          </div>
         </div>
     </div>
 
-    <div class="col-md-4 mt-4">
+    <div class="col-md-3 mt-4">
       <div class="input-group">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="NPDamageUp">NP Damage Up</label>
+          <label class="input-group-text" for="NPDamageUp">NP Buff</label>
         </div>
-          <input type="number" class="form-control" id="NPDamageUp" placeholder="0" value="" min="0" data-bind"value:attack" required>
-          <div class="invalid-feedback">
-            Valid NP Damage up required.
-          </div>
+        <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" required>
         <div class="input-group-append">
           <label class="input-group-text" for="percent">%</label>
+        </div>
+        <div class="invalid-feedback">
+          Valid NP Damage % up required.
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 mt-4">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="NPStartCharge">NP Charge</label>
+        </div>
+        <input type="number" class="form-control" id="NPStartCharge" value="0" min="0" max="100" required>
+        <div class="input-group-append">
+          <label class="input-group-text" for="percent">%</label>
+        </div>
+        <div class="invalid-feedback">
+          Valid NP starting charge required.
         </div>
       </div>
     </div>
@@ -211,7 +230,7 @@
       <div class="col-md-5 mt-4">
         <div class="custom-control custom-checkbox custom-control-inline">
           <input type="checkbox" class="custom-control-input" id="maxGrailed" disabled>
-          <label class="custom-control-label" for="maxGrailed" >Max Grailed</label>
+          <label class="custom-control-label" for="maxGrailed">Max Grailed</label>
         </div>
 
         <div class="custom-control custom-checkbox custom-control-inline">
@@ -225,7 +244,20 @@
         </div>
       </div>
 
-      <div class="col-md-7 mt-4">
+      <div class="col-md-2 mt-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputAttribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="inputAttribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-5 mt-4">
         <div class="form-group">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputCE">Craft Essence</label>
@@ -240,12 +272,13 @@
         <button type="reset" id="reset" class="btn btn-outline-danger btn-md btn-block">Reset</button>
       </div>
       <div class="col-md-4 mt-5">
-        <button type="deleteAllServants" id="deleteAllServants" class="btn btn-outline-danger btn-md btn-block">Delete All Servants</button>
+        <button type="button" id="deleteAllServants" class="btn btn-outline-danger btn-md btn-block">Delete All Servants</button>
       </div>
       <div class="col-md-4 mt-5">
         <button type="submit" id="addServant" class="btn btn-outline-success btn-md btn-block" disabled>Add Servant</button>
       </div>
     </div>
+  </form>
 
     <div class="container" id="testSavedServants">
     </div>
@@ -268,6 +301,26 @@
     <script src="js/ce-list.js" type="text/javascript"></script>
     <script src="js/type-advantages.js" type="text/javascript"></script>
     <script src="js/main.js" type="text/javascript"></script>
+
+    <!---<script>
+      (function() {
+        'use strict';
+        window.addEventListener('load', function(){
+          var forms = document.getElementsByClassName('needs-validation');
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            alert("validating");
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                //alert("invalid in loop");
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+    </script>--->
 
   </body>
 </html>
