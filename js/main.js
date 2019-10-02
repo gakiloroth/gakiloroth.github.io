@@ -132,7 +132,7 @@ document.getElementById('reset').onclick = function(){
   reset();
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
   $('#contactform').boostrapValidator('resetForm', true);
-});
+};
 
 // delete all saved servants
 document.getElementById('deleteAllServants').onclick = function(){
@@ -145,7 +145,7 @@ document.getElementById('deleteAllServants').onclick = function(){
 };
 
 // save servant data into array
-document.getElementById('addServant').onclick function(){
+document.getElementById('addServant').onclick = function(){
   let valid = true;
   'use strict';
   var forms = document.getElementsByClassName('needs-validation');
@@ -164,18 +164,23 @@ document.getElementById('addServant').onclick function(){
     // display saved servants
     updateSavedServantsDisplay();
   }
-});
+};
 
 // update saved servant display
 function updateSavedServantsDisplay(){
-  let parsed = "";
-  parsed = JSON.stringify(savedServants);
-  $('#testSavedServants').html(parsed);
+  /*let parsed = "";
+  //parsed = JSON.stringify(savedServants);
+  $('#testSavedServants').html(parsed);*/
+  $('#savedServants1').empty();
+  $('#savedServants2').empty();
+  for(let i = 0; i < savedServants.length; i++){
+    $('#savedServants1').append($('<li class="list-group-item"></li>').html(savedServants[i].name));
+    $('#savedServants2').append($('<li class="list-group-item"></li>').html(savedServants[i].name));
+  }
 }
-
 // save servant data into party
 function saveServant(){
-  if(savedServants.length > 200){
+  if(savedServants.length > 600){
     return false;
   }
 

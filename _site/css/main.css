@@ -16,3 +16,11 @@
   color:#fff !important;
   background-color:#303030 !important
 }
+.list-group{
+    max-height: 400px;
+    margin-bottom: 10px;
+}
+.list-group-item{
+  color:#fff !important;
+  background-color:#303030 !important
+}
