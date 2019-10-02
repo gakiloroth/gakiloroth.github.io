@@ -158,9 +158,10 @@ document.getElementById('addServant').onclick = function(){
 // update saved servant display
 function updateSavedServantsDisplay(){
   let parsed = "";
-  for(let i = 0; i < savedServants.length; i++){
-    parsed += savedServants[i].name + "<br>";
-  }
+  /*for(let i = 0; i < savedServants.length; i++){
+    parsed += savedServants[i].name + " " + savedServants[i].class + "<br>";
+  }*/
+  parsed = JSON.stringify(savedServants);
   $('#testSavedServants').html(parsed);
 }
 
@@ -169,7 +170,10 @@ function saveServant(){
   if(savedServants.length > 200){
     return false;
   }
-  savedServants.push({"name": servantName});
+  savedServants.push({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+    "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
+    "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
+    "npdamageup": $('#NPDamageUp').val(),"craftessence": $('#inputCE').val()});
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
 }
@@ -188,15 +192,15 @@ function reset() {
   $('#maxFou').prop('checked', false);
   $('#maxGoldFou').prop('checked', false);
   $('#maxGoldFou').prop('disabled', true);
-  $('#inputNPLevel').val(1);;
-  $('#NPDamagePercent').val(0);
-  $('#attack').val(0);
-  $('#NPDamageUp').val(0);
-  $('#BusterUpPercentage').val(0);
-  $('#ArtsUpPercentage').val(0);
-  $('#QuickUpPercentage').val(0);
-  $('#AttackUpPercent').val(0);
-  $('#FlatAttackUp').val(0);
+  $('#inputNPLevel').val(1);
+  $('#NPDamagePercent').val("");
+  $('#attack').val("");
+  $('#NPDamageUp').val("");
+  $('#BusterUpPercentage').val("");
+  $('#ArtsUpPercentage').val("");
+  $('#QuickUpPercentage').val("");
+  $('#AttackUpPercentage').val("");
+  $('#FlatAttackUp').val("");
   $('#addServant').attr('disabled', true);
   $('#inputClass').val(0);
   $('#inputCE').val("");
