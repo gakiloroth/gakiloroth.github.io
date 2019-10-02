@@ -22,12 +22,13 @@
         </h1>
 
         <h3 class="subtitle">For all you three turn hyper farmers.</h3>
+        <h4 class="subtitle"><a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">How to use</a></h4>
       </div>
 
       <nav>
         <div class="nav nav-tabs justify-content-center mb-4" id="nav-tab" role="tablist">
-            <a class="nav-item nav-link active" id="nav-servant-tab" data-toggle="tab" href="#nav-servant" aria-controls="nav-servant" aria-selected="true">Servant Creator</a>
-            <a class="nav-item nav-link" id="nav-quest-tab" data-toggle="tab" href="#nav-quest" aria-controls="nav-quest" aria-selected="false">Quest Creator</a>
+            <a class="nav-item nav-link active" id="nav-servant-tab" data-toggle="tab" href="#nav-servant" aria-controls="nav-servant" aria-selected="true">Servants Manager</a>
+            <a class="nav-item nav-link" id="nav-quest-tab" data-toggle="tab" href="#nav-quest" aria-controls="nav-quest" aria-selected="false">Quests Manager</a>
             <a class="nav-item nav-link" id="nav-battle-tab" data-toggle="tab" href="#nav-battle" aria-controls="nav-battle" aria-selected="false">Battle Simulator</a>
         </div>
       </nav>
@@ -279,7 +280,7 @@
 
         <div class="row">
           <div class="col-md-3 mt-5">
-            <button type="reset" id="reset" class="btn btn-outline-danger btn-md btn-block">Reset</button>
+            <button type="reset" id="resetServantForm" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
           </div>
           <div class="col-md-3 mt-5">
             <button type="button" id="deleteAllPartyMembers" class="btn btn-outline-danger btn-md btn-block">Empty Party</button>
@@ -296,16 +297,6 @@
       <div class="row">
         <div class="col-md-6 mt-5">
           <ul class="list-group list-group-flush overflow-auto" id="savedQuests1">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Morbi leo risus</li>
-            <li class="list-group-item">Porta ac consectetur ac</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-            <li class="list-group-item">Vestibulum at eros</li>
           </ul>
         </div>
         <div class="col-md-6 mt-5">
@@ -316,19 +307,523 @@
     </div>
 
   <div class="container tab-pane" id="nav-quest" role="tabpanel" aria-labelledby="nav-quest-tab">
+    <div class="text-left">
+      <p>
+         Enter all enemy stats and then click "Save Quest" to save this quest.
+      </p>
+    </div>
+
+    <div class="text-left">
+      <p>
+         <b>Wave 1</b>
+      </p>
+    </div>
+
+  <form class="needs-validation-quest" novalidate>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy1HP">Enemy 1 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy1HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy2HP">Enemy 2 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy2HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy3HP">Enemy 3 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy3HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy1Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy1Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy1Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy1Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy2Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy2Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy2Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy2Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy3Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy3Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy3Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy3Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-left mt-4">
+      <p>
+         <b>Wave 2</b>
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy4HP">Enemy 4 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy4HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy5HP">Enemy 5 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy5HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy6HP">Enemy 6 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy6HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy4Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy4Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy4Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy4Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy5Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy5Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy5Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy5Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy6Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy6Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy6Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy6Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-left mt-4">
+      <p>
+        <b>Wave 3</b>
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy7HP">Enemy 7 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy7HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy8HP">Enemy 8 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy8HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy9HP">Enemy 9 HP</label>
+          </div>
+          <input type="number" class="form-control" id="enemy9HP" value="0" min="0" required>
+          <div class="invalid-feedback">
+            Valid HP value required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy7Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy7Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy7Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy7Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy8Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy8Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy8Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy8Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy9Class">Class</label>
+          </div>
+          <select class="custom-select" id="enemy9Class">
+            <option value="Saber" selected="true">Saber</option>
+            <option value="Archer">Archer</option>
+            <option value="Lancer">Lancer</option>
+            <option value="Rider">Rider</option>
+            <option value="Caster">Caster</option>
+            <option value="Assassin">Assassin</option>
+            <option value="Berserker">Berserker</option>
+            <option value="Ruler">Ruler</option>
+            <option value="Avenger">Avenger</option>
+            <option value="Moon Cancer">Moon Cancer</option>
+            <option value="Alter Ego">Alter Ego</option>
+            <option value="Foreigner">Foreigner</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a class.
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="enemy9Attribute">Attr.</label>
+          </div>
+          <select class="custom-select" id="enemy9Attribute">
+            <option value="Man" selected="true">Man</option>
+            <option value="Earth">Earth</option>
+            <option value="Sky">Sky</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </form>
+
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="QuestName"><b>Quest Name</b></label>
+          </div>
+          <input type="text" class="form-control" id="QuestName" value="Quest Name" min="0" required>
+          <div class="invalid-feedback">
+            Valid Quest Name required.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mt-5">
+        <button type="reset" id="resetQuestForm" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
+      </div>
+      <div class="col-md-4 mt-5">
+        <button type="button" id="deleteAllQuests" class="btn btn-outline-danger btn-md btn-block">Delete All Quests</button>
+      </div>
+      <div class="col-md-4 mt-5">
+        <button type="submit" id="addQuest" class="btn btn-outline-success btn-md btn-block">Save Quest</button>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-md-6 mt-5">
         <ul class="list-group list-group-flush overflow-auto" id="savedQuests2">
-          <li class="list-group-item">Cras justo odio</li>
-          <li class="list-group-item">Dapibus ac facilisis in</li>
-          <li class="list-group-item">Morbi leo risus</li>
-          <li class="list-group-item">Porta ac consectetur ac</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Vestibulum at eros</li>
-          <li class="list-group-item">Vestibulum at eros</li>
         </ul>
       </div>
       <div class="col-md-6 mt-5">
@@ -358,7 +853,6 @@
     <script src="js/type-advantages.js" type="text/javascript"></script>
     <script src="js/servant-list.js" type="text/javascript"></script>
     <script src="js/mystic-codes.js" type="text/javascript"></script>
-    <script src="js/ce-list.js" type="text/javascript"></script>
     <script src="js/main.js" type="text/javascript"></script>
   </body>
 </html>
