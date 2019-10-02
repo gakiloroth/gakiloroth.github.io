@@ -1,5 +1,6 @@
 var servantName = "";
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
+var party = JSON.parse(localStorage.getItem("party") || "[]");
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -131,7 +132,7 @@ $('#inputServant').on('change', function(){
 document.getElementById('reset').onclick = function(){
   reset();
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-  $('#contactform').boostrapValidator('resetForm', true);
+  $('#form').boostrapValidator('resetForm', true);
 };
 
 // delete all saved servants
@@ -159,10 +160,9 @@ document.getElementById('addServant').onclick = function(){
   });
 
   if(valid && saveServant()){
-    //reset();
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-    // display saved servants
     updateSavedServantsDisplay();
+    reset();
   }
 };
 
@@ -174,8 +174,25 @@ function updateSavedServantsDisplay(){
   $('#savedServants1').empty();
   $('#savedServants2').empty();
   for(let i = 0; i < savedServants.length; i++){
-    $('#savedServants1').append($('<li class="list-group-item"></li>').html(savedServants[i].name));
-    $('#savedServants2').append($('<li class="list-group-item"></li>').html(savedServants[i].name));
+    $('#savedServants1').append($('<li class="list-group-item"><b>' + savedServants[i].name + '</b> | CE: ' +
+     savedServants[i].craftessence + ' | NP Charge: ' + savedServants[i].npstartcharge + '%<br>' + 'NP Level: ' +
+     savedServants[i].nplevel + ' | Attack: ' + savedServants[i].attack + ' | NP Buff: ' + savedServants[i].npdamageup + '%' +
+     ' | Attr. : ' + savedServants[i].attribute + '<br> Buster Up: ' + savedServants[i].busterup + ' | Arts Up: ' + savedServants[i].artsup +
+     ' | Quick Up: ' + savedServants[i].quickup + '<span class="float-right"><button type="button" id=' + "useServant" + i +
+     ' class="btn btn-outline-success btn-sm">Add to Party</button> <button type="button" id=' + "deleteServant" + i +
+     ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
+
+     $('#savedServants2').append($('<li class="list-group-item"><b>' + savedServants[i].name + '</b> | CE: ' +
+      savedServants[i].craftessence + ' | NP Charge: ' + savedServants[i].npstartcharge + '%<br>' + 'NP Level: ' +
+      savedServants[i].nplevel + ' | Attack: ' + savedServants[i].attack + ' | NP Buff: ' + savedServants[i].npdamageup + '%' +
+      ' | Attr. : ' + savedServants[i].attribute + '<br> Buster Up: ' + savedServants[i].busterup + ' | Arts Up: ' + savedServants[i].artsup +
+      ' | Quick Up: ' + savedServants[i].quickup + '</li>'));
+
+    document.getElementById("deleteServant" + i).addEventListener("click", function(){
+      savedServants.splice(i,1);
+      localStorage.setItem("savedServants", JSON.stringify(savedServants));
+      updateSavedServantsDisplay();
+    });
   }
 }
 // save servant data into party
@@ -219,5 +236,5 @@ function reset() {
   $('#FlatAttackUp').val(0);
   $('#addServant').attr('disabled', true);
   $('#inputClass').val(0);
-  $('#inputCE').val(0);
+  $('#inputCE').val("");
 }

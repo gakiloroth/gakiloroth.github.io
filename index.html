@@ -278,23 +278,22 @@
       </div>
 
         <div class="row">
-          <div class="col-md-4 mt-5">
+          <div class="col-md-3 mt-5">
             <button type="reset" id="reset" class="btn btn-outline-danger btn-md btn-block">Reset</button>
           </div>
-          <div class="col-md-4 mt-5">
-            <button type="button" id="deleteAllServants" class="btn btn-outline-danger btn-md btn-block">Delete All Servants</button>
+          <div class="col-md-3 mt-5">
+            <button type="button" id="deleteAllQuests" class="btn btn-outline-danger btn-md btn-block">Delete All Quests</button>
           </div>
-          <div class="col-md-4 mt-5">
+          <div class="col-md-3 mt-5">
+            <button type="submit" id="deleteAllServants" class="btn btn-outline-danger btn-md btn-block">Delete All Servants</button>
+          </div>
+          <div class="col-md-3 mt-5">
             <button type="submit" id="addServant" class="btn btn-outline-success btn-md btn-block" disabled>Add Servant</button>
           </div>
         </div>
       </form>
 
       <div class="row">
-        <div class="col-md-6 mt-5">
-          <ul class="list-group list-group-flush overflow-auto" id="savedServants1">
-          </ul>
-        </div>
         <div class="col-md-6 mt-5">
           <ul class="list-group list-group-flush overflow-auto" id="savedQuests1">
             <li class="list-group-item">Cras justo odio</li>
@@ -309,15 +308,15 @@
             <li class="list-group-item">Vestibulum at eros</li>
           </ul>
         </div>
+        <div class="col-md-6 mt-5">
+          <ul class="list-group list-group-flush overflow-auto" id="savedServants1">
+          </ul>
+        </div>
       </div>
     </div>
 
   <div class="container tab-pane" id="nav-quest" role="tabpanel" aria-labelledby="nav-quest-tab">
     <div class="row">
-      <div class="col-md-6 mt-5">
-        <ul class="list-group list-group-flush overflow-auto" id="savedServants2">
-        </ul>
-      </div>
       <div class="col-md-6 mt-5">
         <ul class="list-group list-group-flush overflow-auto" id="savedQuests2">
           <li class="list-group-item">Cras justo odio</li>
@@ -330,6 +329,10 @@
           <li class="list-group-item">Vestibulum at eros</li>
           <li class="list-group-item">Vestibulum at eros</li>
           <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+      </div>
+      <div class="col-md-6 mt-5">
+        <ul class="list-group list-group-flush overflow-auto" id="savedServants2">
         </ul>
       </div>
     </div>
