@@ -1,6 +1,7 @@
 var servantName = "";
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var party = JSON.parse(localStorage.getItem("party") || "[]");
+var startup = true;
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -8,6 +9,8 @@ $(document).ready(function() {
     $("#inputCE").append($('<option></option').val(ce.id).html(`${ce.id}: ${ce.name}`));
   });
   updateSavedServantsDisplay();
+  updatePartyToggles();
+  startup = false;
 });
 
 // filter out a list of servants based on class
@@ -135,6 +138,12 @@ document.getElementById('reset').onclick = function(){
   $('#form').boostrapValidator('resetForm', true);
 };
 
+// reset form
+document.getElementById('deleteAllQuests').onclick = function(){
+  party = [];
+  localStorage.setItem("party", JSON.stringify(party));
+};
+
 // delete all saved servants
 document.getElementById('deleteAllServants').onclick = function(){
   if(savedServants.length == 0){
@@ -162,14 +171,15 @@ document.getElementById('addServant').onclick = function(){
   if(valid && saveServant()){
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
     updateSavedServantsDisplay();
+    //updatePartyToggles();
     reset();
   }
 };
 
 // update saved servant display
 function updateSavedServantsDisplay(){
-  /*let parsed = "";
-  //parsed = JSON.stringify(savedServants);
+  let parsed = "";
+  /*parsed = JSON.stringify(savedServants);
   $('#testSavedServants').html(parsed);*/
   $('#savedServants1').empty();
   $('#savedServants2').empty();
@@ -179,7 +189,7 @@ function updateSavedServantsDisplay(){
      savedServants[i].nplevel + ' | Attack: ' + savedServants[i].attack + ' | NP Buff: ' + savedServants[i].npdamageup + '%' +
      ' | Attr. : ' + savedServants[i].attribute + '<br> Buster Up: ' + savedServants[i].busterup + ' | Arts Up: ' + savedServants[i].artsup +
      ' | Quick Up: ' + savedServants[i].quickup + '<span class="float-right"><button type="button" id=' + "useServant" + i +
-     ' class="btn btn-outline-success btn-sm">Add to Party</button> <button type="button" id=' + "deleteServant" + i +
+     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">In Party</button> <button type="button" id=' + "deleteServant" + i +
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
      $('#savedServants2').append($('<li class="list-group-item"><b>' + savedServants[i].name + '</b> | CE: ' +
@@ -188,13 +198,49 @@ function updateSavedServantsDisplay(){
       ' | Attr. : ' + savedServants[i].attribute + '<br> Buster Up: ' + savedServants[i].busterup + ' | Arts Up: ' + savedServants[i].artsup +
       ' | Quick Up: ' + savedServants[i].quickup + '</li>'));
 
+    // link up delete button
     document.getElementById("deleteServant" + i).addEventListener("click", function(){
       savedServants.splice(i,1);
       localStorage.setItem("savedServants", JSON.stringify(savedServants));
       updateSavedServantsDisplay();
+      updatePartyDelete(i);
+    });
+
+    // link up in party button
+    document.getElementById("useServant" + i).addEventListener("click", function(){
+      if(party.includes(i)){
+        let index = party.indexOf(i);
+        party.splice(index,1);
+      }
+      else{
+        if(party.length === 4){
+          alert("You can only have 4 servants in a party!");
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        party.push(i);
+      }
+      localStorage.setItem("party", JSON.stringify(party));
+      parsed = JSON.stringify(party);
     });
   }
+  parsed = JSON.stringify(party);
+  $('#test').empty().append(parsed);
 }
+
+// shift party over when a seravnt is deleted
+function updatePartyDelete(i){
+  
+}
+// make sure party buttons are toggled correctly
+function updatePartyToggles(){
+  for(let i = 0; i < party.length; i++){
+    //alert("pepega" + i);
+    $('#useServant' + party[i]).click();
+  };
+}
+
 // save servant data into party
 function saveServant(){
   if(savedServants.length > 600){
