@@ -28,7 +28,7 @@
 .carousel-indicators li {
     width: 10px;
     height: 10px;
-    
+
 }
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
@@ -38,4 +38,13 @@
   border-radius: 50%;
   border: 3px solid white;
   background-image: url('../images/saintquartz.png');
+}
+.carousel-control-prev,
+.carousel-control-next{
+      bottom: 0%;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
