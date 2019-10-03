@@ -2,6 +2,7 @@ var servantName = "";
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
 var party = JSON.parse(localStorage.getItem("party") || "[]");
+var quest = JSON.parse(localStorage.getItem("quest") || "");
 var startup = true;
 
 // actions to do when the page is loaded
@@ -18,6 +19,7 @@ $(document).ready(function() {
   updateSavedServantsDisplay();
   updateSavedQuestsDisplay();
   updatePartyToggles();
+  updateQuestToggles();
   startup = false;
 });
 
@@ -214,7 +216,6 @@ document.getElementById('addQuest').onclick = function(){
   });
 
   if(valid && saveQuest()){
-
     updateSavedQuestsDisplay();
     resetQuestForm();
     location.reload();
@@ -271,14 +272,8 @@ function updateSavedServantsDisplay(){
         party.push(i);
       }
       localStorage.setItem("party", JSON.stringify(party));
-      parsed = JSON.stringify(party);
-
-      //see party updates instantly for debug
-      //ocation.reload();
     });
   }
-  //parsed = JSON.stringify(party);
-  //$('#test').empty().append(parsed);
 }
 
 // update quest updateSavedQuestsDisplay
@@ -300,7 +295,7 @@ function updateSavedQuestsDisplay(){
     ' E9: ' + curr.enemy9hp + ' ' + curr.enemy9class +
     '</li>'));
 
-    $('#savedQuests2').append($('<li class="list-group-item"><b>' + savedQuests[i].name + '</b>' +
+    $('#savedQuests2').append($('<li class="list-group-item"><b>' + curr.name + '</b>' +
     '<br> E1: ' + curr.enemy1hp + ' ' + curr.enemy1class +
     ' E2: ' + curr.enemy2hp + ' ' + curr.enemy2class +
     ' E3: ' + curr.enemy3hp + ' ' + curr.enemy3class +
@@ -310,18 +305,41 @@ function updateSavedQuestsDisplay(){
     '<br> E7: ' + curr.enemy7hp + ' ' + curr.enemy7class +
     ' E8: ' + curr.enemy8hp + ' ' + curr.enemy8class +
     ' E9: ' + curr.enemy9hp + ' ' + curr.enemy9class +
-    '<span class="float-right"><button type="button" id=' + "deleteQuest" + i +
-    ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
+    '<span class="float-right"> <button type="button" id=' + "useQuest" + i +
+    ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">Select</button> ' +
+    '<button type="button" id=' + "deleteQuest" + i + ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
     // link up delete button
     document.getElementById("deleteQuest" + i).addEventListener("click", function(){
+      if(quest !== ""){
+        alert("Please have no quest selected when deleting!");
+        return;
+      }
       savedQuests.splice(i,1);
       localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
       updateSavedQuestsDisplay();
     });
+    // link up use button
+    document.getElementById("useQuest" + i).addEventListener("click", function(){
+      if(quest === i){
+        quest = "";
+        updateQuestToggles();
+        localStorage.setItem("quest", JSON.stringify(quest))
+      }
+      else{
+        if(quest = ""){
+          alert("You can only have 1 quest selected!");
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        quest = i;
+        localStorage.setItem("quest", JSON.stringify(i))
+      }
+    });
   }
-  //parsed = JSON.stringify(savedQuests);
-  //$('#test').empty().append(parsed);
+  parsed = JSON.stringify(quest);
+  $('#test').empty().append(parsed);
 }
 
 // make sure party buttons are toggled correctly
@@ -331,13 +349,18 @@ function updatePartyToggles(){
   };
 }
 
+// amke sure quest buttons are toggled correctly
+function updateQuestToggles(){
+  $('#useQuest' + quest).click();
+}
+
 // save servant data into array
 function saveServant(){
   if(savedServants.length > 600){
     return false;
   }
 
-  savedServants.push({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+  savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npstartcharge": $('#NPStartCharge').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
@@ -351,7 +374,7 @@ function saveQuest(){
     return false;
   }
 
-  savedQuests.push({"name": $('#QuestName').val(),
+  savedQuests.unshift({"name": $('#QuestName').val(),
 "enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),
 "enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),
 "enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),
@@ -432,4 +455,43 @@ function resetQuest() {
   $('#enemy9Class').val("Saber");
   $('#enemy9Attribute').val("Man");
   $('#QuestName').val("Quest Name");
+}
+
+function classDmg(input){
+  var classVal = 1;
+  if (input === ''){
+    classVal = 0;
+    return classVal;
+  }
+  if ('archer'.indexOf(input.toLowerCase()) > -1){
+    classVal = 0.95;
+  }
+  else if ('lancer'.indexOf(input.toLowerCase()) > -1){
+    classVal = 1.05;
+  }
+  else if ('caster'.indexOf(input.toLowerCase()) > -1 || 'assassin'.indexOf(input.toLowerCase()) > -1){
+    classVal = 0.9;
+  }
+  else if ('berserker'.indexOf(input.toLowerCase()) > -1 ||
+  'ruler'.indexOf(input.toLowerCase()) > -1 || 'avenger'.indexOf(input.toLowerCase()) > -1 ){
+    classVal = 1.1;
+  }
+  return classVal;
+}
+
+function cardDmg(input){
+  var cardVal = 0;
+  if (input === undefined){
+    return cardVal;
+  }
+  if ('buster'.indexOf(input.toLowerCase()) > -1){
+    cardVal = 1.5;
+  }
+  else if ('arts'.indexOf(input.toLowerCase()) > -1){
+    cardVal = 1.0;
+  }
+  else if ('quick'.indexOf(input.toLowerCase()) > -1){
+    cardVal = 0.8;
+  }
+  return cardVal;
 }

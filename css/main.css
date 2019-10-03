@@ -19,8 +19,23 @@
 .list-group{
     max-height: 400px;
     margin-bottom: 10px;
+    max-width: 700px;
 }
 .list-group-item{
   color:#fff !important;
   background-color:#303030 !important
+}
+.carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  height: 70px;
+  width: 70px;
+  outline: white;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-image: url('../images/saintquartz.png');
 }

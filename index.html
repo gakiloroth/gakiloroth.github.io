@@ -326,7 +326,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy1HP">Enemy 1 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy1HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy1HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -338,7 +338,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy2HP">Enemy 2 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy2HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy2HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -350,7 +350,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy3HP">Enemy 3 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy3HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy3HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -486,7 +486,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy4HP">Enemy 4 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy4HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy4HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -498,7 +498,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy5HP">Enemy 5 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy5HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy5HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -510,7 +510,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy6HP">Enemy 6 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy6HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy6HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -646,7 +646,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy7HP">Enemy 7 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy7HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy7HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -658,7 +658,7 @@
           <div class="input-group-prepend">
             <label class="input-group-text" for="enemy8HP">Enemy 8 HP</label>
           </div>
-          <input type="number" class="form-control" id="enemy8HP" value="0" min="0" required>
+          <input type="number" class="form-control" id="enemy8HP" value="0" min="0" max="99999999" required>
           <div class="invalid-feedback">
             Valid HP value required.
           </div>
@@ -833,8 +833,59 @@
     </div>
   </div>
 
-    <div class="container mt-5" id="test">
+  <div class="container tab-pane" id="nav-battle" role="tabpanel" aria-labelledby="nav-Battle-tab">
+    <div id="battleCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false" wrap="false">
+      <ol class="carousel-indicators">
+        <li data-target="#battleCarouselIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#battleCarouselIndicators" data-slide-to="1"></li>
+        <li data-target="#battleCarouselIndicators" data-slide-to="2"></li>
+      </ol>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="d-flex">
+            <ul class="list-group mx-auto list-group-horizontal justify-content-center">
+              <li class="mw-1 list-group-item">Cras justoasdfasdfasdfasd odio</li>
+              <li class="list-group-item">Dapibus ac faciliassswasdfsis in</li>
+              <li class="list-group-item">Morbi leo rssssssssssssss</li>
+            </ul>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-md-2">
+                2 of 3
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="container">
+            <div class="row justify-content-md-center">
+              <div class="col col-md-2">
+                3 of 3
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href="#battleCarousel" role="button" data-slide="prev">
+        <h3> Prev &nbsp;</h3>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#battleCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+        <h3> &nbsp; Next</h3>
+      </a>
     </div>
+  </div>
+
+    <!---<div class="container mt-5" id="test">
+    </div>--->
   </div>
 
     <footer class="my-5 pt-5 text-muted text-center text-small">
