@@ -23,7 +23,7 @@
         </h1>
 
         <h3 class="subtitle">For all you three turn hyper farmers.</h3>
-        <h4 class="subtitle"><a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">How to use</a></h4>
+        <h4 class="subtitle"><a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">github readme</a></h4>
       </div>
 
       <nav>
@@ -835,34 +835,130 @@
   </div>
 
   <div class="container tab-pane" id="nav-battle" role="tabpanel" aria-labelledby="nav-Battle-tab">
+    <div class="text-left">
+      <p>Please make sure you have servants in your party and a quest selected.</p>
+      <h3 id="questNameDisplay"><b>Current Quest: </b></h3>
+    </div>
+
     <div id="battleCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false" wrap="false">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <div class="row justify-content-md-center">
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy1HP">Enemy 1 HP</label>
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy1Class" src="images/beast3.png" height="30px"> Enemy 1</h5>
+                <div class="card-body" id="questEnemy1HP">
+                  N/A
                 </div>
-                <input type="number" class="form-control" id="questEnemy1HP" value="0" min="0" max="99999999" required>
               </div>
             </div>
 
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy2HP">Enemy 2 HP</label>
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy2Class" src="images/beast3.png" height="30px"> Enemy 2</h5>
+                <div class="card-body" id="questEnemy2HP">
+                  N/A
                 </div>
-                <input type="number" class="form-control" id="questEnemy2HP" value="0" min="0" max="99999999" required>
               </div>
             </div>
 
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy3HP">Enemy 3 HP</label>
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy3Class" src="images/beast3.png" height="30px"> Enemy 3</h5>
+                <div class="card-body" id="questEnemy3HP">
+                  N/A
                 </div>
-                <input type="number" class="form-control" id="questEnemy3HP" value="0" min="0" max="99999999" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-md-center">
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" id="questEnemy1NPDamage">
+                  N/A
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" id="questEnemy2NPDamage">
+                  N/A
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" id="questEnemy3NPDamage">
+                  N/A
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-md-center">
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" id="questEnemy1HPLeft">
+                  N/A
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" id="questEnemy2HPLeft">
+                  N/A
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body" id="questEnemy3HPLeft">
+                  N/A
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-md-center">
+            <div class="col-md-5 mt-5">
+              <button type="reset" id="resetBattleForm1" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
+            </div>
+            <div class="col-md-5 mt-5">
+              <button type="submit" id="submitBattleForm1" class="btn btn-outline-success btn-md btn-block">Calculate NP Damage</button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row justify-content-md-center">
+            <div class="col-md-4">
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy4Class" src="images/beast3.png" height="30px"> Enemy 4</h5>
+                <div class="card-body" id="questEnemy4HP">
+                  N/A
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy5Class" src="images/beast3.png" height="30px"> Enemy 5</h5>
+                <div class="card-body" id="questEnemy5HP">
+                  N/A
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy6Class" src="images/beast3.png" height="30px"> Enemy 6</h5>
+                <div class="card-body" id="questEnemy6HP">
+                  N/A
+                </div>
               </div>
             </div>
           </div>
@@ -870,59 +966,29 @@
         <div class="carousel-item">
           <div class="row justify-content-md-center">
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy4HP">Enemy 4 HP</label>
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy7Class" src="images/beast3.png" height="30px"> Enemy 7</h5>
+                <div class="card-body" id="questEnemy7HP">
+                  N/A
                 </div>
-                <input type="number" class="form-control" id="questEnemy4HP" value="0" min="0" max="99999999" required>
               </div>
             </div>
 
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy5HP">Enemy 5 HP</label>
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy8Class" src="images/beast3.png" height="30px"> Enemy 8</h5>
+                <div class="card-body" id="questEnemy8HP">
+                  N/A
                 </div>
-                <input type="number" class="form-control" id="questEnemy5HP" value="0" min="0" max="99999999" required>
               </div>
             </div>
 
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy6HP">Enemy 6 HP</label>
+              <div class="card">
+                <h5 class="card-header"><img id="questEnemy9Class" src="images/beast3.png" height="30px"> Enemy 9</h5>
+                <div class="card-body" id="questEnemy9HP">
+                  N/A
                 </div>
-                <input type="number" class="form-control" id="questEnemy6HP" value="0" min="0" max="99999999" required>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row justify-content-md-center">
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy7HP">Enemy 7 HP</label>
-                </div>
-                <input type="number" class="form-control" id="questEnemy7HP" value="0" min="0" max="99999999" required>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy8HP">Enemy 8 HP</label>
-                </div>
-                <input type="number" class="form-control" id="questEnemy8HP" value="0" min="0" max="99999999" required>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="questEnemy9HP">Enemy 9 HP</label>
-                </div>
-                <input type="number" class="form-control" id="questEnemy9HP" value="0" min="0" max="99999999" required>
               </div>
             </div>
           </div>
@@ -932,14 +998,12 @@
     <div class="container">
       <div class="row">
         <a class="carousel-control-prev" href="#battleCarousel" role="button" data-slide="prev">
-          <h3> Prev &nbsp;</h3>
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#battleCarousel" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
-          <h3> &nbsp; Next</h3>
         </a>
     </div>
   </div>

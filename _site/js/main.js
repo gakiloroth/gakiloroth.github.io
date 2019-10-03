@@ -1,7 +1,7 @@
 var servantName = "";
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
-var party = JSON.parse(localStorage.getItem("party") || "[]");
+var servant = JSON.parse(localStorage.getItem("servant") || "[]");
 var quest = JSON.parse(localStorage.getItem("quest") || "[]");
 var startup = true;
 
@@ -18,8 +18,9 @@ $(document).ready(function() {
 
   updateSavedServantsDisplay();
   updateSavedQuestsDisplay();
-  updatePartyToggles();
+  updateServantToggles();
   updateQuestToggles();
+  updateBattleSim();
   startup = false;
 });
 
@@ -236,7 +237,7 @@ function updateSavedServantsDisplay(){
      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
      ' | Attr. : ' + curr.attribute + '<br> Buster Up: ' + curr.busterup + ' | Arts Up: ' + curr.artsup +
      ' | Quick Up: ' + curr.quickup + '<span class="float-right"><button type="button" id=' + "useServant" + i +
-     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">In Party</button> <button type="button" id=' + "deleteServant" + i +
+     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">Select</button> <button type="button" id=' + "deleteServant" + i +
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
      $('#savedServants2').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
@@ -247,31 +248,24 @@ function updateSavedServantsDisplay(){
 
     // link up delete button
     document.getElementById("deleteServant" + i).addEventListener("click", function(){
-      if(party.length !== 0){
-        alert("You cannot delete servants while you still have party members! Please empty the party first.");
-        return;
-      }
       savedServants.splice(i,1);
       localStorage.setItem("savedServants", JSON.stringify(savedServants));
-      updateSavedServantsDisplay();
+      //updateSavedServantsDisplay();
+      location.reload();
     });
 
-    // link up in party button
+    // link up servant select button
     document.getElementById("useServant" + i).addEventListener("click", function(){
-      if(party.includes(i)){
-        let index = party.indexOf(i);
-        party.splice(index,1);
+      if(servant === i){
+        servant = "";
+        localStorage.setItem("servant", JSON.stringify(servant));
+        location.reload();
       }
       else{
-        if(party.length === 4){
-          alert("You can only have 4 servants in a party!");
-          event.preventDefault();
-          event.stopPropagation();
-          return;
-        }
-        party.push(i);
+        servant = i;
+        localStorage.setItem("servant", JSON.stringify(servant));
+        location.reload();
       }
-      localStorage.setItem("party", JSON.stringify(party));
     });
   }
 }
@@ -317,41 +311,71 @@ function updateSavedQuestsDisplay(){
       }
       savedQuests.splice(i,1);
       localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
-      updateSavedQuestsDisplay();
+      //updateSavedQuestsDisplay();
+      location.reload();
     });
     // link up use button
     document.getElementById("useQuest" + i).addEventListener("click", function(){
       if(quest === i){
         quest = "";
         updateQuestToggles();
-        localStorage.setItem("quest", JSON.stringify(quest))
+        localStorage.setItem("quest", JSON.stringify(quest));
+        location.reload();
       }
       else{
-        if(quest = ""){
-          alert("You can only have 1 quest selected!");
-          event.preventDefault();
-          event.stopPropagation();
-          return;
-        }
         quest = i;
-        localStorage.setItem("quest", JSON.stringify(i))
+        localStorage.setItem("quest", JSON.stringify(quest));
+        location.reload();
       }
     });
   }
-  parsed = JSON.stringify(quest);
-  $('#test').empty().append(parsed);
+  //parsed = JSON.stringify(quest);
+  //$('#test').empty().append(parsed);
 }
 
 // make sure party buttons are toggled correctly
-function updatePartyToggles(){
-  for(let i = 0; i < party.length; i++){
-    $('#useServant' + party[i]).click();
-  };
+function updateServantToggles(){
+  $('#useServant' + servant).click();
 }
 
-// amke sure quest buttons are toggled correctly
+// make sure quest buttons are toggled correctly
 function updateQuestToggles(){
   $('#useQuest' + quest).click();
+}
+
+// make sure battle simulator data is displayed correctly
+function updateBattleSim(){
+  if(savedQuests.length === 0 || savedServants.length === 0 || servant === "" || quest === ""){
+    //alert("Please have a quest selected and servants in your party.");
+    return;
+  }
+  //alert(servant + " " + quest);
+  let curr = savedQuests[quest];
+  //alert(curr.enemy1class); Saber
+  $('#questNameDisplay').empty().html('<b>Current Quest: </b>' + curr.name);
+
+  document.getElementById('questEnemy1Class').src = "images/" + curr.enemy1class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy2Class').src = "images/" + curr.enemy2class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy3Class').src = "images/" + curr.enemy3class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy4Class').src = "images/" + curr.enemy4class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy5Class').src = "images/" + curr.enemy5class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy6Class').src = "images/" + curr.enemy6class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy7Class').src = "images/" + curr.enemy7class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy8Class').src = "images/" + curr.enemy8class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy9Class').src = "images/" + curr.enemy9class.toLowerCase().replace(/\s/g, '') + ".png";
+
+  $('#questEnemy1HP').empty().html('HP: ' + curr.enemy1hp);
+  $('#questEnemy2HP').empty().html('HP: ' + curr.enemy2hp);
+  $('#questEnemy3HP').empty().html('HP: ' + curr.enemy3hp);
+  $('#questEnemy4HP').empty().html('HP: ' + curr.enemy4hp);
+  $('#questEnemy5HP').empty().html('HP: ' + curr.enemy5hp);
+  $('#questEnemy6HP').empty().html('HP: ' + curr.enemy6hp);
+  $('#questEnemy7HP').empty().html('HP: ' + curr.enemy7hp);
+  $('#questEnemy8HP').empty().html('HP: ' + curr.enemy8hp);
+  $('#questEnemy9HP').empty().html('HP: ' + curr.enemy9hp);
+  $('#questEnemy1HPLeft').empty().html('HP Left: ' + curr.enemy1hp + " / " + curr.enemy1hp + " / " + curr.enemy1hp);
+  $('#questEnemy2HPLeft').empty().html('HP Left: ' + curr.enemy2hp + " / " + curr.enemy2hp + " / " + curr.enemy2hp);
+  $('#questEnemy3HPLeft').empty().html('HP Left: ' + curr.enemy3hp + " / " + curr.enemy3hp + " / " + curr.enemy3hp);
 }
 
 // save servant data into array
@@ -375,15 +399,15 @@ function saveQuest(){
   }
 
   savedQuests.unshift({"name": $('#QuestName').val(),
-"enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),
-"enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),
-"enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),
-"enemy4hp": $('#enemy4HP').val(),"enemy4class": $('#enemy4Class').val(),"enemy4attribute": $('#enemy4Attribute').val(),
-"enemy5hp": $('#enemy5HP').val(),"enemy5class": $('#enemy5Class').val(),"enemy5attribute": $('#enemy5Attribute').val(),
-"enemy6hp": $('#enemy6HP').val(),"enemy6class": $('#enemy6Class').val(),"enemy6attribute": $('#enemy6Attribute').val(),
-"enemy7hp": $('#enemy7HP').val(),"enemy7class": $('#enemy7Class').val(),"enemy7attribute": $('#enemy7Attribute').val(),
-"enemy8hp": $('#enemy8HP').val(),"enemy8class": $('#enemy8Class').val(),"enemy8attribute": $('#enemy8Attribute').val(),
-"enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val()});
+    "enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),
+    "enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),
+    "enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),
+    "enemy4hp": $('#enemy4HP').val(),"enemy4class": $('#enemy4Class').val(),"enemy4attribute": $('#enemy4Attribute').val(),
+    "enemy5hp": $('#enemy5HP').val(),"enemy5class": $('#enemy5Class').val(),"enemy5attribute": $('#enemy5Attribute').val(),
+    "enemy6hp": $('#enemy6HP').val(),"enemy6class": $('#enemy6Class').val(),"enemy6attribute": $('#enemy6Attribute').val(),
+    "enemy7hp": $('#enemy7HP').val(),"enemy7class": $('#enemy7Class').val(),"enemy7attribute": $('#enemy7Attribute').val(),
+    "enemy8hp": $('#enemy8HP').val(),"enemy8class": $('#enemy8Class').val(),"enemy8attribute": $('#enemy8Attribute').val(),
+    "enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val()});
   localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
   return true;
 }

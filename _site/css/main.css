@@ -16,6 +16,10 @@
   color:#fff !important;
   background-color:#303030 !important
 }
+.card{
+  color:#fff !important;
+  background-color:#303030 !important
+}
 .list-group{
     max-height: 400px;
     margin-bottom: 10px;
@@ -25,26 +29,35 @@
   color:#fff !important;
   background-color:#303030 !important
 }
+.carousel-control {
+height: 26%;
+top: 33%;
+width: 86px;
+}
 .carousel-indicators li {
     width: 10px;
     height: 10px;
-
 }
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
+.carousel-control-prev-icon {
   height: 70px;
-  width: 70px;
+  min-width: 70px;
   outline: white;
   border-radius: 50%;
   border: 3px solid white;
-  background-image: url('../images/saintquartz.png');
+  background-image: url('../images/saintquartzprev.png');
+  background-repeat: no-repeat;
+}
+.carousel-control-next-icon {
+  height: 70px;
+  min-width: 70px;
+  outline: white;
+  border-radius: 50%;
+  border: 3px solid white;
+  background-image: url('../images/saintquartznext.png');
+  background-repeat: no-repeat;
 }
 .carousel-control-prev,
 .carousel-control-next{
-      bottom: 0%;
-}
-#footer {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+      bottom: 0%;
 }
