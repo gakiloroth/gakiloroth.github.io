@@ -2,7 +2,7 @@ var servantName = "";
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
 var party = JSON.parse(localStorage.getItem("party") || "[]");
-var quest = JSON.parse(localStorage.getItem("quest") || "");
+var quest = JSON.parse(localStorage.getItem("quest") || "[]");
 var startup = true;
 
 // actions to do when the page is loaded
