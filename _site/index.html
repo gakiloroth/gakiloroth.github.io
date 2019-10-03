@@ -836,8 +836,14 @@
 
   <div class="container tab-pane" id="nav-battle" role="tabpanel" aria-labelledby="nav-Battle-tab">
     <div class="text-left">
-      <p>Please make sure you have servants in your party and a quest selected.</p>
+      <p class="text-muted text-small">
+        Please also make sure you have servants in your party and a quest selected.
+        This simulator will test NP damage on ALL enemies, with all debuffs applied
+          on every enemy as well, regardless if servant NP is ST or AoE.
+        NP refund will be calculated based on low-rolling NP damage.
+      </p>
       <h3 id="questNameDisplay"><b>Current Quest: </b></h3>
+      <h3 id="servantNameDisplay"><b>Current Servant: </b></h3>
     </div>
 
     <div id="battleCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false" wrap="false">
@@ -850,6 +856,12 @@
                 <div class="card-body" id="questEnemy1HP">
                   N/A
                 </div>
+                <div class="card-body" id="questEnemy1NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy1HPLeft">
+                  N/A
+                </div>
               </div>
             </div>
 
@@ -857,6 +869,12 @@
               <div class="card">
                 <h5 class="card-header"><img id="questEnemy2Class" src="images/beast3.png" height="30px"> Enemy 2</h5>
                 <div class="card-body" id="questEnemy2HP">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy2NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy2HPLeft">
                   N/A
                 </div>
               </div>
@@ -868,55 +886,9 @@
                 <div class="card-body" id="questEnemy3HP">
                   N/A
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row justify-content-md-center">
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-body" id="questEnemy1NPDamage">
-                  N/A
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-body" id="questEnemy2NPDamage">
-                  N/A
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card">
                 <div class="card-body" id="questEnemy3NPDamage">
                   N/A
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row justify-content-md-center">
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-body" id="questEnemy1HPLeft">
-                  N/A
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card">
-                <div class="card-body" id="questEnemy2HPLeft">
-                  N/A
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="card">
                 <div class="card-body" id="questEnemy3HPLeft">
                   N/A
                 </div>
@@ -941,6 +913,12 @@
                 <div class="card-body" id="questEnemy4HP">
                   N/A
                 </div>
+                <div class="card-body" id="questEnemy4NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy4HPLeft">
+                  N/A
+                </div>
               </div>
             </div>
 
@@ -948,6 +926,12 @@
               <div class="card">
                 <h5 class="card-header"><img id="questEnemy5Class" src="images/beast3.png" height="30px"> Enemy 5</h5>
                 <div class="card-body" id="questEnemy5HP">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy5NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy5HPLeft">
                   N/A
                 </div>
               </div>
@@ -959,7 +943,22 @@
                 <div class="card-body" id="questEnemy6HP">
                   N/A
                 </div>
+                <div class="card-body" id="questEnemy6NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy6HPLeft">
+                  N/A
+                </div>
               </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-md-center">
+            <div class="col-md-5 mt-5">
+              <button type="reset" id="resetBattleForm2" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
+            </div>
+            <div class="col-md-5 mt-5">
+              <button type="submit" id="submitBattleForm2" class="btn btn-outline-success btn-md btn-block">Calculate NP Damage</button>
             </div>
           </div>
         </div>
@@ -971,6 +970,12 @@
                 <div class="card-body" id="questEnemy7HP">
                   N/A
                 </div>
+                <div class="card-body" id="questEnemy7NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy7HPLeft">
+                  N/A
+                </div>
               </div>
             </div>
 
@@ -978,6 +983,12 @@
               <div class="card">
                 <h5 class="card-header"><img id="questEnemy8Class" src="images/beast3.png" height="30px"> Enemy 8</h5>
                 <div class="card-body" id="questEnemy8HP">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy8NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy8HPLeft">
                   N/A
                 </div>
               </div>
@@ -989,7 +1000,22 @@
                 <div class="card-body" id="questEnemy9HP">
                   N/A
                 </div>
+                <div class="card-body" id="questEnemy9NPDamage">
+                  N/A
+                </div>
+                <div class="card-body" id="questEnemy9HPLeft">
+                  N/A
+                </div>
               </div>
+            </div>
+          </div>
+
+          <div class="row justify-content-md-center">
+            <div class="col-md-5 mt-5">
+              <button type="reset" id="resetBattleForm3" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
+            </div>
+            <div class="col-md-5 mt-5">
+              <button type="submit" id="submitBattleForm3" class="btn btn-outline-success btn-md btn-block">Calculate NP Damage</button>
             </div>
           </div>
         </div>

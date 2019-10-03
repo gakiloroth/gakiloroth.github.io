@@ -1,4 +1,5 @@
 var servantName = "";
+var servantNPType = "";
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
 var servant = JSON.parse(localStorage.getItem("servant") || "[]");
@@ -81,16 +82,18 @@ $('#inputServant').on('change', function(){
   for(let i = 0; i < servantList.length; i++){
     if($('#inputServant').val() == servantList[i].id){
       servantName = servantList[i].name;
-      let npcard = ``;
       switch(servantList[i].deck[6]){
         case "Q":
-          npcard = "quick";
+          console.log(servantList[i].deck[6]);
+          servantNPType = "Quick";
           break;
-        case "A":
-          npcard = "arts";
+        case 'A':
+          console.log(servantList[i].deck[6]);
+          servantNPType = "Arts";
           break;
         case "B":
-          npcard = "buster";
+          console.log(servantList[i].deck[6]);
+          servantNPType = "Buster";
           break;
       }
 
@@ -146,7 +149,6 @@ $('#inputServant').on('change', function(){
 document.getElementById('resetServantForm').onclick = function(){
   resetServant();
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-  $('#form').boostrapValidator('resetForm', true);
 };
 
 // reset quest form
@@ -195,7 +197,9 @@ document.getElementById('addServant').onclick = function(){
   });
 
   if(valid && saveServant()){
+    servant++;
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
+    localStorage.setItem("servant", JSON.stringify(servant));
     updateSavedServantsDisplay();
     resetServant();
     location.reload();
@@ -217,10 +221,107 @@ document.getElementById('addQuest').onclick = function(){
   });
 
   if(valid && saveQuest()){
+    quest++;
+    localStorage.setItem("quest", JSON.stringify(quest));
     updateSavedQuestsDisplay();
-    resetQuestForm();
     location.reload();
   }
+};
+
+// calculate NP Damage for Wave 1
+document.getElementById('submitBattleForm1').onclick = function(){
+  /*let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation-battle');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  if(valid) {
+    updateBattleSim();
+    resetBattleForm();
+  }*/
+  var curr = savedQuests[quest];
+  let result = calculateDamage(1);
+  $('#questEnemy1NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
+  $('#questEnemy2NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
+  $('#questEnemy3NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
+  //($('#questEnemy1HP').val() - result[0])
+  $('#questEnemy1HPLeft').empty().html('HP Left: ' + (curr.enemy1hp - result[0]) + ' / '
+    + (curr.enemy1hp - result[1]) + ' / ' + (curr.enemy1hp - result[2]));
+  $('#questEnemy2HPLeft').empty().html('HP Left: ' + (curr.enemy2hp - result[3]) + ' / '
+    + (curr.enemy2hp - result[4]) + ' / ' + (curr.enemy2hp - result[5]));
+  $('#questEnemy3HPLeft').empty().html('HP Left: ' + (curr.enemy2hp - result[6]) + ' / '
+    + (curr.enemy2hp - result[7]) + ' / ' + (curr.enemy2hp - result[8]));
+};
+
+// calculate NP Damage for Wave 2
+document.getElementById('submitBattleForm2').onclick = function(){
+  /*let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation-battle');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  if(valid) {
+    updateBattleSim();
+    resetBattleForm();
+  }*/
+  var curr = savedQuests[quest];
+  let result = calculateDamage(2);
+  $('#questEnemy4NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
+  $('#questEnemy5NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
+  $('#questEnemy6NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
+  //($('#questEnemy1HP').val() - result[0])
+  $('#questEnemy4HPLeft').empty().html('HP Left: ' + (curr.enemy4hp - result[0]) + ' / '
+    + (curr.enemy4hp - result[1]) + ' / ' + (curr.enemy4hp - result[2]));
+  $('#questEnemy5HPLeft').empty().html('HP Left: ' + (curr.enemy5hp - result[3]) + ' / '
+    + (curr.enemy5hp - result[4]) + ' / ' + (curr.enemy5hp - result[5]));
+  $('#questEnemy6HPLeft').empty().html('HP Left: ' + (curr.enemy6hp - result[6]) + ' / '
+    + (curr.enemy6hp - result[7]) + ' / ' + (curr.enemy6hp - result[8]));
+};
+
+// calculate NP Damage for Wave 1
+document.getElementById('submitBattleForm3').onclick = function(){
+  /*let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation-battle');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  if(valid) {
+    updateBattleSim();
+    resetBattleForm();
+  }*/
+  var curr = savedQuests[quest];
+  let result = calculateDamage(3);
+  $('#questEnemy7NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
+  $('#questEnemy8NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
+  $('#questEnemy9NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
+  //($('#questEnemy1HP').val() - result[0])
+  $('#questEnemy7HPLeft').empty().html('HP Left: ' + (curr.enemy7hp - result[0]) + ' / '
+    + (curr.enemy7hp - result[1]) + ' / ' + (curr.enemy7hp - result[2]));
+  $('#questEnemy8HPLeft').empty().html('HP Left: ' + (curr.enemy8hp - result[3]) + ' / '
+    + (curr.enemy8hp - result[4]) + ' / ' + (curr.enemy8hp - result[5]));
+  $('#questEnemy9HPLeft').empty().html('HP Left: ' + (curr.enemy9hp - result[6]) + ' / '
+    + (curr.enemy9hp - result[7]) + ' / ' + (curr.enemy9hp - result[8]));
 };
 
 // update saved servant display
@@ -248,6 +349,10 @@ function updateSavedServantsDisplay(){
 
     // link up delete button
     document.getElementById("deleteServant" + i).addEventListener("click", function(){
+      if(servant !== ""){
+        alert("Please have no servants selected when deleting.");
+        return;
+      }
       savedServants.splice(i,1);
       localStorage.setItem("savedServants", JSON.stringify(savedServants));
       //updateSavedServantsDisplay();
@@ -258,11 +363,13 @@ function updateSavedServantsDisplay(){
     document.getElementById("useServant" + i).addEventListener("click", function(){
       if(servant === i){
         servant = "";
+        servantNPType = "";
         localStorage.setItem("servant", JSON.stringify(servant));
         location.reload();
       }
       else{
         servant = i;
+        servantNPType = savedServants[i].nptype;
         localStorage.setItem("servant", JSON.stringify(servant));
         location.reload();
       }
@@ -278,27 +385,27 @@ function updateSavedQuestsDisplay(){
   for(let i = 0; i < savedQuests.length; i++){
     let curr = savedQuests[i];
     $('#savedQuests1').append($('<li class="list-group-item"><b>' + curr.name + '</b>' +
-    '<br> E1: ' + curr.enemy1hp + ' ' + curr.enemy1class +
-    ' E2: ' + curr.enemy2hp + ' ' + curr.enemy2class +
-    ' E3: ' + curr.enemy3hp + ' ' + curr.enemy3class +
-    '<br> E4: ' + curr.enemy4hp + ' ' + curr.enemy4class +
-    ' E5: ' + curr.enemy5hp + ' ' + curr.enemy5class +
-    ' E6: ' + curr.enemy6hp + ' ' + curr.enemy6class +
-    '<br> E7: ' + curr.enemy7hp + ' ' + curr.enemy7class +
-    ' E8: ' + curr.enemy8hp + ' ' + curr.enemy8class +
-    ' E9: ' + curr.enemy9hp + ' ' + curr.enemy9class +
+    '<br> E1: ' + curr.enemy1hp + ' ' + curr.enemy1class + ' (' + curr.enemy1attribute + ') ' +
+    ' E2: ' + curr.enemy2hp + ' ' + curr.enemy2class + ' (' + curr.enemy2attribute + ') ' +
+    ' E3: ' + curr.enemy3hp + ' ' + curr.enemy3class + ' (' + curr.enemy3attribute + ') ' +
+    '<br> E4: ' + curr.enemy4hp + ' ' + curr.enemy4class + ' (' + curr.enemy4attribute + ') ' +
+    ' E5: ' + curr.enemy5hp + ' ' + curr.enemy5class + ' (' + curr.enemy5attribute + ') ' +
+    ' E6: ' + curr.enemy6hp + ' ' + curr.enemy6class + ' (' + curr.enemy6attribute + ') ' +
+    '<br> E7: ' + curr.enemy7hp + ' ' + curr.enemy7class + ' (' + curr.enemy7attribute + ') ' +
+    ' E8: ' + curr.enemy8hp + ' ' + curr.enemy8class + ' (' + curr.enemy8attribute + ') ' +
+    ' E9: ' + curr.enemy9hp + ' ' + curr.enemy9class + ' (' + curr.enemy9attribute + ') ' +
     '</li>'));
 
     $('#savedQuests2').append($('<li class="list-group-item"><b>' + curr.name + '</b>' +
-    '<br> E1: ' + curr.enemy1hp + ' ' + curr.enemy1class +
-    ' E2: ' + curr.enemy2hp + ' ' + curr.enemy2class +
-    ' E3: ' + curr.enemy3hp + ' ' + curr.enemy3class +
-    '<br> E4: ' + curr.enemy4hp + ' ' + curr.enemy4class +
-    ' E5: ' + curr.enemy5hp + ' ' + curr.enemy5class +
-    ' E6: ' + curr.enemy6hp + ' ' + curr.enemy6class +
-    '<br> E7: ' + curr.enemy7hp + ' ' + curr.enemy7class +
-    ' E8: ' + curr.enemy8hp + ' ' + curr.enemy8class +
-    ' E9: ' + curr.enemy9hp + ' ' + curr.enemy9class +
+    '<br> E1: ' + curr.enemy1hp + ' ' + curr.enemy1class + ' (' + curr.enemy1attribute + ') ' +
+    ' E2: ' + curr.enemy2hp + ' ' + curr.enemy2class + ' (' + curr.enemy2attribute + ') ' +
+    ' E3: ' + curr.enemy3hp + ' ' + curr.enemy3class + ' (' + curr.enemy3attribute + ') ' +
+    '<br> E4: ' + curr.enemy4hp + ' ' + curr.enemy4class + ' (' + curr.enemy4attribute + ') ' +
+    ' E5: ' + curr.enemy5hp + ' ' + curr.enemy5class + ' (' + curr.enemy5attribute + ') ' +
+    ' E6: ' + curr.enemy6hp + ' ' + curr.enemy6class + ' (' + curr.enemy6attribute + ') ' +
+    '<br> E7: ' + curr.enemy7hp + ' ' + curr.enemy7class + ' (' + curr.enemy7attribute + ') ' +
+    ' E8: ' + curr.enemy8hp + ' ' + curr.enemy8class + ' (' + curr.enemy8attribute + ') ' +
+    ' E9: ' + curr.enemy9hp + ' ' + curr.enemy9class + ' (' + curr.enemy9attribute + ') ' +
     '<span class="float-right"> <button type="button" id=' + "useQuest" + i +
     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">Select</button> ' +
     '<button type="button" id=' + "deleteQuest" + i + ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
@@ -350,32 +457,51 @@ function updateBattleSim(){
     return;
   }
   //alert(servant + " " + quest);
-  let curr = savedQuests[quest];
+  let currQuest = savedQuests[quest];
+  let currServant = savedServants[servant];
   //alert(curr.enemy1class); Saber
-  $('#questNameDisplay').empty().html('<b>Current Quest: </b>' + curr.name);
+  $('#questNameDisplay').empty().html('<b>Current Quest: </b>' + currQuest.name);
+  $('#servantNameDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
 
-  document.getElementById('questEnemy1Class').src = "images/" + curr.enemy1class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy2Class').src = "images/" + curr.enemy2class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy3Class').src = "images/" + curr.enemy3class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy4Class').src = "images/" + curr.enemy4class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy5Class').src = "images/" + curr.enemy5class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy6Class').src = "images/" + curr.enemy6class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy7Class').src = "images/" + curr.enemy7class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy8Class').src = "images/" + curr.enemy8class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy9Class').src = "images/" + curr.enemy9class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy1Class').src = "images/" + currQuest.enemy1class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy2Class').src = "images/" + currQuest.enemy2class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy3Class').src = "images/" + currQuest.enemy3class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy4Class').src = "images/" + currQuest.enemy4class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy5Class').src = "images/" + currQuest.enemy5class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy6Class').src = "images/" + currQuest.enemy6class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy7Class').src = "images/" + currQuest.enemy7class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy8Class').src = "images/" + currQuest.enemy8class.toLowerCase().replace(/\s/g, '') + ".png";
+  document.getElementById('questEnemy9Class').src = "images/" + currQuest.enemy9class.toLowerCase().replace(/\s/g, '') + ".png";
 
-  $('#questEnemy1HP').empty().html('HP: ' + curr.enemy1hp);
-  $('#questEnemy2HP').empty().html('HP: ' + curr.enemy2hp);
-  $('#questEnemy3HP').empty().html('HP: ' + curr.enemy3hp);
-  $('#questEnemy4HP').empty().html('HP: ' + curr.enemy4hp);
-  $('#questEnemy5HP').empty().html('HP: ' + curr.enemy5hp);
-  $('#questEnemy6HP').empty().html('HP: ' + curr.enemy6hp);
-  $('#questEnemy7HP').empty().html('HP: ' + curr.enemy7hp);
-  $('#questEnemy8HP').empty().html('HP: ' + curr.enemy8hp);
-  $('#questEnemy9HP').empty().html('HP: ' + curr.enemy9hp);
-  $('#questEnemy1HPLeft').empty().html('HP Left: ' + curr.enemy1hp + " / " + curr.enemy1hp + " / " + curr.enemy1hp);
-  $('#questEnemy2HPLeft').empty().html('HP Left: ' + curr.enemy2hp + " / " + curr.enemy2hp + " / " + curr.enemy2hp);
-  $('#questEnemy3HPLeft').empty().html('HP Left: ' + curr.enemy3hp + " / " + curr.enemy3hp + " / " + curr.enemy3hp);
+  $('#questEnemy1HP').empty().html('HP: ' + currQuest.enemy1hp);
+  $('#questEnemy2HP').empty().html('HP: ' + currQuest.enemy2hp);
+  $('#questEnemy3HP').empty().html('HP: ' + currQuest.enemy3hp);
+  $('#questEnemy4HP').empty().html('HP: ' + currQuest.enemy4hp);
+  $('#questEnemy5HP').empty().html('HP: ' + currQuest.enemy5hp);
+  $('#questEnemy6HP').empty().html('HP: ' + currQuest.enemy6hp);
+  $('#questEnemy7HP').empty().html('HP: ' + currQuest.enemy7hp);
+  $('#questEnemy8HP').empty().html('HP: ' + currQuest.enemy8hp);
+  $('#questEnemy9HP').empty().html('HP: ' + currQuest.enemy9hp);
+
+  $('#questEnemy1NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy2NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy3NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy4NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy5NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy6NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy7NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy8NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+  $('#questEnemy9NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+
+  $('#questEnemy1HPLeft').empty().html('HP Left: ' + currQuest.enemy1hp + " / " + currQuest.enemy1hp + " / " + currQuest.enemy1hp);
+  $('#questEnemy2HPLeft').empty().html('HP Left: ' + currQuest.enemy2hp + " / " + currQuest.enemy2hp + " / " + currQuest.enemy2hp);
+  $('#questEnemy3HPLeft').empty().html('HP Left: ' + currQuest.enemy3hp + " / " + currQuest.enemy3hp + " / " + currQuest.enemy3hp);
+  $('#questEnemy4HPLeft').empty().html('HP Left: ' + currQuest.enemy4hp + " / " + currQuest.enemy4hp + " / " + currQuest.enemy4hp);
+  $('#questEnemy5HPLeft').empty().html('HP Left: ' + currQuest.enemy5hp + " / " + currQuest.enemy5hp + " / " + currQuest.enemy5hp);
+  $('#questEnemy6HPLeft').empty().html('HP Left: ' + currQuest.enemy6hp + " / " + currQuest.enemy6hp + " / " + currQuest.enemy6hp);
+  $('#questEnemy7HPLeft').empty().html('HP Left: ' + currQuest.enemy7hp + " / " + currQuest.enemy7hp + " / " + currQuest.enemy7hp);
+  $('#questEnemy8HPLeft').empty().html('HP Left: ' + currQuest.enemy8hp + " / " + currQuest.enemy8hp + " / " + currQuest.enemy8hp);
+  $('#questEnemy9HPLeft').empty().html('HP Left: ' + currQuest.enemy9hp + " / " + currQuest.enemy9hp + " / " + currQuest.enemy9hp);
 }
 
 // save servant data into array
@@ -383,11 +509,11 @@ function saveServant(){
   if(savedServants.length > 600){
     return false;
   }
-
+  console.log("saved: " + servantNPType);
   savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-    "npdamageup": $('#NPDamageUp').val(),"npstartcharge": $('#NPStartCharge').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
+    "npdamageup": $('#NPDamageUp').val(),"npstartcharge": $('#NPStartCharge').val(),"nptype": servantNPType,"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
 }
@@ -481,41 +607,226 @@ function resetQuest() {
   $('#QuestName').val("Quest Name");
 }
 
-function classDmg(input){
-  var classVal = 1;
-  if (input === ''){
-    classVal = 0;
-    return classVal;
+function calculateDamage(waveNumber){
+  var currServant = savedServants[servant];
+  var currQuest = savedQuests[quest];
+  var questClass1 = "";
+  var questClass2 = "";
+  var questClass3 = "";
+  var questAttr1 = "";
+  var questAttr2 = "";
+  var questAttr3 = "";
+  var cardBuffs = "";
+
+  // servant value calculations
+  var servantClass = getClassValue(currServant.class);
+  var servantAttr = getAttrValue(currServant.attribute);
+  var atk = parseFloat(currServant.attack) || 0;
+  var np = parseFloat(currServant.npdamagepercent)/100 || 0;
+  var npCardType = cardDmg(currServant.nptype) || 0;
+  var servantClassMultiplier = classMultiplier(currServant.class) || 0;
+  var busterUp = parseFloat(currServant.busterup)/100 || 0;
+  var artsUp = parseFloat(currServant.artsup)/100 || 0;
+  var quickUp = parseFloat(currServant.quickup)/100 || 0;
+  var attackUp = parseFloat(currServant.attackup)/100 || 0;
+  var npBuffs = parseFloat(currServant.npdamageup)/100 || 0;
+  var flatAttack = parseFloat(currServant.flatattackup) || 0;
+  var defenseDebuffs = 0;
+  var cardDebuffs = 0;
+  var spBuffs = 0;
+  var npSpBuffs = 0;
+
+  if(currServant.nptype.localeCompare("Buster") == 0){
+    cardBuffs = busterUp;
   }
-  if ('archer'.indexOf(input.toLowerCase()) > -1){
+  else if(currServant.nptype.localeCompare("Arts") == 0){
+    cardBuffs = artsUp;
+  }
+  else if(currServant.nptype.localeCompare("Quick") == 0){
+    cardBuffs = quickUp;
+  }
+
+
+  // enemy value calculations
+  if(waveNumber === 1){
+    questClass1 = getClassValue(currQuest.enemy1class);
+    questClass2 = getClassValue(currQuest.enemy2class);
+    questClass3 = getClassValue(currQuest.enemy3class);
+    questAttr1 = getAttrValue(currQuest.enemy1attribute);
+    questAttr2 = getAttrValue(currQuest.enemy2attribute);
+    questAttr3 = getAttrValue(currQuest.enemy3attribute);
+  }
+  else if(waveNumber === 2){
+    questClass1 = getClassValue(currQuest.enemy4class);
+    questClass2 = getClassValue(currQuest.enemy5class);
+    questClass3 = getClassValue(currQuest.enemy6class);
+    questAttr1 = getAttrValue(currQuest.enemy4attribute);
+    questAttr2 = getAttrValue(currQuest.enemy5attribute);
+    questAttr3 = getAttrValue(currQuest.enemy6attribute);
+  }
+  else if(waveNumber === 3){
+    questClass1 = getClassValue(currQuest.enemy7class);
+    questClass2 = getClassValue(currQuest.enemy8class);
+    questClass3 = getClassValue(currQuest.enemy9class);
+    questAttr1 = getAttrValue(currQuest.enemy7attribute);
+    questAttr2 = getAttrValue(currQuest.enemy8attribute);
+    questAttr3 = getAttrValue(currQuest.enemy9attribute);
+  }
+
+  // interactive calculations
+  var classAdvantage1 = ClassAdv[servantClass][questClass1];
+  var classAdvantage2 = ClassAdv[servantClass][questClass2];
+  var classAdvantage3 = ClassAdv[servantClass][questClass3];
+  var attrAdvantage1 = AttrAdv[servantAttr][questAttr1];
+  var attrAdvantage2 = AttrAdv[servantAttr][questAttr2];
+  var attrAdvantage3 = AttrAdv[servantAttr][questAttr3];
+
+  console.log("multiplier class 1: " + classAdvantage1);
+  console.log("multiplier attr 1: " + attrAdvantage1);
+
+  //var defenseDebuffs = parseFloat()/100 || 0;
+  //var cardDebuffs = parseFloat($('#cardDebuffs').val())/100 || 0;
+  //var spBuffs = parseFloat($('#SPBuffs').val())/100 || 0;
+  //var npspBuffs = parseFloat($('#NPSPBuffs').val())/100 || 0;
+
+  var damageDealt1 = atk * np * npCardType * classAdvantage1 * servantClassMultiplier * 0.23 *
+              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + spBuffs) *
+              (1 + npSpBuffs) * attrAdvantage1 + flatAttack;
+  var damageDealt2 = atk * np * npCardType * classAdvantage2 * servantClassMultiplier * 0.23 *
+              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + spBuffs) *
+              (1 + npSpBuffs) *attrAdvantage2 + flatAttack;
+  var damageDealt3 = atk * np * npCardType * classAdvantage3 * servantClassMultiplier * 0.23 *
+              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + spBuffs) *
+              (1 + npSpBuffs) *attrAdvantage3 + flatAttack;
+
+  //alert(atk + " " +  np + " " + npCardType + " " +  classAdvantage1 + " " + servantClassMultiplier +
+  //   + attackUp + " " + cardBuffs + " " + npBuffs + " " + flatAttack + " result: " + damageDealt1);
+
+  // return average low and high damage dealt
+  return [Math.round(0.9 * damageDealt1), Math.round(damageDealt1), Math.round(1.1 * damageDealt1),
+    Math.round(0.9 * damageDealt2), Math.round(damageDealt2), Math.round(1.1 * damageDealt2),
+    Math.round(0.9 * damageDealt3), Math.round(damageDealt3), Math.round(1.1 * damageDealt3)];
+}
+
+// Saber = 0, Archer = 1, Lancer = 2, Rider = 3, Caster = 4, Assassin = 5, Berserker = 6,
+// Ruler = 7, Avenger = 8, Moon Cancer = 9, Alter Ego = 10, Foreigner = 11, Shielder = 12
+function getClassValue(input){
+  var classVal = 0;
+
+  if(input.localeCompare("Saber") == 0){
+    console.log("saber");
+    classVal = 0;
+  }
+  else if(input.localeCompare("Archer") == 0){
+    console.log("archer");
+    classVal = 1;
+  }
+  else if(input.localeCompare("Lancer") == 0){
+    console.log("lancer");
+    classVal = 2;
+  }
+  else if(input.localeCompare("Rider") == 0){
+    console.log("rider");
+    classVal = 3;
+  }
+  else if(input.localeCompare("Caster") == 0){
+    console.log("caster");
+    classVal = 4;
+  }
+  else if(input.localeCompare("Assassin") == 0){
+    console.log("assassin");
+    classVal = 5;
+  }
+  else if(input.localeCompare("Berserker") == 0){
+    console.log("berserker");
+    classVal = 6;
+  }
+  else if(input.localeCompare("Ruler") == 0){
+    console.log("ruler");
+    classVal = 7;
+  }
+  else if(input.localeCompare("Avenger") == 0){
+    console.log("avenger");
+    classVal = 8;
+  }
+  else if(input.localeCompare("Moon Cancer") == 0){
+    console.log("moon cancer");
+    classVal = 9;
+  }
+  else if(input.localeCompare("Alter Ego") == 0){
+    console.log("alter ego");
+    classVal = 10;
+  }
+  else if(input.localeCompare("Foreigner") == 0){
+    console.log("foreigner");
+    classVal = 11;
+  }
+  else if(input.localeCompare("Shielder") == 0){
+    console.log("shielder");
+    classVal = 12;
+  }
+
+  return classVal;
+}
+
+// Man = 0, Sky = 1, Earth = 2
+function getAttrValue(input){
+  var attrVal = 0;
+
+  if(input.localeCompare("Man") == 0){
+    console.log("man");
+    attrVal = 0;
+  }
+  else if(input.localeCompare("Sky") == 0){
+    console.log("sky");
+    attrVal = 1;
+  }
+  else if(input.localeCompare("Earth") == 0){
+    console.log("sky");
+    attrVal = 2;
+  }
+
+  return attrVal;
+}
+
+function classMultiplier(input){
+  var classVal = 1;
+
+  if (input.localeCompare("Archer") == 0){
+    console.log("archer");
     classVal = 0.95;
   }
-  else if ('lancer'.indexOf(input.toLowerCase()) > -1){
+  else if (input.localeCompare("Lancer") == 0 ){
+    console.log("lancer");
     classVal = 1.05;
   }
-  else if ('caster'.indexOf(input.toLowerCase()) > -1 || 'assassin'.indexOf(input.toLowerCase()) > -1){
+  else if (input.localeCompare("Caster") == 0 || input.localeCompare("Assassin") == 0 ){
+    console.log("caster or assassin");
     classVal = 0.9;
   }
-  else if ('berserker'.indexOf(input.toLowerCase()) > -1 ||
-  'ruler'.indexOf(input.toLowerCase()) > -1 || 'avenger'.indexOf(input.toLowerCase()) > -1 ){
+  else if (input.localeCompare("Berseker") == 0 || input.localeCompare("Ruler") == 0 ||
+  input.localeCompare("Avenger") == 0){
+    console.log("berserker or ruler or avenger");
     classVal = 1.1;
   }
   return classVal;
 }
 
 function cardDmg(input){
-  var cardVal = 0;
-  if (input === undefined){
-    return cardVal;
-  }
-  if ('buster'.indexOf(input.toLowerCase()) > -1){
+  var cardVal = 1;
+
+  if (input.localeCompare("Buster") == 0){
+    console.log("np type buster");
     cardVal = 1.5;
   }
-  else if ('arts'.indexOf(input.toLowerCase()) > -1){
+  else if (input.localeCompare("Arts") == 0){
+    console.log("np type arts");
     cardVal = 1.0;
   }
-  else if ('quick'.indexOf(input.toLowerCase()) > -1){
+  else if (input.localeCompare("Quick") == 0){
+    console.log("np type quick");
     cardVal = 0.8;
   }
+
   return cardVal;
 }

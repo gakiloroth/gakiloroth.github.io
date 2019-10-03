@@ -1,6 +1,6 @@
 # FGO 3T Simulator
 
-This is a small personal project I'm working on to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/). 
+This is a small personal project I'm working on to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/).
 
 ## Functionality Goals
 
