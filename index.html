@@ -137,6 +137,55 @@
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
+                <label class="input-group-text" for="NPDamageUp">NP Buff</label>
+              </div>
+              <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" required>
+              <div class="input-group-append">
+                <label class="input-group-text" for="percent">%</label>
+              </div>
+              <div class="invalid-feedback">
+                Valid NP Damage % up required.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 mt-4">
+            <div class="custom-control custom-checkbox custom-control-inline">
+              <input type="checkbox" class="custom-control-input" id="maxGrailed" disabled>
+              <label class="custom-control-label" for="maxGrailed">Grailed</label>
+            </div>
+
+            <div class="custom-control custom-checkbox custom-control-inline">
+              <input type="checkbox" class="custom-control-input" id="maxFou" disabled>
+              <label class="custom-control-label" for="maxFou">Fou</label>
+            </div>
+
+            <div class="custom-control custom-checkbox custom-control-inline">
+              <input type="checkbox" class="custom-control-input" id="maxGoldFou" disabled>
+              <label class="custom-control-label" for="maxGoldFou">Gold Fou</label>
+            </div>
+          </div>
+
+            <div class="col-md-3 mt-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="NPGainUpPercentage">NP Gain Up</label>
+                </div>
+                <input type="number" class="form-control" id="NpGainUpPercentage" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid NP Gain Up percentage required.
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 mt-4">
+            <div class="input-group">
+              <div class="input-group-prepend">
                 <label class="input-group-text" for="BusterUpPercentage">Buster Up</label>
               </div>
               <input type="number" class="form-control" id="BusterUpPercentage" value="0" min="0" required>
@@ -161,7 +210,6 @@
               <div class="invalid-feedback">
                 Valid Arts effectiveness up required.
               </div>
-
             </div>
           </div>
 
@@ -179,9 +227,7 @@
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
@@ -196,7 +242,9 @@
               </div>
             </div>
           </div>
+        </div>
 
+        <div class="row">
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
@@ -238,27 +286,8 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-5 mt-4">
-          <div class="custom-control custom-checkbox custom-control-inline">
-            <input type="checkbox" class="custom-control-input" id="maxGrailed" disabled>
-            <label class="custom-control-label" for="maxGrailed">Max Grailed</label>
-          </div>
-
-          <div class="custom-control custom-checkbox custom-control-inline">
-            <input type="checkbox" class="custom-control-input" id="maxFou" disabled>
-            <label class="custom-control-label" for="maxFou">Max Fou</label>
-          </div>
-
-          <div class="custom-control custom-checkbox custom-control-inline">
-            <input type="checkbox" class="custom-control-input" id="maxGoldFou" disabled>
-            <label class="custom-control-label" for="maxGoldFou">Max Gold Fou</label>
-          </div>
-        </div>
-
-        <div class="col-md-2 mt-4">
+        <div class="col-md-3 mt-4">
           <div class="input-group">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputAttribute">Attr.</label>
@@ -272,8 +301,11 @@
             </select>
           </div>
         </div>
+      </div>
 
-        <div class="col-md-5 mt-4">
+      <div class="row">
+
+        <div class="col-md-6 mt-4">
           <div class="form-group">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputCE">Craft Essence</label>
@@ -848,12 +880,12 @@
       </p>
       <p style="font-size:20px;" id="questNameDisplay"><b>Current Quest: </b></p>
       <p style="font-size:20px;" id="servantNameDisplay"><b>Current Servant: </b></p>
-      <p style="font-size:15px;" id="npRefundDisplay"><b>Min. NP Refunded: </b><p>
     </div>
 
     <div id="battleCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false" wrap="false">
       <div class="carousel-inner">
         <div class="carousel-item active">
+          <p style="font-size:15px;" id="npRefundDisplay1"><b>Min. NP Refunded: </b>N/A<p>
           <div class="row justify-content-md-center">
             <div class="col-md-4">
               <div class="card">
@@ -914,6 +946,7 @@
           </div>
         </div>
         <div class="carousel-item">
+          <p style="font-size:15px;" id="npRefundDisplay2"><b>NP Refund from last wave:</b> N/A <b>| Min. NP Refunded: </b>N/A<p>
           <div class="row justify-content-md-center">
             <div class="col-md-4">
               <div class="card">
@@ -962,15 +995,21 @@
           </div>
 
           <div class="row justify-content-md-center">
-            <div class="col-md-5 mt-5">
+            <div class="col-md-3 mt-5">
               <button type="reset" id="resetBattleForm2" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
             </div>
-            <div class="col-md-5 mt-5">
+            <div class="col-md-3 mt-5">
+              <button type="reset" id="resetHP2" class="btn btn-outline-danger btn-md btn-block">Reset</button>
+            </div>
+            <div class="col-md-3 mt-5">
               <button type="submit" id="submitBattleForm2" class="btn btn-outline-success btn-md btn-block">Calculate NP Damage</button>
             </div>
           </div>
+
         </div>
+
         <div class="carousel-item">
+          <p style="font-size:15px;" id="npRefundDisplay3"><b>NP Refund from last wave:</b> N/A <b> | Min. NP Refunded: </b>N/A<p>
           <div class="row justify-content-md-center">
             <div class="col-md-4">
               <div class="card">
@@ -1019,16 +1058,20 @@
           </div>
 
           <div class="row justify-content-md-center">
-            <div class="col-md-5 mt-5">
+            <div class="col-md-3 mt-5">
               <button type="reset" id="resetBattleForm3" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
             </div>
-            <div class="col-md-5 mt-5">
+            <div class="col-md-3 mt-5">
+              <button type="reset" id="resetHP3" class="btn btn-outline-danger btn-md btn-block">Reset</button>
+            </div>
+            <div class="col-md-3 mt-5">
               <button type="submit" id="submitBattleForm3" class="btn btn-outline-success btn-md btn-block">Calculate NP Damage</button>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="container">
       <div class="row">
         <a class="carousel-control-prev" href="#battleCarousel" role="button" data-slide="prev">

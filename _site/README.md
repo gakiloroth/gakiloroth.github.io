@@ -8,6 +8,7 @@ With this simulator you will be able to save a servant's stats (with CE), and qu
 Then, you can choose one servant and one quest, and test NP damage and NP refund.
 
 Work in Progress:
+- Reimplement party system to test multiple servants/nps in one quest
 - Ability to use buffs on each wave
 - See NP regen per wave
 - Automatically choose sky/man/earth attribute for servant
