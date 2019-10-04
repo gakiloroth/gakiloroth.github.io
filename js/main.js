@@ -1,9 +1,12 @@
 var servantName = "";
 var servantNPType = "";
+var servantNPGain = "";
+var servantNPHits = "";
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
 var servant = JSON.parse(localStorage.getItem("servant") || "[]");
 var quest = JSON.parse(localStorage.getItem("quest") || "[]");
+var questEnemyHP = [];
 var startup = true;
 
 // actions to do when the page is loaded
@@ -82,6 +85,8 @@ $('#inputServant').on('change', function(){
   for(let i = 0; i < servantList.length; i++){
     if($('#inputServant').val() == servantList[i].id){
       servantName = servantList[i].name;
+      servantNPGain = servantList[i].npchargeatk;
+      servantNPHits = servantList[i].nphitcount;
       switch(servantList[i].deck[6]){
         case "Q":
           console.log(servantList[i].deck[6]);
@@ -251,14 +256,38 @@ document.getElementById('submitBattleForm1').onclick = function(){
   $('#questEnemy1NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
   $('#questEnemy2NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
   $('#questEnemy3NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
-  //($('#questEnemy1HP').val() - result[0])
-  $('#questEnemy1HPLeft').empty().html('HP Left: ' + (curr.enemy1hp - result[0]) + ' / '
-    + (curr.enemy1hp - result[1]) + ' / ' + (curr.enemy1hp - result[2]));
-  $('#questEnemy2HPLeft').empty().html('HP Left: ' + (curr.enemy2hp - result[3]) + ' / '
-    + (curr.enemy2hp - result[4]) + ' / ' + (curr.enemy2hp - result[5]));
-  $('#questEnemy3HPLeft').empty().html('HP Left: ' + (curr.enemy2hp - result[6]) + ' / '
-    + (curr.enemy2hp - result[7]) + ' / ' + (curr.enemy2hp - result[8]));
+
+  $('#questEnemy1HPLeft').empty().html('HP Left: ' + (questEnemyHP[0] - result[0]) + ' / '
+    + (questEnemyHP[1] - result[1]) + ' / ' + (questEnemyHP[2] - result[2]));
+  $('#questEnemy2HPLeft').empty().html('HP Left: ' + (questEnemyHP[3] - result[3]) + ' / '
+    + (questEnemyHP[4] - result[4]) + ' / ' + (questEnemyHP[5] - result[5]));
+  $('#questEnemy3HPLeft').empty().html('HP Left: ' + (questEnemyHP[6] - result[6]) + ' / '
+    + (questEnemyHP[7] - result[7]) + ' / ' + (questEnemyHP[7] - result[8]));
+
+  // calculate np refund
+  let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], result[0], result[3], result[6]);
+  $('#npRefundDisplay').empty().html('<b>Min. NP Refunded: ' + refunded.toFixed(2) + '% </b>');
+
+  // update enemy hp in Array
+  questEnemyHP[0] -= result[0];
+  questEnemyHP[1] -= result[1];
+  questEnemyHP[2] -= result[2];
+  questEnemyHP[3] -= result[3];
+  questEnemyHP[4] -= result[4];
+  questEnemyHP[5] -= result[5];
+  questEnemyHP[6] -= result[6];
+  questEnemyHP[7] -= result[7];
+  questEnemyHP[8] -= result[8];
 };
+
+// reset battle sim hp
+document.getElementById('resetHP1').onclick = function(){
+  for(let i = 0; i < questEnemyHP.length; i++){
+    questEnemyHP[i] = 0;
+  }
+  $('#npRefundDisplay').empty().html('<b>Min. NP Refunded: </b>');
+  updateBattleSim();
+}
 
 // calculate NP Damage for Wave 2
 document.getElementById('submitBattleForm2').onclick = function(){
@@ -315,7 +344,7 @@ document.getElementById('submitBattleForm3').onclick = function(){
   $('#questEnemy7NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
   $('#questEnemy8NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
   $('#questEnemy9NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
-  //($('#questEnemy1HP').val() - result[0])
+
   $('#questEnemy7HPLeft').empty().html('HP Left: ' + (curr.enemy7hp - result[0]) + ' / '
     + (curr.enemy7hp - result[1]) + ' / ' + (curr.enemy7hp - result[2]));
   $('#questEnemy8HPLeft').empty().html('HP Left: ' + (curr.enemy8hp - result[3]) + ' / '
@@ -334,7 +363,7 @@ function updateSavedServantsDisplay(){
   for(let i = 0; i < savedServants.length; i++){
     let curr = savedServants[i];
     $('#savedServants1').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-     curr.craftessence + ' | NP Charge: ' + curr.npstartcharge + '%<br>' + 'NP Level: ' +
+     curr.craftessence + ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
      ' | Attr. : ' + curr.attribute + '<br> Buster Up: ' + curr.busterup + ' | Arts Up: ' + curr.artsup +
      ' | Quick Up: ' + curr.quickup + '<span class="float-right"><button type="button" id=' + "useServant" + i +
@@ -342,7 +371,7 @@ function updateSavedServantsDisplay(){
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
      $('#savedServants2').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-      curr.craftessence + ' | NP Charge: ' + curr.npstartcharge + '%<br>' + 'NP Level: ' +
+      curr.craftessence + ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
       curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
       ' | Attr. : ' + curr.attribute + '<br> Buster Up: ' + curr.busterup + ' | Arts Up: ' + curr.artsup +
       ' | Quick Up: ' + curr.quickup + '</li>'));
@@ -502,6 +531,37 @@ function updateBattleSim(){
   $('#questEnemy7HPLeft').empty().html('HP Left: ' + currQuest.enemy7hp + " / " + currQuest.enemy7hp + " / " + currQuest.enemy7hp);
   $('#questEnemy8HPLeft').empty().html('HP Left: ' + currQuest.enemy8hp + " / " + currQuest.enemy8hp + " / " + currQuest.enemy8hp);
   $('#questEnemy9HPLeft').empty().html('HP Left: ' + currQuest.enemy9hp + " / " + currQuest.enemy9hp + " / " + currQuest.enemy9hp);
+
+  // fill in array to store enemy hp remaining values
+  for(let i = 0; i < 27; i++){
+    if(i >= 0 && i <= 2){
+      questEnemyHP[i] = currQuest.enemy1hp;
+    }
+    else if(i >= 3 && i <= 5){
+      questEnemyHP[i] = currQuest.enemy2hp;
+    }
+    else if(i >= 6 && i <= 8){
+      questEnemyHP[i] = currQuest.enemy3hp;
+    }
+    else if(i >= 9 && i <= 11){
+      questEnemyHP[i] = currQuest.enemy4hp;
+    }
+    else if(i >= 12 && i <= 14){
+      questEnemyHP[i] = currQuest.enemy5hp;
+    }
+    else if(i >= 15 && i <= 17){
+      questEnemyHP[i] = currQuest.enemy6hp;
+    }
+    else if(i >= 18 && i <= 20){
+      questEnemyHP[i] = currQuest.enemy7hp;
+    }
+    else if(i >= 21 && i <= 23){
+      questEnemyHP[i] = currQuest.enemy8hp;
+    }
+    else if(i >= 24 && i <= 26){
+      questEnemyHP[i] = currQuest.enemy9hp;
+    }
+  }
 }
 
 // save servant data into array
@@ -509,11 +569,12 @@ function saveServant(){
   if(savedServants.length > 600){
     return false;
   }
-  console.log("saved: " + servantNPType);
+  //alert("saved: " + servantNPHits);
   savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-    "npdamageup": $('#NPDamageUp').val(),"npstartcharge": $('#NPStartCharge').val(),"nptype": servantNPType,"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
+    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": servantNPType,"nphits": servantNPHits,
+    "powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
 }
@@ -633,8 +694,8 @@ function calculateDamage(waveNumber){
   var flatAttack = parseFloat(currServant.flatattackup) || 0;
   var defenseDebuffs = 0;
   var cardDebuffs = 0;
-  var spBuffs = 0;
   var npSpBuffs = 0;
+  var powerBuff = parseFloat(currServant.powermod) || 0;
 
   if(currServant.nptype.localeCompare("Buster") == 0){
     cardBuffs = busterUp;
@@ -645,7 +706,6 @@ function calculateDamage(waveNumber){
   else if(currServant.nptype.localeCompare("Quick") == 0){
     cardBuffs = quickUp;
   }
-
 
   // enemy value calculations
   if(waveNumber === 1){
@@ -690,14 +750,14 @@ function calculateDamage(waveNumber){
   //var npspBuffs = parseFloat($('#NPSPBuffs').val())/100 || 0;
 
   var damageDealt1 = atk * np * npCardType * classAdvantage1 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + spBuffs) *
+              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
               (1 + npSpBuffs) * attrAdvantage1 + flatAttack;
   var damageDealt2 = atk * np * npCardType * classAdvantage2 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + spBuffs) *
-              (1 + npSpBuffs) *attrAdvantage2 + flatAttack;
+              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
+              (1 + npSpBuffs) * attrAdvantage2 + flatAttack;
   var damageDealt3 = atk * np * npCardType * classAdvantage3 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + spBuffs) *
-              (1 + npSpBuffs) *attrAdvantage3 + flatAttack;
+              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
+              (1 + npSpBuffs) *  attrAdvantage3 + flatAttack;
 
   //alert(atk + " " +  np + " " + npCardType + " " +  classAdvantage1 + " " + servantClassMultiplier +
   //   + attackUp + " " + cardBuffs + " " + npBuffs + " " + flatAttack + " result: " + damageDealt1);
@@ -707,6 +767,77 @@ function calculateDamage(waveNumber){
     Math.round(0.9 * damageDealt2), Math.round(damageDealt2), Math.round(1.1 * damageDealt2),
     Math.round(0.9 * damageDealt3), Math.round(damageDealt3), Math.round(1.1 * damageDealt3)];
 }
+
+// np refund calcluation
+// rider +10%, caster +20%, assassin -10%, berserker -20%
+function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3){
+  var enemyServerMod = 1;
+  var firstCardBonus = 0; // 0 because NP card
+  var cardNpValue = 0; // buster quick arts card modifier
+  var cardMod = 0; // % buster,quick,arts up etc
+  var npChargeRateMod = 0; // changes to np charge rate
+  var npChargeOff = savedServants[servant].npgain; // np gain offensive
+  var critMod = 1; // no NP Crit
+  var npRefund = 0;
+  var npHits = savedServants[servant].nphits // how many hits this np has
+  var overkillModifier = 1;
+
+  // set np card type and card buffs
+  if(savedServants[servant].nptype.localeCompare("Buster") == 0){
+    cardNpValue = 0;
+    cardMod = savedServants[servant].busterup;
+  }
+  else if(savedServants[servant].nptype.localeCompare("Arts") == 0){
+    cardNpValue = 3;
+    cardMod = savedServants[servant].artsup;
+  }
+  else if(savedServants[servant].nptype.localeCompare("Quick") == 0){
+    cardNpValue = 1;
+    cardMod = savedServants[servant].quickup;
+  }
+
+  let damage = 0;
+  for(let i = 0; i < npHits; i++){
+    console.log("np refund calc loop: " + i + "enemy1 hp: " + hp1);
+    damage = damage1 * NPHitDist[npHits - 1][i];
+    console.log("damage1: " + damage);
+    if(hp1 - damage <= 0){
+      overkillModifier = 1.5;
+    }
+    else{
+      overkillModifier = 1;
+    }
+    hp1 -= damage;
+    npRefund += ((npChargeOff * (firstCardBonus + (1 + cardMod/100))*
+      enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+    console.log(npRefund);
+
+    damage = damage2 * NPHitDist[npHits - 1][i];
+    if(hp2 - damage <= 0){
+      overkillModifier = 1.5;
+    }
+    else{
+      overkillModifier = 1;
+    }
+    hp2 -= damage;
+    npRefund += ((npChargeOff * (firstCardBonus + (1 + cardMod/100))*
+      enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+
+    damage = damage3 * NPHitDist[npHits - 1][i];
+    if(hp3 - damage <= 0){
+      overkillModifier = 1.5;
+    }
+    else{
+      overkillModifier = 1;
+    }
+    hp3 -= damage;
+    npRefund += ((npChargeOff * (firstCardBonus + (1 + cardMod/100))*
+      enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+  }
+
+  return npRefund;
+}
+
 
 // Saber = 0, Archer = 1, Lancer = 2, Rider = 3, Caster = 4, Assassin = 5, Berserker = 6,
 // Ruler = 7, Avenger = 8, Moon Cancer = 9, Alter Ego = 10, Foreigner = 11, Shielder = 12

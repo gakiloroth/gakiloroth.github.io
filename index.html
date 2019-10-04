@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator**WIP**</title>
+    <title>FGO 3T Simulator **WIP**</title>
   </head>
+
+  <!--- car is a baka -->
 
   <body class="w3-theme-dark">
 
@@ -225,14 +227,14 @@
         <div class="col-md-3 mt-4">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="NPStartCharge">NP Charge</label>
+              <label class="input-group-text" for="PowerMod">Power Mod</label>
             </div>
-            <input type="number" class="form-control" id="NPStartCharge" value="0" min="0" max="100" required>
+            <input type="number" class="form-control" id="PowerMod" value="0" min="0" max="9999" required>
             <div class="input-group-append">
               <label class="input-group-text" for="percent">%</label>
             </div>
             <div class="invalid-feedback">
-              Valid NP starting charge required.
+              Valid Power Mod required.
             </div>
           </div>
         </div>
@@ -842,8 +844,9 @@
           on every enemy as well, regardless if servant NP is ST or AoE.
         NP refund will be calculated based on low-rolling NP damage.
       </p>
-      <h3 id="questNameDisplay"><b>Current Quest: </b></h3>
-      <h3 id="servantNameDisplay"><b>Current Servant: </b></h3>
+      <p style="font-size:20px;" id="questNameDisplay"><b>Current Quest: </b></p>
+      <p style="font-size:20px;" id="servantNameDisplay"><b>Current Servant: </b></p>
+      <p style="font-size:15px;" id="npRefundDisplay"><b>Min. NP Refunded: </b><p>
     </div>
 
     <div id="battleCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false" wrap="false">
@@ -897,10 +900,13 @@
           </div>
 
           <div class="row justify-content-md-center">
-            <div class="col-md-5 mt-5">
+            <div class="col-md-3 mt-5">
               <button type="reset" id="resetBattleForm1" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
             </div>
-            <div class="col-md-5 mt-5">
+            <div class="col-md-3 mt-5">
+              <button type="reset" id="resetHP1" class="btn btn-outline-danger btn-md btn-block">Reset</button>
+            </div>
+            <div class="col-md-3 mt-5">
               <button type="submit" id="submitBattleForm1" class="btn btn-outline-success btn-md btn-block">Calculate NP Damage</button>
             </div>
           </div>
@@ -1053,6 +1059,7 @@
     <script src="js/type-advantages.js" type="text/javascript"></script>
     <script src="js/servant-list.js" type="text/javascript"></script>
     <script src="js/mystic-codes.js" type="text/javascript"></script>
+    <script src="js/np-hit-distribution.js" type="text/javascript"></script>
     <script src="js/main.js" type="text/javascript"></script>
   </body>
 </html>
