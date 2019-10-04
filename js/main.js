@@ -87,6 +87,7 @@ $('#inputServant').on('change', function(){
       servantName = servantList[i].name;
       servantNPGain = servantList[i].npchargeatk;
       servantNPHits = servantList[i].nphitcount;
+      $('#inputAttribute').val(servantList[i].attribute);
       switch(servantList[i].deck[6]){
         case "Q":
           console.log(servantList[i].deck[6]);
@@ -202,7 +203,9 @@ document.getElementById('addServant').onclick = function(){
   });
 
   if(valid && saveServant()){
-    servant++;
+    if(servant !== ""){
+      servant++;
+    }
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
     localStorage.setItem("servant", JSON.stringify(servant));
     updateSavedServantsDisplay();
@@ -226,7 +229,9 @@ document.getElementById('addQuest').onclick = function(){
   });
 
   if(valid && saveQuest()){
-    quest++;
+    if(servant !== ""){
+      quest++;
+    }
     localStorage.setItem("quest", JSON.stringify(quest));
     updateSavedQuestsDisplay();
     location.reload();
@@ -569,7 +574,7 @@ function saveServant(){
   if(savedServants.length > 600){
     return false;
   }
-  //alert("saved: " + servantNPHits);
+
   savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
@@ -798,7 +803,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3){
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
-    console.log("np refund calc loop: " + i + "enemy1 hp: " + hp1);
+    console.log("np refund calc loop: " + i + "enemy1 hp: " + hp1 + "nphits: " + npHits);
     damage = damage1 * NPHitDist[npHits - 1][i];
     console.log("damage1: " + damage);
     if(hp1 - damage <= 0){
@@ -808,7 +813,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3){
       overkillModifier = 1;
     }
     hp1 -= damage;
-    npRefund += ((npChargeOff * (firstCardBonus + (1 + cardMod/100))*
+    npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
       enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
     console.log(npRefund);
 
@@ -820,8 +825,9 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3){
       overkillModifier = 1;
     }
     hp2 -= damage;
-    npRefund += ((npChargeOff * (firstCardBonus + (1 + cardMod/100))*
+    npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
       enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+    console.log(npRefund);
 
     damage = damage3 * NPHitDist[npHits - 1][i];
     if(hp3 - damage <= 0){
@@ -831,8 +837,9 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3){
       overkillModifier = 1;
     }
     hp3 -= damage;
-    npRefund += ((npChargeOff * (firstCardBonus + (1 + cardMod/100))*
+    npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
       enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+    console.log(npRefund);
   }
 
   return npRefund;

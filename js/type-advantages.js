@@ -1,7 +1,9 @@
-// Man = 0, Sky = 1, Earth = 2
-const AttrAdv = [[1, 1.1, 0.9], // man
-[.9, 1, 1.1], // sky
-[1.1, .9, 1] // earth
+// Man = 0, Sky = 1, Earth = 2, Star = 3, Beast = 4
+const AttrAdv = [[1, 1.1, 0.9, 1, 1], // man
+[.9, 1, 1.1, 1, 1], // sky
+[1.1, .9, 1, 1, 1], // earth
+[1, 1, 1, 1, 1.1], // star
+[1, 1, 1, 1.1, 1] // beast
 ]
 
 // Saber = 0, Archer = 1, Lancer = 2, Rider = 3, Caster = 4, Assassin = 5, Berserker = 6,
