@@ -1,5 +1,5 @@
 /*
-  Servant stats from: https://github.com/maketakunai/
+  Built off of servant stats from https://github.com/maketakunai/'s data sheet
 */
 
 const servantList = [{"id":1,"name":"Mash Kyrielight","class":"Shielder","attack":"1455, 8730, 10575","npmultiplier":"","overcharge":"","deck":"QAABB(A)","npupgrade":1,"attribute":"Earth","npchargeatk":0.84,"nphitcount":0},
