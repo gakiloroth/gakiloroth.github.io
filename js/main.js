@@ -22,6 +22,8 @@ $(document).ready(function() {
       $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
   }
 
+  console.log("servant: " + servant);
+
   initializeBattleSim();
   initializeBattleParty();
   updateSavedServantsDisplay();
@@ -30,13 +32,6 @@ $(document).ready(function() {
   updateQuestPartyToggles();
   updateQuestToggles();
   startup = false;
-});
-
-// keep track of carousel page
-$('#battleCarousel').on('slide',function(e){
-    var slideFrom = $(this).find('.active').index();
-    var slideTo = $(e.relatedTarget).index();
-    console.log(slideFrom+' => '+slideTo);
 });
 
 // filter out a list of servants based on class
@@ -186,7 +181,10 @@ document.getElementById('deleteAllServants').onclick = function(){
    return;
   }
   if(confirm('Do you want to delete ALL saved servants?')){
+    party = [];
+    localStorage.setItem("party", JSON.stringify(party));
     deleteAllServants();
+    location.reload();
   }
 };
 
@@ -215,11 +213,7 @@ document.getElementById('addServant').onclick = function(){
   });
 
   if(valid && saveServant()){
-    if(servant !== ""){
-      servant++;
-    }
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-    localStorage.setItem("servant", JSON.stringify(servant));
     updateSavedServantsDisplay();
     resetServant();
     location.reload();
@@ -241,7 +235,7 @@ document.getElementById('addQuest').onclick = function(){
   });
 
   if(valid && saveQuest()){
-    if(servant !== ""){
+    if(quest.length !== 0){
       quest++;
     }
     localStorage.setItem("quest", JSON.stringify(quest));
@@ -338,8 +332,13 @@ document.getElementById('submitBattleForm2').onclick = function(){
       + (questEnemyHP[16] - result[7]) + ' / ' + (questEnemyHP[17] - result[8]));
 
     // calculate np refund
-    let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], result[0], result[3], result[6]);
-    $('#npRefundDisplay2').empty().html('<b>Wave 2: NP Refund from last wave: </b>' + questRefunds[0] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
+    let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], result[0], result[3], result[6], result[9], result[10]);
+    if(typeof questRefunds[0] === "undefined"){
+      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
+    }
+    else{
+      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + questRefunds[0] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
+    }
     $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
     questRefunds[1] = refunded.toFixed(2);
 
@@ -396,8 +395,13 @@ document.getElementById('submitBattleForm3').onclick = function(){
       + (questEnemyHP[25] - result[7]) + ' / ' + (questEnemyHP[26] - result[8]));
 
     // calculate np refund
-    let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], result[0], result[3], result[6]);
-    $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
+    let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], result[0], result[3], result[6], result[9], result[10]);
+    if(typeof questRefunds[1] === "undefined"){
+      $('#npRefundDisplay3').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
+    }
+    else{
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
+    }
     questRefunds[2] = refunded.toFixed(2);
 
     // update enemy hp
@@ -497,10 +501,7 @@ function updateSavedServantsDisplay(){
           return;
         }
 
-        //servant = i;
-        //servantNPType = savedServants[i].nptype;
-        party.push(i);
-        localStorage.setItem("servant", JSON.stringify(servant));
+        party.unshift(i);
         localStorage.setItem("party", JSON.stringify(party));
         //alert(JSON.stringify(party));
         location.reload();
@@ -556,12 +557,14 @@ function updateSavedQuestsDisplay(){
     // link up use button
     document.getElementById("useQuest" + i).addEventListener("click", function(){
       if(quest === i){
+        //alert("deselect quest");
         quest = "";
         updateQuestToggles();
         localStorage.setItem("quest", JSON.stringify(quest));
         location.reload();
       }
       else{
+        //alert("select quest");
         quest = i;
         localStorage.setItem("quest", JSON.stringify(quest));
         location.reload();
@@ -591,13 +594,16 @@ function updateQuestPartyToggles(){
 
 // initialize battle sim
 function initializeBattleSim(){
-  if(savedQuests.length === 0 || savedServants.length === 0 || quest === ""){
+  if(savedQuests.length === 0 || savedServants.length === 0 || quest.length === 0 || quest === ""){
+    console.log("savedquestlength: " + savedQuests.length + " savedservantlength: " + savedServants.length +
+      " quest: " + quest);
     return;
   }
+
+  // initialize quest related data
+  console.log("quest: " + quest + " " + JSON.stringify(savedServants));
   let currQuest = savedQuests[quest];
-  let currServant = savedServants[servant];
   $('#questNameDisplay').empty().html('<b>Current Quest: </b>' + currQuest.name);
-  $('#servantNameDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
 
   document.getElementById('questEnemy1Class').src = "images/" + currQuest.enemy1class.toLowerCase().replace(/\s/g, '') + ".png";
   document.getElementById('questEnemy2Class').src = "images/" + currQuest.enemy2class.toLowerCase().replace(/\s/g, '') + ".png";
@@ -669,6 +675,21 @@ function initializeBattleSim(){
       questEnemyHP[i] = currQuest.enemy9hp;
     }
   }
+
+  // initialize servant related data
+  console.log("servant: " + servant + " " + JSON.stringify(servant));
+  console.log("party: " + party.length + " " + JSON.stringify(savedServants));
+
+  if(party.length === 0 || servant.length === 0){
+    console.log("partylength: " + party.length + " servantlength: " + servant.length)
+    return;
+  }
+
+  let currServant = savedServants[servant];
+  if(servant !== ""){
+    $('#servantNameDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
+  }
+
 }
 
 
@@ -687,9 +708,13 @@ function initializeBattleParty(){
     // link up delete button
     document.getElementById("battlePartySelect" + i).addEventListener("click", function(){
       if(servant === party[i]){
-        // if already selected do nothing
+        // deselect
+        servant = "";
+        localStorage.setItem("servant", JSON.stringify(servant));
+        location.reload();
       }
       else{
+        // add and shift party
         servant = party[i];
         localStorage.setItem("servant", JSON.stringify(servant));
         location.reload();
@@ -704,8 +729,17 @@ function resetBattleSim(wavenumber){
   let currQuest = savedQuests[quest];
 
   if(wavenumber === 1){
+    questRefunds[0] = undefined;
+
     $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>N/A');
-    $('#npRefundDisplay2').empty().html('<b>Wave 2: NP Refund from last wave: </b>' + questRefunds[0] + '% <b>| Min. NP Refunded: </b>N/A');
+
+    if(typeof questRefunds[1] === "undefined"){
+      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
+    }
+    else{
+      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>' + questRefunds[1] + '%');
+    }
+
     $('#questEnemy1HPLeft').empty().html('HP Left: ' + currQuest.enemy1hp + " / " + currQuest.enemy1hp + " / " + currQuest.enemy1hp);
     $('#questEnemy2HPLeft').empty().html('HP Left: ' + currQuest.enemy2hp + " / " + currQuest.enemy2hp + " / " + currQuest.enemy2hp);
     $('#questEnemy3HPLeft').empty().html('HP Left: ' + currQuest.enemy3hp + " / " + currQuest.enemy3hp + " / " + currQuest.enemy3hp);
@@ -726,7 +760,27 @@ function resetBattleSim(wavenumber){
     }
   }
   if(wavenumber === 2){
-    $('#npRefundDisplay2').empty().html('<b>Wave 2: NP Refund from last wave: </b>' + questRefunds[0] + '% <b>| Min. NP Refunded: </b>N/A');
+    questRefunds[1] = undefined;
+    if(typeof questRefunds[0] === "undefined"){
+      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
+    }
+    else{
+      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + questRefunds[0] + '% <b>| Min. NP Refunded: </b>N/A');
+    }
+
+    if(typeof questRefunds[1] === "undefined" && typeof questRefunds[2] === "undefined"){
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
+    }
+    else if(typeof questRefunds[1] === "undefined"){
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>' + questRefunds[2] + '%');
+    }
+    else if(typeof questRefunds[2] === "undefined"){
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '% <b>| Min. NP Refunded: </b>N/A');
+    }
+    else{
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
+    }
+
     $('#questEnemy4HPLeft').empty().html('HP Left: ' + currQuest.enemy4hp + " / " + currQuest.enemy4hp + " / " + currQuest.enemy4hp);
     $('#questEnemy5HPLeft').empty().html('HP Left: ' + currQuest.enemy5hp + " / " + currQuest.enemy5hp + " / " + currQuest.enemy5hp);
     $('#questEnemy6HPLeft').empty().html('HP Left: ' + currQuest.enemy6hp + " / " + currQuest.enemy6hp + " / " + currQuest.enemy6hp);
@@ -747,13 +801,30 @@ function resetBattleSim(wavenumber){
     }
   }
   if(wavenumber === 3){
-    $('#npRefundDisplay3').empty().html('<b>Wave 3: NP Refund from last wave:  </b>' + questRefunds[1] +'% <b>| Min. NP Refunded: </b>N/A');
+    questRefunds[2] = undefined;
+
+    if(typeof questRefunds[1] === "undefined" && typeof questRefunds[2] === "undefined"){
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
+    }
+    else if(typeof questRefunds[1] === "undefined"){
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>' + questRefunds[2] + '%');
+    }
+    else if(typeof questRefunds[2] === "undefined"){
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '% <b>| Min. NP Refunded: </b>N/A');
+    }
+    else{
+      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
+    }
+
+    $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave:  </b>' + questRefunds[1] +'% <b>| Min. NP Refunded: </b>N/A');
     $('#questEnemy7HPLeft').empty().html('HP Left: ' + currQuest.enemy7hp + " / " + currQuest.enemy7hp + " / " + currQuest.enemy7hp);
     $('#questEnemy8HPLeft').empty().html('HP Left: ' + currQuest.enemy8hp + " / " + currQuest.enemy8hp + " / " + currQuest.enemy8hp);
     $('#questEnemy9HPLeft').empty().html('HP Left: ' + currQuest.enemy9hp + " / " + currQuest.enemy9hp + " / " + currQuest.enemy9hp);
     $('#questEnemy7NPDamage').empty().html('NP Damage: 0 / 0 / 0');
     $('#questEnemy8NPDamage').empty().html('NP Damage: 0 / 0 / 0');
     $('#questEnemy9NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+
+    questRefunds[2] = undefined;
 
     for(let i = 18; i < 27; i++){
       if(i >= 18 && i <= 20){
@@ -778,8 +849,11 @@ function saveServant(){
   // increment party indexes
   for(let j = 0; j < party.length; j++){
     party[j]++;
-    localStorage.setItem("party", JSON.stringify(party));
   }
+  // party indexes incremented, match with servant
+  servant++;
+  localStorage.setItem("party", JSON.stringify(party));
+  localStorage.setItem("servant", JSON.stringify(servant));
 
   savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
@@ -812,14 +886,18 @@ function saveQuest(){
 
 // delete servants and save
 function deleteAllServants(){
+  servant = "";
   savedServants = [];
+  localStorage.setItem("servant", JSON.stringify(servant));
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   updateSavedServantsDisplay();
 }
 
 // delete quests and save
 function deleteAllQuests(){
+  quest = "";
   savedQuests = [];
+  localStorage.setItem("quest", JSON.stringify(quest));
   localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
   updateSavedQuestsDisplay();
 }
@@ -1009,6 +1087,24 @@ function calculateDamage(waveNumber){
 // np refund calcluation
 // rider +10%, caster +20%, assassin -10%, berserker -20%
 function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, npGainUp){
+  // if enemies start at 0 health, ignore them for np regen calculations
+  var ignoreEnemy1 = false;
+  var ignoreEnemy2 = false;
+  var ignoreEnemy3 = false;
+
+  if(parseFloat(hp1) === 0 || parseFloat(hp1) <= 0){
+    ignoreEnemy1 = true;
+    console.log("ignore enemy 1");
+  }
+  if(parseFloat(hp2) === 0 || parseFloat(hp2) <= 0){
+    ignoreEnemy2 = true;
+    console.log("ignore enemy 2");
+  }
+  if(parseFloat(hp3) === 0 || parseFloat(hp3) <= 0){
+    ignoreEnemy3 = true;
+    console.log("ignore enemy 3");
+  }
+
   var enemyServerMod = 1;
   var firstCardBonus = 0; // 0 because NP card
   var cardNpValue = 0; // buster quick arts card modifier
@@ -1020,7 +1116,6 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
 
   var npRefund = 0;
   var npHits = savedServants[servant].nphits // how many hits this np has
-
 
   // set np card type and card buffs
   if(savedServants[servant].nptype.localeCompare("Buster") == 0){
@@ -1040,40 +1135,50 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
   for(let i = 0; i < npHits; i++){
     console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + "nphits: " + npHits);
     damage = damage1 * NPHitDist[npHits - 1][i];
-    console.log("damage1: " + damage);
-    if(hp1 - damage <= 0){
-      overkillModifier = 1.5;
-    }
-    else{
-      overkillModifier = 1;
-    }
     hp1 -= damage;
-    npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
-      enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+    console.log("damage1: " + damage);
+
+    if(!ignoreEnemy1){
+      if(hp1 - damage <= 0){
+        overkillModifier = 1.5;
+      }
+      else{
+        overkillModifier = 1;
+      }
+      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
+        enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+    }
     console.log(npRefund);
 
     damage = damage2 * NPHitDist[npHits - 1][i];
-    if(hp2 - damage <= 0){
-      overkillModifier = 1.5;
-    }
-    else{
-      overkillModifier = 1;
-    }
     hp2 -= damage;
-    npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
-      enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+
+    if(!ignoreEnemy2){
+      if(hp2 - damage <= 0){
+        overkillModifier = 1.5;
+      }
+      else{
+        overkillModifier = 1;
+      }
+      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
+        enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+    }
     console.log(npRefund);
 
     damage = damage3 * NPHitDist[npHits - 1][i];
-    if(hp3 - damage <= 0){
-      overkillModifier = 1.5;
-    }
-    else{
-      overkillModifier = 1;
-    }
     hp3 -= damage;
-    npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
-      enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+
+    if(!ignoreEnemy2){
+      if(hp3 - damage <= 0){
+        overkillModifier = 1.5;
+      }
+      else{
+        overkillModifier = 1;
+      }
+      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
+        enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+    }
+
     console.log(npRefund);
   }
 
