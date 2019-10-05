@@ -194,7 +194,7 @@ document.getElementById('deleteAllQuests').onclick = function(){
 document.getElementById('addServant').onclick = function(){
   let valid = true;
   'use strict';
-  var forms = document.getElementsByClassName('needs-validation');
+  var forms = document.getElementsByClassName('needs-validation-servant');
   var validation = Array.prototype.filter.call(forms, function(form) {
     if (form.checkValidity() === false) {
       valid = false;
@@ -242,9 +242,9 @@ document.getElementById('addQuest').onclick = function(){
 
 // calculate NP Damage for Wave 1
 document.getElementById('submitBattleForm1').onclick = function(){
-  /*let valid = true;
+  let valid = true;
   'use strict';
-  var forms = document.getElementsByClassName('needs-validation-battle');
+  var forms = document.getElementsByClassName('needs-validation-battle1');
   var validation = Array.prototype.filter.call(forms, function(form) {
     if (form.checkValidity() === false) {
       valid = false;
@@ -255,55 +255,54 @@ document.getElementById('submitBattleForm1').onclick = function(){
   });
 
   if(valid) {
-    initializeBattleSim();
-    resetBattleForm();
-  }*/
-  let curr = savedQuests[quest];
-  let result = calculateDamage(1);
+    let curr = savedQuests[quest];
+    let result = calculateDamage(1);
 
-  $('#questEnemy1NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
-  $('#questEnemy2NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
-  $('#questEnemy3NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
+    $('#questEnemy1NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
+    $('#questEnemy2NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
+    $('#questEnemy3NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
 
-  $('#questEnemy1HPLeft').empty().html('HP Left: ' + (questEnemyHP[0] - result[0]) + ' / '
-    + (questEnemyHP[1] - result[1]) + ' / ' + (questEnemyHP[2] - result[2]));
-  $('#questEnemy2HPLeft').empty().html('HP Left: ' + (questEnemyHP[3] - result[3]) + ' / '
-    + (questEnemyHP[4] - result[4]) + ' / ' + (questEnemyHP[5] - result[5]));
-  $('#questEnemy3HPLeft').empty().html('HP Left: ' + (questEnemyHP[6] - result[6]) + ' / '
-    + (questEnemyHP[7] - result[7]) + ' / ' + (questEnemyHP[8] - result[8]));
+    $('#questEnemy1HPLeft').empty().html('HP Left: ' + (questEnemyHP[0] - result[0]) + ' / '
+      + (questEnemyHP[1] - result[1]) + ' / ' + (questEnemyHP[2] - result[2]));
+    $('#questEnemy2HPLeft').empty().html('HP Left: ' + (questEnemyHP[3] - result[3]) + ' / '
+      + (questEnemyHP[4] - result[4]) + ' / ' + (questEnemyHP[5] - result[5]));
+    $('#questEnemy3HPLeft').empty().html('HP Left: ' + (questEnemyHP[6] - result[6]) + ' / '
+      + (questEnemyHP[7] - result[7]) + ' / ' + (questEnemyHP[8] - result[8]));
 
-  // calculate np refund
-  let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], result[0], result[3], result[6]);
-  $('#npRefundDisplay1').empty().html('<b>Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
-  $('#npRefundDisplay2').empty().html('<b>NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
-  questRefunds[0] = refunded.toFixed(2);
+    // calculate np refund
+    let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], result[0], result[3], result[6], result[9], result[10]);
+    $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
+    $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
+    questRefunds[0] = refunded.toFixed(2);
 
-  // update enemy hp in Array
-  questEnemyHP[0] -= result[0];
-  questEnemyHP[1] -= result[1];
-  questEnemyHP[2] -= result[2];
-  questEnemyHP[3] -= result[3];
-  questEnemyHP[4] -= result[4];
-  questEnemyHP[5] -= result[5];
-  questEnemyHP[6] -= result[6];
-  questEnemyHP[7] -= result[7];
-  questEnemyHP[8] -= result[8];
+    // update enemy hp in Array
+    questEnemyHP[0] -= result[0];
+    questEnemyHP[1] -= result[1];
+    questEnemyHP[2] -= result[2];
+    questEnemyHP[3] -= result[3];
+    questEnemyHP[4] -= result[4];
+    questEnemyHP[5] -= result[5];
+    questEnemyHP[6] -= result[6];
+    questEnemyHP[7] -= result[7];
+    questEnemyHP[8] -= result[8];
+  }
 };
 
 // reset battle sim wave 1
 document.getElementById('resetHP1').onclick = function(){
-  for(let i = 0; i < 9; i++){
-    questEnemyHP[i] = 0;
-  }
-  $('#npRefundDisplay').empty().html('<b>Min. NP Refunded: </b>');
   resetBattleSim(1);
+}
+
+// reset battle sim form wave 1
+document.getElementById('resetBattleForm1').onclick = function(){
+  resetBattleForm(1);
 }
 
 // calculate NP Damage for Wave 2
 document.getElementById('submitBattleForm2').onclick = function(){
-  /*let valid = true;
+  let valid = true;
   'use strict';
-  var forms = document.getElementsByClassName('needs-validation-battle');
+  var forms = document.getElementsByClassName('needs-validation-battle2');
   var validation = Array.prototype.filter.call(forms, function(form) {
     if (form.checkValidity() === false) {
       valid = false;
@@ -314,55 +313,54 @@ document.getElementById('submitBattleForm2').onclick = function(){
   });
 
   if(valid) {
-    initializeBattleSim();
-    resetBattleForm();
-  }*/
-  let curr = savedQuests[quest];
-  let result = calculateDamage(2);
+    let curr = savedQuests[quest];
+    let result = calculateDamage(2);
 
-  $('#questEnemy4NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
-  $('#questEnemy5NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
-  $('#questEnemy6NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
+    $('#questEnemy4NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
+    $('#questEnemy5NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
+    $('#questEnemy6NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
 
-  $('#questEnemy4HPLeft').empty().html('HP Left: ' + (questEnemyHP[9] - result[0]) + ' / '
-    + (questEnemyHP[10] - result[1]) + ' / ' + (questEnemyHP[11] - result[2]));
-  $('#questEnemy5HPLeft').empty().html('HP Left: ' + (questEnemyHP[12] - result[3]) + ' / '
-    + (questEnemyHP[13] - result[4]) + ' / ' + (questEnemyHP[14] - result[5]));
-  $('#questEnemy6HPLeft').empty().html('HP Left: ' + (questEnemyHP[15] - result[6]) + ' / '
-    + (questEnemyHP[16] - result[7]) + ' / ' + (questEnemyHP[17] - result[8]));
+    $('#questEnemy4HPLeft').empty().html('HP Left: ' + (questEnemyHP[9] - result[0]) + ' / '
+      + (questEnemyHP[10] - result[1]) + ' / ' + (questEnemyHP[11] - result[2]));
+    $('#questEnemy5HPLeft').empty().html('HP Left: ' + (questEnemyHP[12] - result[3]) + ' / '
+      + (questEnemyHP[13] - result[4]) + ' / ' + (questEnemyHP[14] - result[5]));
+    $('#questEnemy6HPLeft').empty().html('HP Left: ' + (questEnemyHP[15] - result[6]) + ' / '
+      + (questEnemyHP[16] - result[7]) + ' / ' + (questEnemyHP[17] - result[8]));
 
-  // calculate np refund
-  let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], result[0], result[3], result[6]);
-  $('#npRefundDisplay2').empty().html('<b>NP Refund from last wave: </b>' + questRefunds[0] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
-  $('#npRefundDisplay3').empty().html('<b>NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
-  questRefunds[1] = refunded.toFixed(2);
+    // calculate np refund
+    let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], result[0], result[3], result[6]);
+    $('#npRefundDisplay2').empty().html('<b>Wave 2: NP Refund from last wave: </b>' + questRefunds[0] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
+    $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
+    questRefunds[1] = refunded.toFixed(2);
 
-  // update enemy hp in Array
-  questEnemyHP[9] -= result[0];
-  questEnemyHP[10] -= result[1];
-  questEnemyHP[11] -= result[2];
-  questEnemyHP[12] -= result[3];
-  questEnemyHP[13] -= result[4];
-  questEnemyHP[14] -= result[5];
-  questEnemyHP[15] -= result[6];
-  questEnemyHP[16] -= result[7];
-  questEnemyHP[17] -= result[8];
+    // update enemy hp in Array
+    questEnemyHP[9] -= result[0];
+    questEnemyHP[10] -= result[1];
+    questEnemyHP[11] -= result[2];
+    questEnemyHP[12] -= result[3];
+    questEnemyHP[13] -= result[4];
+    questEnemyHP[14] -= result[5];
+    questEnemyHP[15] -= result[6];
+    questEnemyHP[16] -= result[7];
+    questEnemyHP[17] -= result[8];
+  }
 };
 
 // reset battle sim wave 2
 document.getElementById('resetHP2').onclick = function(){
-  for(let i = 9; i < 18; i++){
-    questEnemyHP[i] = 0;
-  }
-  $('#npRefundDisplay').empty().html('<b>NP Refund from last wave: N/A | Min. NP Refunded: N/A</b>');
   resetBattleSim(2);
+}
+
+// reset battle sim form wave 2
+document.getElementById('resetBattleForm2').onclick = function(){
+  resetBattleForm(2);
 }
 
 // calculate NP Damage for Wave 3
 document.getElementById('submitBattleForm3').onclick = function(){
-  /*let valid = true;
+  let valid = true;
   'use strict';
-  var forms = document.getElementsByClassName('needs-validation-battle');
+  var forms = document.getElementsByClassName('needs-validation-battle3');
   var validation = Array.prototype.filter.call(forms, function(form) {
     if (form.checkValidity() === false) {
       valid = false;
@@ -373,47 +371,46 @@ document.getElementById('submitBattleForm3').onclick = function(){
   });
 
   if(valid) {
-    initializeBattleSim();
-    resetBattleForm();
-  }*/
-  let curr = savedQuests[quest];
-  let result = calculateDamage(3);
+    let curr = savedQuests[quest];
+    let result = calculateDamage(3);
 
-  $('#questEnemy7NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
-  $('#questEnemy8NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
-  $('#questEnemy9NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
+    $('#questEnemy7NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
+    $('#questEnemy8NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
+    $('#questEnemy9NPDamage').empty().html('NP Damage: ' + result[6] + ' / ' + result[7] + ' / ' + result[8]);
 
-  $('#questEnemy7HPLeft').empty().html('HP Left: ' + (questEnemyHP[18] - result[0]) + ' / '
-    + (questEnemyHP[19] - result[1]) + ' / ' + (questEnemyHP[20] - result[2]));
-  $('#questEnemy8HPLeft').empty().html('HP Left: ' + (questEnemyHP[21] - result[3]) + ' / '
-    + (questEnemyHP[22] - result[4]) + ' / ' + (questEnemyHP[23] - result[5]));
-  $('#questEnemy9HPLeft').empty().html('HP Left: ' + (questEnemyHP[24] - result[6]) + ' / '
-    + (questEnemyHP[25] - result[7]) + ' / ' + (questEnemyHP[26] - result[8]));
+    $('#questEnemy7HPLeft').empty().html('HP Left: ' + (questEnemyHP[18] - result[0]) + ' / '
+      + (questEnemyHP[19] - result[1]) + ' / ' + (questEnemyHP[20] - result[2]));
+    $('#questEnemy8HPLeft').empty().html('HP Left: ' + (questEnemyHP[21] - result[3]) + ' / '
+      + (questEnemyHP[22] - result[4]) + ' / ' + (questEnemyHP[23] - result[5]));
+    $('#questEnemy9HPLeft').empty().html('HP Left: ' + (questEnemyHP[24] - result[6]) + ' / '
+      + (questEnemyHP[25] - result[7]) + ' / ' + (questEnemyHP[26] - result[8]));
 
-  // calculate np refund
-  let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], result[0], result[3], result[6]);
-  $('#npRefundDisplay3').empty().html('<b>NP Refund from last wave: </b>' + questRefunds[1] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
-  questRefunds[2] = refunded.toFixed(2);
+    // calculate np refund
+    let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], result[0], result[3], result[6]);
+    $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
+    questRefunds[2] = refunded.toFixed(2);
 
-  // update enemy hp
-  questEnemyHP[18] -= result[0];
-  questEnemyHP[19] -= result[1];
-  questEnemyHP[20] -= result[2];
-  questEnemyHP[21] -= result[3];
-  questEnemyHP[22] -= result[4];
-  questEnemyHP[23] -= result[5];
-  questEnemyHP[24] -= result[6];
-  questEnemyHP[25] -= result[7];
-  questEnemyHP[26] -= result[8];
+    // update enemy hp
+    questEnemyHP[18] -= result[0];
+    questEnemyHP[19] -= result[1];
+    questEnemyHP[20] -= result[2];
+    questEnemyHP[21] -= result[3];
+    questEnemyHP[22] -= result[4];
+    questEnemyHP[23] -= result[5];
+    questEnemyHP[24] -= result[6];
+    questEnemyHP[25] -= result[7];
+    questEnemyHP[26] -= result[8];
+  }
 };
 
 // reset battle sim wave 3
 document.getElementById('resetHP3').onclick = function(){
-  for(let i = 18; i < 27; i++){
-    questEnemyHP[i] = 0;
-  }
-  $('#npRefundDisplay').empty().html('<b>NP Refund from last wave: N/A | Min. NP Refunded: N/A</b>');
   resetBattleSim(3);
+}
+
+// reset battle sim form wave 3
+document.getElementById('resetBattleForm3').onclick = function(){
+  resetBattleForm(3);
 }
 
 // update saved servant display
@@ -649,10 +646,14 @@ function resetBattleSim(wavenumber){
   let currQuest = savedQuests[quest];
 
   if(wavenumber === 1){
-
+    $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>N/A');
+    $('#npRefundDisplay2').empty().html('<b>Wave 2: NP Refund from last wave: </b>' + questRefunds[0] + '% <b>| Min. NP Refunded: </b>N/A');
     $('#questEnemy1HPLeft').empty().html('HP Left: ' + currQuest.enemy1hp + " / " + currQuest.enemy1hp + " / " + currQuest.enemy1hp);
     $('#questEnemy2HPLeft').empty().html('HP Left: ' + currQuest.enemy2hp + " / " + currQuest.enemy2hp + " / " + currQuest.enemy2hp);
     $('#questEnemy3HPLeft').empty().html('HP Left: ' + currQuest.enemy3hp + " / " + currQuest.enemy3hp + " / " + currQuest.enemy3hp);
+    $('#questEnemy1NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+    $('#questEnemy2NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+    $('#questEnemy3NPDamage').empty().html('NP Damage: 0 / 0 / 0');
 
     for(let i = 0; i < 9; i++){
       if(i >= 0 && i <= 2){
@@ -667,10 +668,13 @@ function resetBattleSim(wavenumber){
     }
   }
   if(wavenumber === 2){
-
+    $('#npRefundDisplay2').empty().html('<b>Wave 2: NP Refund from last wave: </b>' + questRefunds[0] + '% <b>| Min. NP Refunded: </b>N/A');
     $('#questEnemy4HPLeft').empty().html('HP Left: ' + currQuest.enemy4hp + " / " + currQuest.enemy4hp + " / " + currQuest.enemy4hp);
     $('#questEnemy5HPLeft').empty().html('HP Left: ' + currQuest.enemy5hp + " / " + currQuest.enemy5hp + " / " + currQuest.enemy5hp);
     $('#questEnemy6HPLeft').empty().html('HP Left: ' + currQuest.enemy6hp + " / " + currQuest.enemy6hp + " / " + currQuest.enemy6hp);
+    $('#questEnemy4NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+    $('#questEnemy5NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+    $('#questEnemy6NPDamage').empty().html('NP Damage: 0 / 0 / 0');
 
     for(let i = 9; i < 18; i++){
       if(i >= 9 && i <= 11){
@@ -685,10 +689,13 @@ function resetBattleSim(wavenumber){
     }
   }
   if(wavenumber === 3){
-
+    $('#npRefundDisplay3').empty().html('<b>Wave 3: NP Refund from last wave:  </b>' + questRefunds[1] +'% <b>| Min. NP Refunded: </b>N/A');
     $('#questEnemy7HPLeft').empty().html('HP Left: ' + currQuest.enemy7hp + " / " + currQuest.enemy7hp + " / " + currQuest.enemy7hp);
     $('#questEnemy8HPLeft').empty().html('HP Left: ' + currQuest.enemy8hp + " / " + currQuest.enemy8hp + " / " + currQuest.enemy8hp);
     $('#questEnemy9HPLeft').empty().html('HP Left: ' + currQuest.enemy9hp + " / " + currQuest.enemy9hp + " / " + currQuest.enemy9hp);
+    $('#questEnemy7NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+    $('#questEnemy8NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+    $('#questEnemy9NPDamage').empty().html('NP Damage: 0 / 0 / 0');
 
     for(let i = 18; i < 27; i++){
       if(i >= 18 && i <= 20){
@@ -751,6 +758,23 @@ function deleteAllQuests(){
   savedQuests = [];
   localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
   updateSavedQuestsDisplay();
+}
+
+// reset battle forms
+function resetBattleForm(waveNumber){
+  $('#NPDamageUpQuest' + waveNumber).val(0);
+  $('#NPGainUpPercentageQuest' + waveNumber).val(0);
+  $('#AttackUpPercentageQuest' + waveNumber).val(0);
+  $('#FlatAttackUpQuest' + waveNumber).val(0);
+  $('#BusterUpPercentageQuest' + waveNumber).val(0);
+  $('#ArtsUpPercentageQuest' + waveNumber).val(0);
+  $('#QuickUpPercentageQuest' + waveNumber).val(0);
+  $('#PowerModQuest' + waveNumber).val(0);
+  $('#BusterDebuffPercentageQuest' + waveNumber).val(0);
+  $('#ArtsDebuffPercentageQuest' + waveNumber).val(0);
+  $('#QuickDebuffPercentageQuest' + waveNumber).val(0);
+  $('#NPSpecialAttackQuest' + waveNumber).val(0);
+  $('#DefenseDebuffPercentageQuest' + waveNumber).val(0);
 }
 
 // reset servant form
@@ -819,32 +843,46 @@ function calculateDamage(waveNumber){
   var questAttr3 = "";
   var cardBuffs = "";
 
-  // servant value calculations
+  // retrieve servant values
   var servantClass = getClassValue(currServant.class);
   var servantAttr = getAttrValue(currServant.attribute);
   var atk = parseFloat(currServant.attack) || 0;
   var np = parseFloat(currServant.npdamagepercent)/100 || 0;
   var npCardType = cardDmg(currServant.nptype) || 0;
   var servantClassMultiplier = classMultiplier(currServant.class) || 0;
-  var busterUp = parseFloat(currServant.busterup)/100 || 0;
-  var artsUp = parseFloat(currServant.artsup)/100 || 0;
-  var quickUp = parseFloat(currServant.quickup)/100 || 0;
-  var attackUp = parseFloat(currServant.attackup)/100 || 0;
-  var npBuffs = parseFloat(currServant.npdamageup)/100 || 0;
-  var flatAttack = parseFloat(currServant.flatattackup) || 0;
-  var defenseDebuffs = 0;
+
+  // calculate buffs
+  var busterUp = parseFloat(currServant.busterup)/100 + parseFloat($('#BusterUpPercentageQuest' + waveNumber).val())/100 || 0;
+  var artsUp = parseFloat(currServant.artsup)/100 + parseFloat($('#ArtsUpPercentageQuest' + waveNumber).val())/100 || 0;
+  var quickUp = parseFloat(currServant.quickup)/100 + parseFloat($('#QuickUpPercentageQuest' + waveNumber).val())/100 || 0;
+  var attackUp = parseFloat(currServant.attackup)/100 + parseFloat($('#AttackUpPercentageQuest' + waveNumber).val())/100 || 0;
+  var npBuffs = parseFloat(currServant.npdamageup)/100 + parseFloat($('#NPDamageUpQuest' + waveNumber).val())/100 || 0;
+  var flatAttack = parseFloat(currServant.flatattackup) + parseFloat($('#FlatAttackUpQuest' + waveNumber).val()) || 0;
+  var busterDefenseDebuffs = parseFloat($('#BusterDebuffPercentageQuest' + waveNumber).val())/100 || 0;
+  var artsDefenseDebuffs = parseFloat($('#ArtsDebuffPercentageQuest' + waveNumber).val())/100 || 0;
+  var quickDefenseDebuffs = parseFloat($('#QuickDebuffPercentageQuest' + waveNumber).val())/100 || 0;
   var cardDebuffs = 0;
-  var npSpBuffs = 0;
-  var powerBuff = parseFloat(currServant.powermod) || 0;
+  var defenseDebuffs = parseFloat($('#DefenseDebuffPercentageQuest' + waveNumber).val())/100 || 0;
+  var npSpBuffs = parseFloat($('#NPSpecialAttackQuest' + waveNumber).val())/100 || 0;
+  var powerBuff = parseFloat(currServant.powermod + $('#PowerModQuest' + waveNumber).val())/100 || 0;
+  var npGainBuff = parseFloat(currServant.npgain + $('#NPGainUpPercentageQuest' + waveNumber).val())/100 || 0
+
+  console.log("busterup: " + busterUp + " artsup: " + artsUp + " quickup: " + quickUp + " npbuffs: " + npBuffs +
+     " attackup: " + attackUp + " flatattackup: " + flatAttack + " busterdefensedebuff: " + busterDefenseDebuffs +
+     " artsdefensedebuff: " + artsDefenseDebuffs + " quickdefensedebuff: " + quickDefenseDebuffs + " powerbuff: " +
+      powerBuff + " defensedebuff:" + defenseDebuffs + " npSpBuffs: " + npSpBuffs + " npGainBuff: " + npGainBuff);
 
   if(currServant.nptype.localeCompare("Buster") == 0){
     cardBuffs = busterUp;
+    cardDebuffs = busterDefenseDebuffs;
   }
   else if(currServant.nptype.localeCompare("Arts") == 0){
     cardBuffs = artsUp;
+    cardDebuffs = artsDefenseDebuffs;
   }
   else if(currServant.nptype.localeCompare("Quick") == 0){
     cardBuffs = quickUp;
+    cardDebuffs = quickDefenseDebuffs;
   }
 
   // enemy value calculations
@@ -884,11 +922,6 @@ function calculateDamage(waveNumber){
   console.log("multiplier class 1: " + classAdvantage1);
   console.log("multiplier attr 1: " + attrAdvantage1);
 
-  //var defenseDebuffs = parseFloat()/100 || 0;
-  //var cardDebuffs = parseFloat($('#cardDebuffs').val())/100 || 0;
-  //var spBuffs = parseFloat($('#SPBuffs').val())/100 || 0;
-  //var npspBuffs = parseFloat($('#NPSPBuffs').val())/100 || 0;
-
   var damageDealt1 = atk * np * npCardType * classAdvantage1 * servantClassMultiplier * 0.23 *
               (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
               (1 + npSpBuffs) * attrAdvantage1 + flatAttack;
@@ -905,22 +938,25 @@ function calculateDamage(waveNumber){
   // return average low and high damage dealt
   return [Math.round(0.9 * damageDealt1), Math.round(damageDealt1), Math.round(1.1 * damageDealt1),
     Math.round(0.9 * damageDealt2), Math.round(damageDealt2), Math.round(1.1 * damageDealt2),
-    Math.round(0.9 * damageDealt3), Math.round(damageDealt3), Math.round(1.1 * damageDealt3)];
+    Math.round(0.9 * damageDealt3), Math.round(damageDealt3), Math.round(1.1 * damageDealt3),
+    cardBuffs, npGainBuff];
 }
 
 // np refund calcluation
 // rider +10%, caster +20%, assassin -10%, berserker -20%
-function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3){
+function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, npGainUp){
   var enemyServerMod = 1;
   var firstCardBonus = 0; // 0 because NP card
   var cardNpValue = 0; // buster quick arts card modifier
-  var cardMod = 0; // % buster,quick,arts up etc
-  var npChargeRateMod = savedServants[servant].npgainup; // changes to np charge rate
+  var cardMod = cardBuff; // % buster,quick,arts up etc
+  var npChargeRateMod = savedServants[servant].npgainup + npGainUp || 0; // changes to np charge rate
   var npChargeOff = savedServants[servant].npgain; // np gain offensive
   var critMod = 1; // no NP Crit
+  var overkillModifier = 1;
+
   var npRefund = 0;
   var npHits = savedServants[servant].nphits // how many hits this np has
-  var overkillModifier = 1;
+
 
   // set np card type and card buffs
   if(savedServants[servant].nptype.localeCompare("Buster") == 0){
@@ -938,7 +974,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3){
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
-    console.log("np refund calc loop: " + i + "enemy1 hp: " + hp1 + "nphits: " + npHits);
+    console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + "nphits: " + npHits);
     damage = damage1 * NPHitDist[npHits - 1][i];
     console.log("damage1: " + damage);
     if(hp1 - damage <= 0){

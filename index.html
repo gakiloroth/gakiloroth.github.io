@@ -4,14 +4,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="FGO 3T to test farming teams.">
+    <meta name="description" content="FGO 3T Simulator to test farming teams.">
     <meta name="author" content="https://github.com/gakiloroth">
     <meta name="google-site-verification" content="QO7cA8YHWQ85DFmZNxGkAtZJaY27-g9JcFxnQqBSoiw" />
     <link rel="icon" type="image/png" href="images/rainbowbox.png">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator **WIP**</title>
+    <title>FGO 3T Simulator Beta v0.1</title>
   </head>
 
   <!--- car is a baka -->
@@ -20,7 +20,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator **WIP**
+        <h1 class="title">FGO 3T Simulator Beta v0.1
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -46,7 +46,7 @@
           </p>
         </div>
 
-      <form class="needs-validation" novalidate>
+      <form class="needs-validation-servant" novalidate>
         <div class="row">
           <div class="col-md-3">
             <div class="input-group">
@@ -255,21 +255,6 @@
                 Valid Flat Attack up required.
               </div>
             </div>
-        </div>
-
-        <div class="col-md-3 mt-4">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="NPDamageUp">NP Buff</label>
-            </div>
-            <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" required>
-            <div class="input-group-append">
-              <label class="input-group-text" for="percent">%</label>
-            </div>
-            <div class="invalid-feedback">
-              Valid NP Damage % up required.
-            </div>
-          </div>
         </div>
 
         <div class="col-md-3 mt-4">
@@ -885,7 +870,7 @@
     <div id="battleCarousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false" wrap="false">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <p style="font-size:15px;" id="npRefundDisplay1"><b>Min. NP Refunded: </b>N/A<p>
+          <p style="font-size:15px;" id="npRefundDisplay1"><b>Wave 1: Min. NP Refunded: </b>N/A<p>
           <div class="row justify-content-md-center">
             <div class="col-md-4">
               <div class="card">
@@ -933,6 +918,212 @@
             </div>
           </div>
 
+          <p class="text-muted text-small mt-3">
+            Further buffs applied to this servant & enemy debuffs.
+          </p>
+
+        <form class="needs-validation-battle1" novalidate>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="NPDamageUpQuest1">NP Buff</label>
+                </div>
+                <input type="number" class="form-control" id="NPDamageUpQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid NP Buff value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="NPGainUpPercentageQuest1">NP Gain Up</label>
+                </div>
+                <input type="number" class="form-control" id="NPGainUpPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid NP Gain Up value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="AttackUpPercentageQuest1">Attack Up</label>
+                </div>
+                <input type="number" class="form-control" id="AttackUpPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Attack Up value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="FlatAttackUpQuest1">Flat Attack Up</label>
+                </div>
+                <input type="number" class="form-control" id="FlatAttackUpQuest1" value="0" min="0" required>
+                <div class="invalid-feedback">
+                  Valid Flat Attack Up value required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="BusterUpPercentageQuest1">Buster Up</label>
+                </div>
+                <input type="number" class="form-control" id="BusterUpPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Buster Up value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="ArtsUpPercentageQuest1">Arts Up</label>
+                </div>
+                <input type="number" class="form-control" id="ArtsUpPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Arts Up value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="QuickUpPercentageQuest1">Quick Up</label>
+                </div>
+                <input type="number" class="form-control" id="QuickUpPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Quick Up value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="PowerModQuest1">Power Mod</label>
+                </div>
+                <input type="number" class="form-control" id="PowerModQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Power Mod required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="BusterDebuffPercentageQuest1">Buster Def. Debuff</label>
+                </div>
+                <input type="number" class="form-control" id="BusterDebuffPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Buster Defense Debuff value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="ArtsDebuffPercentageQuest1">Arts Def. Debuff</label>
+                </div>
+                <input type="number" class="form-control" id="ArtsDebuffPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Arts Defense Debuff value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="QuickDebuffPercentageQuest1">Quick Def. Debuff</label>
+                </div>
+                <input type="number" class="form-control" id="QuickDebuffPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Quick Defense Debuff value required.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="NPSpecialAttackQuest1">NP Sp. Attack</label>
+                </div>
+                <input type="number" class="form-control" id="NPSpecialAttackQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid NP Special Attack value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="DefenseDebuffPercentageQuest1">Def. Debuff</label>
+                </div>
+                <input type="number" class="form-control" id="DefenseDebuffPercentageQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Defense Debuff value required.
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
           <div class="row justify-content-md-center">
             <div class="col-md-3 mt-5">
               <button type="reset" id="resetBattleForm1" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
@@ -945,8 +1136,9 @@
             </div>
           </div>
         </div>
+
         <div class="carousel-item">
-          <p style="font-size:15px;" id="npRefundDisplay2"><b>NP Refund from last wave:</b> N/A <b>| Min. NP Refunded: </b>N/A<p>
+          <p style="font-size:15px;" id="npRefundDisplay2"><b>Wave 2: NP Refund from last wave:</b> N/A <b>| Min. NP Refunded: </b>N/A<p>
           <div class="row justify-content-md-center">
             <div class="col-md-4">
               <div class="card">
@@ -994,6 +1186,212 @@
             </div>
           </div>
 
+          <p class="text-muted text-small mt-3">
+            Further buffs applied to this servant & enemy debuffs.
+          </p>
+
+          <form class="needs-validation-battle2" novalidate>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPDamageUpQuest2">NP Buff</label>
+                  </div>
+                  <input type="number" class="form-control" id="NPDamageUpQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Buff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPGainUpPercentageQuest2">NP Gain Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="NPGainUpPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Gain Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="AttackUpPercentageQuest2">Attack Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="AttackUpPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Attack Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="FlatAttackUpQuest2">Flat Attack Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="FlatAttackUpQuest2" value="0" min="0" required>
+                  <div class="invalid-feedback">
+                    Valid Flat Attack Up value required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="BusterUpPercentageQuest2">Buster Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="BusterUpPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Buster Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="ArtsUpPercentageQuest2">Arts Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="ArtsUpPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Arts Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="QuickUpPercentageQuest2">Quick Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="QuickUpPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Quick Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="PowerModQuest2">Power Mod</label>
+                  </div>
+                  <input type="number" class="form-control" id="PowerModQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Power Mod required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="BusterDebuffPercentageQuest2">Buster Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="BusterDebuffPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Buster Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="ArtsDebuffPercentageQuest2">Arts Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="ArtsDebuffPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Arts Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="QuickDebuffPercentageQuest2">Quick Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="QuickDebuffPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Quick Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPSpecialAttackQuest2">NP Sp. Attack</label>
+                  </div>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Special Attack value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="DefenseDebuffPercentageQuest2">Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="DefenseDebuffPercentageQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
           <div class="row justify-content-md-center">
             <div class="col-md-3 mt-5">
               <button type="reset" id="resetBattleForm2" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
@@ -1009,7 +1407,7 @@
         </div>
 
         <div class="carousel-item">
-          <p style="font-size:15px;" id="npRefundDisplay3"><b>NP Refund from last wave:</b> N/A <b> | Min. NP Refunded: </b>N/A<p>
+          <p style="font-size:15px;" id="npRefundDisplay3"><b>Wave 3: NP Refund from last wave:</b> N/A <b> | Min. NP Refunded: </b>N/A<p>
           <div class="row justify-content-md-center">
             <div class="col-md-4">
               <div class="card">
@@ -1057,6 +1455,212 @@
             </div>
           </div>
 
+          <p class="text-muted text-small mt-3">
+            Further buffs applied to this servant & enemy debuffs.
+          </p>
+
+          <form class="needs-validation-battle3" novalidate>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPDamageUpQuest3">NP Buff</label>
+                  </div>
+                  <input type="number" class="form-control" id="NPDamageUpQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Buff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPGainUpPercentageQuest3">NP Gain Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="NPGainUpPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Gain Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="AttackUpPercentageQuest3">Attack Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="AttackUpPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Attack Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="FlatAttackUpQuest3">Flat Attack Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="FlatAttackUpQuest3" value="0" min="0" required>
+                  <div class="invalid-feedback">
+                    Valid Flat Attack Up value required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="BusterUpPercentageQuest3">Buster Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="BusterUpPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Buster Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="ArtsUpPercentageQuest3">Arts Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="ArtsUpPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Arts Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="QuickUpPercentageQuest3">Quick Up</label>
+                  </div>
+                  <input type="number" class="form-control" id="QuickUpPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Quick Up value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="PowerModQuest3">Power Mod</label>
+                  </div>
+                  <input type="number" class="form-control" id="PowerModQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Power Mod required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="BusterDebuffPercentageQuest3">Buster Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="BusterDebuffPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Buster Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="ArtsDebuffPercentageQuest3">Arts Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="ArtsDebuffPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Arts Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="QuickDebuffPercentageQuest3">Quick Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="QuickDebuffPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Quick Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPSpecialAttackQuest3">NP Sp. Attack</label>
+                  </div>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Special Attack value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="DefenseDebuffPercentageQuest3">Def. Debuff</label>
+                  </div>
+                  <input type="number" class="form-control" id="DefenseDebuffPercentageQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
           <div class="row justify-content-md-center">
             <div class="col-md-3 mt-5">
               <button type="reset" id="resetBattleForm3" class="btn btn-outline-danger btn-md btn-block">Reset Form</button>
@@ -1074,11 +1678,11 @@
 
     <div class="container">
       <div class="row">
-        <a class="carousel-control-prev" href="#battleCarousel" role="button" data-slide="prev">
+        <a class="button" id="prevWave" style:"left: 100%;" href="#battleCarousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#battleCarousel" role="button" data-slide="next">
+        <a class="button" id="nextWave" href="#battleCarousel" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>

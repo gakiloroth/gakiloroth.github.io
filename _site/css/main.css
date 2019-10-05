@@ -29,14 +29,8 @@
   color:#fff !important;
   background-color:#303030 !important
 }
-.carousel-control {
-height: 26%;
-top: 33%;
-width: 86px;
-}
-.carousel-indicators li {
-    width: 10px;
-    height: 10px;
+.carousel-controls{
+  height: 1px; !important
 }
 .carousel-control-prev-icon {
   height: 70px;
@@ -56,8 +50,10 @@ width: 86px;
   background-image: url('../images/saintquartznext.png');
   background-repeat: no-repeat;
 }
-.carousel-control-prev,
-.carousel-control-next{
-  position: absolute;
-      bottom: -30%;
+#prevWave{
+  float: left;
+}
+#nextWave{
+  float: right;
+  margin-left: 90%;
 }
