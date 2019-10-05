@@ -678,15 +678,15 @@ function initializeBattleSim(){
 
   // initialize servant related data
   console.log("servant: " + servant + " " + JSON.stringify(servant));
-  console.log("party: " + party.length + " " + JSON.stringify(savedServants));
+  console.log("party: " + party.length + " " + JSON.stringify(party));
 
-  if(party.length === 0 || servant.length === 0){
+  if(party.length === 0 || typeof servant === "undefined"){
     console.log("partylength: " + party.length + " servantlength: " + servant.length)
     return;
   }
 
   let currServant = savedServants[servant];
-  if(servant !== ""){
+  if(servant != ""){
     $('#servantNameDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
   }
 
@@ -850,8 +850,16 @@ function saveServant(){
   for(let j = 0; j < party.length; j++){
     party[j]++;
   }
+  //alert(servant);
   // party indexes incremented, match with servant
-  servant++;
+  if(typeof servant === "undefined" || servant.length == 0){
+    //alert("undefined");
+    // don't increment if first servant
+  }
+  else{
+    servant++;
+  }
+  //alert(servant);
   localStorage.setItem("party", JSON.stringify(party));
   localStorage.setItem("servant", JSON.stringify(servant));
 
