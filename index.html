@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator Beta v0.1</title>
+    <title>FGO 3T Simulator Beta v0.2</title>
   </head>
 
   <!--- car is a baka -->
@@ -20,7 +20,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator Beta v0.1
+        <h1 class="title">FGO 3T Simulator Beta v0.2
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -1676,18 +1676,26 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="row">
-        <a class="button" id="prevWave" style:"left: 100%;" href="#battleCarousel" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="button" id="nextWave" href="#battleCarousel" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+    <div class="container mt-2">
+        <div style="float:left">
+          <a class="button" id="prevWave" href="#battleCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+        </div>
+        <div style="float:right">
+          <a class="button" id="nextWave" href="#battleCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
     </div>
-  </div>
+
+    <div class="row justify-content-md-center">
+      <div class="col-md-10 mt-4" id="questPartyDisplay">
+      </div>
+    </div>
+
 
     <!---<div class="container mt-5" id="test">
     </div>--->

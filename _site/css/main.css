@@ -29,9 +29,6 @@
   color:#fff !important;
   background-color:#303030 !important
 }
-.carousel-controls{
-  height: 1px; !important
-}
 .carousel-control-prev-icon {
   height: 70px;
   min-width: 70px;
@@ -51,9 +48,11 @@
   background-repeat: no-repeat;
 }
 #prevWave{
-  float: left;
+  position: auto;
+  display:inline-block;
 }
 #nextWave{
   float: right;
-  margin-left: 90%;
+
+  display:inline-block;
 }
