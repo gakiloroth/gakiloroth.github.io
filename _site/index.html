@@ -25,7 +25,7 @@
         </h1>
 
         <h3 class="subtitle">For all you three turn hyper farmers.</h3>
-        <h4 class="subtitle"><a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">github readme</a></h4>
+        <h4 class="subtitle"><a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">GitHub ReadMe</a></h4>
       </div>
 
       <nav>
@@ -42,7 +42,8 @@
         <div class="text-left">
           <p>
              Please enter all stats the servant would have, including their CE stats
-             and innate stats, and then click "Add Servant" to save them.
+             and innate stats, and then click "Add Servant" to save them.<br>
+             Hover over the <img src="images/light-alert.png" width="20"></img> for more detail about certain fields, and use the <a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">README</a> if you want further details.
           </p>
         </div>
 
@@ -152,17 +153,17 @@
           <div class="col-md-3 mt-4">
             <div class="custom-control custom-checkbox custom-control-inline">
               <input type="checkbox" class="custom-control-input" id="maxGrailed" disabled>
-              <label class="custom-control-label" for="maxGrailed">Grailed</label>
+              <label class="custom-control-label" for="maxGrailed">Max Grailed</label>
             </div>
 
             <div class="custom-control custom-checkbox custom-control-inline">
               <input type="checkbox" class="custom-control-input" id="maxFou" disabled>
-              <label class="custom-control-label" for="maxFou">Fou</label>
+              <label class="custom-control-label" for="maxFou">Max Fou</label>
             </div>
 
             <div class="custom-control custom-checkbox custom-control-inline">
               <input type="checkbox" class="custom-control-input" id="maxGoldFou" disabled>
-              <label class="custom-control-label" for="maxGoldFou">Gold Fou</label>
+              <label class="custom-control-label" for="maxGoldFou">Max Gold Fou</label>
             </div>
           </div>
 
@@ -245,7 +246,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-3 mt-4">
+          <div class="col-md-4 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
                 <label class="input-group-text" for="FlatAttackUp">Flat Attack Up</label>
@@ -257,10 +258,10 @@
             </div>
         </div>
 
-        <div class="col-md-3 mt-4">
+        <div class="col-md-4 mt-4">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="PowerMod">Power Mod</label>
+              <label class="input-group-text" for="PowerMod">Power Mod &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img></label>
             </div>
             <input type="number" class="form-control" id="PowerMod" value="0" min="0" max="9999" required>
             <div class="input-group-append">
@@ -272,10 +273,10 @@
           </div>
         </div>
 
-        <div class="col-md-3 mt-4">
+        <div class="col-md-4 mt-4">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="inputAttribute">Attr.</label>
+              <label class="input-group-text" for="inputAttribute">Attribute</label>
             </div>
             <select class="custom-select" id="inputAttribute">
               <option value="Man" selected="true">Man</option>
@@ -293,7 +294,9 @@
         <div class="col-md-6 mt-4">
           <div class="form-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="inputCE">Craft Essence</label>
+                <label class="input-group-text" for="inputCE">Craft Essence &nbsp;
+                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Track which CE you used to fill data with, or any other identifying name."></img>
+                </label>
               <input type="text" class="form-control" id="inputCE" placeholder="Enter Craft Essence">
             </div>
           </div>
@@ -331,7 +334,7 @@
   <div class="container tab-pane" id="nav-quest" role="tabpanel" aria-labelledby="nav-quest-tab">
     <div class="text-left">
       <p>
-         Enter all enemy stats and then click "Save Quest" to save this quest.
+         Enter all enemy stats and then click "Save Quest" to save this quest. <br>You can set an enemy's health to <b>0</b> if you wish to have then ignored in NP refund calculations.
       </p>
     </div>
 
@@ -857,7 +860,7 @@
 
   <div class="container tab-pane" id="nav-battle" role="tabpanel" aria-labelledby="nav-Battle-tab">
     <div class="text-left">
-      <p class="text-muted text-small">
+      <p class="text-small">
         Please also make sure you have servants in your party and a quest selected.
         This simulator will test NP damage on ALL enemies, with all debuffs applied
           on every enemy as well, regardless if servant NP is ST or AoE.
@@ -1096,7 +1099,7 @@
             <div class="col-md-3">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="NPSpecialAttackQuest1">NP Sp. Attack</label>
+                  <label class="input-group-text" for="NPSpecialAttackQuest1">NP Sp. Attack &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                 </div>
                 <input type="number" class="form-control" id="NPSpecialAttackQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1364,7 +1367,7 @@
               <div class="col-md-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest2">NP Sp. Attack</label>
+                    <label class="input-group-text" for="NPSpecialAttackQuest2">NP Sp. Attack &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
                   <input type="number" class="form-control" id="NPSpecialAttackQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1633,7 +1636,7 @@
               <div class="col-md-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest3">NP Sp. Attack</label>
+                    <label class="input-group-text" for="NPSpecialAttackQuest3">NP Sp. Attack &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
                   <input type="number" class="form-control" id="NPSpecialAttackQuest3" value="0" min="0" required>
                   <div class="input-group-append">

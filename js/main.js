@@ -34,6 +34,11 @@ $(document).ready(function() {
   startup = false;
 });
 
+// tooltip
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 // filter out a list of servants based on class
 $("#inputClass").change(function(){
   $('#maxGrailed').prop('disabled', true);
