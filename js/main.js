@@ -1015,7 +1015,7 @@ function calculateDamage(waveNumber){
   var defenseDebuffs = parseFloat($('#DefenseDebuffPercentageQuest' + waveNumber).val())/100 || 0;
   var npSpBuffs = parseFloat($('#NPSpecialAttackQuest' + waveNumber).val())/100 || 0;
   var powerBuff = parseFloat(currServant.powermod + $('#PowerModQuest' + waveNumber).val())/100 || 0;
-  var npGainBuff = parseFloat(currServant.npgain + $('#NPGainUpPercentageQuest' + waveNumber).val())/100 || 0
+  var npGainBuff = parseFloat($('#NPGainUpPercentageQuest' + waveNumber).val()/100) || 0
 
   console.log("busterup: " + busterUp + " artsup: " + artsUp + " quickup: " + quickUp + " npbuffs: " + npBuffs +
      " attackup: " + attackUp + " flatattackup: " + flatAttack + " busterdefensedebuff: " + busterDefenseDebuffs +
@@ -1116,7 +1116,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
   var enemyServerMod = 1;
   var firstCardBonus = 0; // 0 because NP card
   var cardNpValue = 0; // buster quick arts card modifier
-  var cardMod = cardBuff; // % buster,quick,arts up etc
+  var cardMod = 0; // % buster,quick,arts up etc
   var npChargeRateMod = savedServants[servant].npgainup + npGainUp || 0; // changes to np charge rate
   var npChargeOff = savedServants[servant].npgain; // np gain offensive
   var critMod = 1; // no NP Crit
@@ -1138,10 +1138,14 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
     cardNpValue = 1;
     cardMod = savedServants[servant].quickup;
   }
+  cardMod = (Number(cardMod) + Number(cardBuff));
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
-    console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + "nphits: " + npHits);
+    console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
+    console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
+      " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod: " + enemyServerMod +
+      " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod);
     damage = damage1 * NPHitDist[npHits - 1][i];
     hp1 -= damage;
     console.log("damage1: " + damage);
@@ -1153,8 +1157,8 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
       else{
         overkillModifier = 1;
       }
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
-        enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+        enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
     console.log(npRefund);
 
@@ -1168,8 +1172,8 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
       else{
         overkillModifier = 1;
       }
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
-        enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
+        enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
     console.log(npRefund);
 
@@ -1183,8 +1187,8 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
       else{
         overkillModifier = 1;
       }
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + cardMod/100)))*
-        enemyServerMod * (1 + npChargeRateMod/100) * critMod) * overkillModifier);
+      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) ))) *
+        enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
 
     console.log(npRefund);
