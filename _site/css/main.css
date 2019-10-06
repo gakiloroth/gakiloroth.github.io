@@ -15,6 +15,7 @@
     /* If max-width does not work, try using width instead */
     width: 350px;
 }
+
 .custom-select{
   color:#fff !important;
   background-color:#303030 !important

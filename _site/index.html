@@ -58,7 +58,7 @@
           <p>
              Please enter all stats the servant would have, including their CE stats
              and innate stats, and then click "Add Servant" to save them.<br>
-             Hover over the <img src="images/light-alert.png" width="20"></img> for more detail about certain fields, and use the <a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">README</a> if you want further details.
+             Hover over the <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="I tell more detailed information about entry fields!"></img> for more details about certain fields, and use the <a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">README</a> if you want further details.
           </p>
         </div>
 
@@ -138,7 +138,7 @@
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="NPDamagePercent">NP Damage </label>
+                <label class="input-group-text" for="NPDamagePercent">NP Damage</label>
               </div>
               <input type="number" class="form-control" id="NPDamagePercent" value="0" min="0" required>
               <div class="input-group-append">
@@ -153,7 +153,9 @@
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="NPDamageUp">NP Buff</label>
+                <label class="input-group-text" for="NPDamageUp">NP Buff &nbsp;
+                  <img src="images/buffs/npdamageup.png" height="23"></img>
+                </label>
               </div>
               <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" required>
               <div class="input-group-append">
@@ -202,7 +204,8 @@
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="BusterUpPercentage">Buster Up</label>
+                <label class="input-group-text" for="BusterUpPercentage">Buster Up&nbsp;
+                  <img src="images/buffs/busterup.png" height="23"></img></label>
               </div>
               <input type="number" class="form-control" id="BusterUpPercentage" value="0" min="0" required>
               <div class="input-group-append">
@@ -217,7 +220,8 @@
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="ArtsUpPercentage">Arts Up</label>
+                <label class="input-group-text" for="ArtsUpPercentage">Arts Up&nbsp;
+                  <img src="images/buffs/artsup.png" height="23"></img></label>
               </div>
               <input type="number" class="form-control" id="ArtsUpPercentage" value="0" min="0" required>
               <div class="input-group-append">
@@ -232,7 +236,8 @@
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="QuickUpPercentage">Quick Up</label>
+                <label class="input-group-text" for="QuickUpPercentage">Quick Up&nbsp;
+                  <img src="images/buffs/quickup.png" height="23"></img></label>
               </div>
               <input type="number" class="form-control" id="QuickUpPercentage" value="0" min="0"required>
               <div class="input-group-append">
@@ -247,7 +252,8 @@
           <div class="col-md-3 mt-4">
             <div class="input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="AttackUpPercentage">Attack Up</label>
+                <label class="input-group-text" for="AttackUpPercentage">Attack Up&nbsp;
+                  <img src="images/buffs/attackup.png" height="23"></img></label>
               </div>
               <input type="number" class="form-control" id="AttackUpPercentage" value="0" min="0" required>
               <div class="input-group-append">
@@ -276,7 +282,9 @@
         <div class="col-md-4 mt-4">
           <div class="input-group">
             <div class="input-group-prepend">
-              <label class="input-group-text" for="PowerMod">Power Mod &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img></label>
+              <label class="input-group-text" for="PowerMod">Power Mod &nbsp;
+                <img src="images/buffs/specialattackup.png" height="23"></img> &nbsp;
+                <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img></label>
             </div>
             <input type="number" class="form-control" id="PowerMod" value="0" min="0" max="9999" required>
             <div class="input-group-append">
@@ -946,7 +954,8 @@
             <div class="col-md-3">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="NPDamageUpQuest1">NP Buff</label>
+                  <label class="input-group-text" for="NPDamageUpQuest1">NP Buff&nbsp;
+                    <img src="images/buffs/npdamageup.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="NPDamageUpQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -976,7 +985,8 @@
             <div class="col-md-3">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="AttackUpPercentageQuest1">Attack Up</label>
+                  <label class="input-group-text" for="AttackUpPercentageQuest1">Attack Up&nbsp;
+                    <img src="images/buffs/attackup.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="AttackUpPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1002,10 +1012,11 @@
           </div>
 
           <div class="row mt-2">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="BusterUpPercentageQuest1">Buster Up</label>
+                  <label class="input-group-text" for="BusterUpPercentageQuest1">Buster Up&nbsp;
+                    <img src="images/buffs/busterup.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="BusterUpPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1017,10 +1028,11 @@
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="ArtsUpPercentageQuest1">Arts Up</label>
+                  <label class="input-group-text" for="ArtsUpPercentageQuest1">Arts Up&nbsp;
+                    <img src="images/buffs/artsup.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="ArtsUpPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1032,10 +1044,11 @@
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="QuickUpPercentageQuest1">Quick Up</label>
+                  <label class="input-group-text" for="QuickUpPercentageQuest1">Quick Up&nbsp;
+                    <img src="images/buffs/quickup.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="QuickUpPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1047,27 +1060,14 @@
               </div>
             </div>
 
-            <div class="col-md-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="PowerModQuest1">Power Mod</label>
-                </div>
-                <input type="number" class="form-control" id="PowerModQuest1" value="0" min="0" required>
-                <div class="input-group-append">
-                  <label class="input-group-text" for="percent">%</label>
-                </div>
-                <div class="invalid-feedback">
-                  Valid Power Mod required.
-                </div>
-              </div>
-            </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="BusterDebuffPercentageQuest1">Buster Def. Debuff</label>
+                  <label class="input-group-text" for="BusterDebuffPercentageQuest1">Buster Def. Debuff&nbsp;
+                    <img src="images/buffs/busterresistdown.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="BusterDebuffPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1082,7 +1082,8 @@
             <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="ArtsDebuffPercentageQuest1">Arts Def. Debuff</label>
+                  <label class="input-group-text" for="ArtsDebuffPercentageQuest1">Arts Def. Debuff&nbsp;
+                    <img src="images/buffs/artsresistdown.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="ArtsDebuffPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1097,7 +1098,8 @@
             <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="QuickDebuffPercentageQuest1">Quick Def. Debuff</label>
+                  <label class="input-group-text" for="QuickDebuffPercentageQuest1">Quick Def. Debuff&nbsp;
+                    <img src="images/buffs/quickresistdown.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="QuickDebuffPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1114,7 +1116,8 @@
             <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="NPSpecialAttackQuest1">NP Sp. Attack &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                  <label class="input-group-text" for="NPSpecialAttackQuest1">NP Sp. Attack &nbsp;
+                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                 </div>
                 <input type="number" class="form-control" id="NPSpecialAttackQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1129,7 +1132,8 @@
             <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <label class="input-group-text" for="DefenseDebuffPercentageQuest1">Def. Debuff</label>
+                  <label class="input-group-text" for="DefenseDebuffPercentageQuest1">Def. Debuff&nbsp;
+                    <img src="images/buffs/defensedown.png" height="23"></img></label>
                 </div>
                 <input type="number" class="form-control" id="DefenseDebuffPercentageQuest1" value="0" min="0" required>
                 <div class="input-group-append">
@@ -1137,6 +1141,23 @@
                 </div>
                 <div class="invalid-feedback">
                   Valid Defense Debuff value required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="PowerModQuest1">Power Mod&nbsp;
+                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                    <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                </div>
+                <input type="number" class="form-control" id="PowerModQuest1" value="0" min="0" required>
+                <div class="input-group-append">
+                  <label class="input-group-text" for="percent">%</label>
+                </div>
+                <div class="invalid-feedback">
+                  Valid Power Mod required.
                 </div>
               </div>
             </div>
@@ -1214,7 +1235,8 @@
               <div class="col-md-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPDamageUpQuest2">NP Buff</label>
+                    <label class="input-group-text" for="NPDamageUpQuest2">NP Buff&nbsp;
+                      <img src="images/buffs/npdamageup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="NPDamageUpQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1244,7 +1266,8 @@
               <div class="col-md-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="AttackUpPercentageQuest2">Attack Up</label>
+                    <label class="input-group-text" for="AttackUpPercentageQuest2">Attack Up&nbsp;
+                      <img src="images/buffs/attackup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="AttackUpPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1270,10 +1293,11 @@
             </div>
 
             <div class="row mt-2">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="BusterUpPercentageQuest2">Buster Up</label>
+                    <label class="input-group-text" for="BusterUpPercentageQuest2">Buster Up&nbsp;
+                      <img src="images/buffs/busterup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="BusterUpPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1285,10 +1309,11 @@
                 </div>
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="ArtsUpPercentageQuest2">Arts Up</label>
+                    <label class="input-group-text" for="ArtsUpPercentageQuest2">Arts Up&nbsp;
+                      <img src="images/buffs/artsup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="ArtsUpPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1300,10 +1325,11 @@
                 </div>
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="QuickUpPercentageQuest2">Quick Up</label>
+                    <label class="input-group-text" for="QuickUpPercentageQuest2">Quick Up&nbsp;
+                      <img src="images/buffs/quickup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="QuickUpPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1314,28 +1340,14 @@
                   </div>
                 </div>
               </div>
-
-              <div class="col-md-3">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest2">Power Mod</label>
-                  </div>
-                  <input type="number" class="form-control" id="PowerModQuest2" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Power Mod required.
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div class="row mt-2">
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="BusterDebuffPercentageQuest2">Buster Def. Debuff</label>
+                    <label class="input-group-text" for="BusterDebuffPercentageQuest2">Buster Def. Debuff&nbsp;
+                      <img src="images/buffs/busterresistdown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="BusterDebuffPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1350,7 +1362,8 @@
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="ArtsDebuffPercentageQuest2">Arts Def. Debuff</label>
+                    <label class="input-group-text" for="ArtsDebuffPercentageQuest2">Arts Def. Debuff&nbsp;
+                      <img src="images/buffs/artsresistdown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="ArtsDebuffPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1365,7 +1378,8 @@
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="QuickDebuffPercentageQuest2">Quick Def. Debuff</label>
+                    <label class="input-group-text" for="QuickDebuffPercentageQuest2">Quick Def. Debuff&nbsp;
+                      <img src="images/buffs/quickresistdown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="QuickDebuffPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1382,7 +1396,8 @@
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest2">NP Sp. Attack &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                    <label class="input-group-text" for="NPSpecialAttackQuest2">NP Sp. Attack &nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
                   <input type="number" class="form-control" id="NPSpecialAttackQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1397,7 +1412,8 @@
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="DefenseDebuffPercentageQuest2">Def. Debuff</label>
+                    <label class="input-group-text" for="DefenseDebuffPercentageQuest2">Def. Debuff&nbsp;
+                      <img src="images/buffs/defensedown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="DefenseDebuffPercentageQuest2" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1405,6 +1421,23 @@
                   </div>
                   <div class="invalid-feedback">
                     Valid Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="PowerModQuest2">Power Mod&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img>&nbsp;
+                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="PowerModQuest2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Power Mod required.
                   </div>
                 </div>
               </div>
@@ -1422,7 +1455,6 @@
               <button type="submit" id="submitBattleForm2" class="btn btn-outline-success btn-md btn-block">Calculate NP Damage</button>
             </div>
           </div>
-
         </div>
 
         <div class="carousel-item">
@@ -1483,7 +1515,8 @@
               <div class="col-md-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPDamageUpQuest3">NP Buff</label>
+                    <label class="input-group-text" for="NPDamageUpQuest3">NP Buff&nbsp;
+                      <img src="images/buffs/npdamageup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="NPDamageUpQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1513,7 +1546,8 @@
               <div class="col-md-3">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="AttackUpPercentageQuest3">Attack Up</label>
+                    <label class="input-group-text" for="AttackUpPercentageQuest3">Attack Up&nbsp;
+                      <img src="images/buffs/attackup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="AttackUpPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1539,10 +1573,11 @@
             </div>
 
             <div class="row mt-2">
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="BusterUpPercentageQuest3">Buster Up</label>
+                    <label class="input-group-text" for="BusterUpPercentageQuest3">Buster Up&nbsp;
+                      <img src="images/buffs/busterup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="BusterUpPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1554,10 +1589,11 @@
                 </div>
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="ArtsUpPercentageQuest3">Arts Up</label>
+                    <label class="input-group-text" for="ArtsUpPercentageQuest3">Arts Up&nbsp;
+                      <img src="images/buffs/artsup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="ArtsUpPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1569,10 +1605,11 @@
                 </div>
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="QuickUpPercentageQuest3">Quick Up</label>
+                    <label class="input-group-text" for="QuickUpPercentageQuest3">Quick Up&nbsp;
+                      <img src="images/buffs/quicup.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="QuickUpPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1584,27 +1621,14 @@
                 </div>
               </div>
 
-              <div class="col-md-3">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest3">Power Mod</label>
-                  </div>
-                  <input type="number" class="form-control" id="PowerModQuest3" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Power Mod required.
-                  </div>
-                </div>
-              </div>
             </div>
 
             <div class="row mt-2">
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="BusterDebuffPercentageQuest3">Buster Def. Debuff</label>
+                    <label class="input-group-text" for="BusterDebuffPercentageQuest3">Buster Def. Debuff&nbsp;
+                      <img src="images/buffs/busterresistdown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="BusterDebuffPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1619,7 +1643,8 @@
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="ArtsDebuffPercentageQuest3">Arts Def. Debuff</label>
+                    <label class="input-group-text" for="ArtsDebuffPercentageQuest3">Arts Def. Debuff&nbsp;
+                      <img src="images/buffs/artsresistdown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="ArtsDebuffPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1634,7 +1659,8 @@
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="QuickDebuffPercentageQuest3">Quick Def. Debuff</label>
+                    <label class="input-group-text" for="QuickDebuffPercentageQuest3">Quick Def. Debuff&nbsp;
+                      <img src="images/buffs/quickresistdown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="QuickDebuffPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1666,7 +1692,8 @@
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <label class="input-group-text" for="DefenseDebuffPercentageQuest3">Def. Debuff</label>
+                    <label class="input-group-text" for="DefenseDebuffPercentageQuest3">Def. Debuff&nbsp;
+                      <img src="images/buffs/defensedown.png" height="23"></img></label>
                   </div>
                   <input type="number" class="form-control" id="DefenseDebuffPercentageQuest3" value="0" min="0" required>
                   <div class="input-group-append">
@@ -1674,6 +1701,23 @@
                   </div>
                   <div class="invalid-feedback">
                     Valid Defense Debuff value required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="PowerModQuest3">Power Mod&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="PowerModQuest3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Power Mod required.
                   </div>
                 </div>
               </div>

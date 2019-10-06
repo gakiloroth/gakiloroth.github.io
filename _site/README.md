@@ -2,7 +2,7 @@
 
 This is a small personal project I'm working on to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/).
 
-If there are any bugs PLEASE leave an issue and I will try to fix it when time permits.
+If there are any bugs PLEASE leave an issue [here](https://github.com/gakiloroth/gakiloroth.github.io/issues) and I will try to fix it when time permits.
 
 # How to Use
 ## Servants Manager Tab
