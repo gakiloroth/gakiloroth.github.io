@@ -1155,10 +1155,10 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
   else if(savedServants[servant].nptype.localeCompare("Quick") == 0){
     cardNpValue = 1;
     cardMod = savedServants[servant].quickup/100;
-    alert(savedServants[servant].quickup);
+    //alert(savedServants[servant].quickup);
   }
   cardMod = (Number(cardMod) + Number(cardBuff));
-  alert(cardMod);
+  //alert(cardMod);
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
