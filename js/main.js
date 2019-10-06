@@ -1077,6 +1077,18 @@ function calculateDamage(waveNumber){
   console.log("multiplier class 1: " + classAdvantage1);
   console.log("multiplier attr 1: " + attrAdvantage1);
 
+  // don't double add servant saved buffs
+  if(currServant.nptype.localeCompare("Buster") == 0){
+    cardBuffs = busterUp - parseFloat(currServant.busterup)/100;
+  }
+  else if(currServant.nptype.localeCompare("Arts") == 0){
+    cardBuffs = artsUp - parseFloat(currServant.artsup)/100;
+  }
+  else if(currServant.nptype.localeCompare("Quick") == 0){
+    cardBuffs = quickUp - parseFloat(currServant.quickup)/100;
+  }
+  //alert(cardBuffs + " " + parseFloat($('#QuickUpPercentageQuest' + waveNumber).val())/100);
+
   var damageDealt1 = atk * np * npCardType * classAdvantage1 * servantClassMultiplier * 0.23 *
               (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
               (1 + npSpBuffs) * attrAdvantage1 + flatAttack;
@@ -1122,26 +1134,29 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
   var firstCardBonus = 0; // 0 because NP card
   var cardNpValue = 0; // buster quick arts card modifier
   var cardMod = 0; // % buster,quick,arts up etc
-  var npChargeRateMod = savedServants[servant].npgainup + npGainUp || 0; // changes to np charge rate
+  var npChargeRateMod = savedServants[servant].npgainup/100 + npGainUp || 0; // changes to np charge rate
   var npChargeOff = savedServants[servant].npgain; // np gain offensive
   var critMod = 1; // no NP Crit
   var overkillModifier = 1;
-
   var npRefund = 0;
   var npHits = savedServants[servant].nphits // how many hits this np has
+
+  console.log("cardBuff: " + cardBuff + " servant np gain up: " + savedServants[servant].npgainup + " servantbasenpgain: " + savedServants[servant].npgain +
+    " servant busterup: " + savedServants[servant].busterup + " servant arts up: " + savedServants[servant].artsup +
+    " servant quickup: " + savedServants[servant].quickup);
 
   // set np card type and card buffs
   if(savedServants[servant].nptype.localeCompare("Buster") == 0){
     cardNpValue = 0;
-    cardMod = savedServants[servant].busterup;
+    cardMod = savedServants[servant].busterup/100;
   }
   else if(savedServants[servant].nptype.localeCompare("Arts") == 0){
     cardNpValue = 3;
-    cardMod = savedServants[servant].artsup;
+    cardMod = savedServants[servant].artsup/100;
   }
   else if(savedServants[servant].nptype.localeCompare("Quick") == 0){
     cardNpValue = 1;
-    cardMod = savedServants[servant].quickup;
+    cardMod = savedServants[servant].quickup/100;
   }
   cardMod = (Number(cardMod) + Number(cardBuff));
 

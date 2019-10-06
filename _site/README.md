@@ -24,3 +24,4 @@ Then, you can choose one servant and one quest, and test NP damage and NP refund
 
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.)
+- Different NP gain multipliers for certain enemy classes
