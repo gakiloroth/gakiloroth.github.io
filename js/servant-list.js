@@ -1,7 +1,3 @@
-/*
-  Built off of servant stats from https://github.com/maketakunai/'s data sheet
-*/
-
 const servantList = [{"id":1,"name":"Mash Kyrielight","class":"Shielder","attack":"1455, 8730, 10575","npmultiplier":"","overcharge":"","deck":"QAABB(A)","npupgrade":1,"attribute":"Earth","npchargeatk":0.84,"nphitcount":0},
 {"id":2,"name":"Altria Pendragon","class":"Saber","attack":"1734, 11221, 12283","npmultiplier":"400, 500, 550, 575, 600","overcharge":"","deck":"QAABB(B)","npupgrade":1,"attribute":"Earth","npchargeatk":0.86,"nphitcount":1},
 {"id":3,"name":"Altria Pendragon [Alter]","class":"Saber","attack":"1708, 10248, 12408","npmultiplier":"450, 550, 600, 625, 650","overcharge":"","deck":"QAABB(B)","npupgrade":0,"attribute":"Man","npchargeatk":0.86,"nphitcount":3},
