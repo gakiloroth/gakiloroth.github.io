@@ -14,7 +14,7 @@ Enter all the HP values, classes, and attributes of all the enemies you want in 
 ## Battle Simulator Tab
 Once you have servants selected (in your party) and a quest selected, you can then test NP damage and NP refund in the battle simulator tab. Select one of the servants from your party from the bottom of the screen, apply further buffs you might use on that wave, and then click "Calculate NP Damage" to see NP damage and NP refund.
 
-Remember Passive Skill effects and effects that "activate first" before NP!
+Remember Passive Skill effects and effects that "activate first" before NP(or things like Arash OC NP Damage)!
 
 Click the "Prev" and "Next" buttons to test on other waves.
 
