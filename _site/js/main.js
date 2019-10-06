@@ -278,8 +278,10 @@ document.getElementById('submitBattleForm1').onclick = function(){
     $('#questEnemy3HPLeft').empty().html('HP Left: ' + (questEnemyHP[6] - result[6]) + ' / '
       + (questEnemyHP[7] - result[7]) + ' / ' + (questEnemyHP[8] - result[8]));
 
-    // calculate np refund
-    let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], result[0], result[3], result[6], result[9], result[10]);
+    // calculate np refund - pass in hp, damage dealt, cardBuff, npGainUp
+    let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], result[0],
+      result[3], result[6], result[9], result[10]);
+
     $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
     $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
     questRefunds[0] = refunded.toFixed(2);
@@ -1098,6 +1100,17 @@ function calculateDamage(waveNumber){
   }
   else if(currServant.nptype.localeCompare("Quick") == 0){
     cardBuffs = quickUp - parseFloat(currServant.quickup)/100;
+  }
+
+  // add card resist down to cardbuffs for np refund calculations
+  if(currServant.nptype.localeCompare("Buster") == 0){
+    cardBuffs += busterDefenseDebuffs;
+  }
+  else if(currServant.nptype.localeCompare("Arts") == 0){
+    cardBuffs += artsDefenseDebuffs;
+  }
+  else if(currServant.nptype.localeCompare("Quick") == 0){
+    cardBuffs += quickDefenseDebuffs;
   }
 
   // return average low and high damage dealt
