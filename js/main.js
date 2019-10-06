@@ -1162,14 +1162,9 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
-    console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
-    console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
-      " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod: " + enemyServerMod +
-      " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod);
     damage = damage1 * NPHitDist[npHits - 1][i];
-    hp1 -= damage;
-    console.log("damage1: " + damage);
 
+    // check overkill
     if(!ignoreEnemy1){
       if(hp1 - damage < 0){
         overkillModifier = 1.5;
@@ -1177,14 +1172,26 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
       else{
         overkillModifier = 1;
       }
+
+      console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
+      console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
+        " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod: " + enemyServerMod +
+        " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
+      console.log("damage1: " + damage);
+
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
         enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+
     }
+
+    // update hp
+    hp1 -= damage;
+
     console.log(npRefund);
 
     damage = damage2 * NPHitDist[npHits - 1][i];
-    hp2 -= damage;
 
+    // check overkill
     if(!ignoreEnemy2){
       if(hp2 - damage < 0){
         overkillModifier = 1.5;
@@ -1195,12 +1202,15 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
         enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
+
+    // update hp
+    hp2 -= damage;
+
     console.log(npRefund);
 
     damage = damage3 * NPHitDist[npHits - 1][i];
-    hp3 -= damage;
 
-    if(!ignoreEnemy2){
+    if(!ignoreEnemy3){
       if(hp3 - damage < 0){
         overkillModifier = 1.5;
       }
@@ -1210,6 +1220,9 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) ))) *
         enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
+
+    // update hp
+    hp3 -= damage;
 
     console.log(npRefund);
   }
