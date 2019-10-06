@@ -1077,16 +1077,6 @@ function calculateDamage(waveNumber){
   console.log("multiplier class 1: " + classAdvantage1);
   console.log("multiplier attr 1: " + attrAdvantage1);
 
-  // don't double add servant saved buffs
-  if(currServant.nptype.localeCompare("Buster") == 0){
-    cardBuffs = busterUp - parseFloat(currServant.busterup)/100;
-  }
-  else if(currServant.nptype.localeCompare("Arts") == 0){
-    cardBuffs = artsUp - parseFloat(currServant.artsup)/100;
-  }
-  else if(currServant.nptype.localeCompare("Quick") == 0){
-    cardBuffs = quickUp - parseFloat(currServant.quickup)/100;
-  }
   //alert(cardBuffs + " " + parseFloat($('#QuickUpPercentageQuest' + waveNumber).val())/100);
 
   var damageDealt1 = atk * np * npCardType * classAdvantage1 * servantClassMultiplier * 0.23 *
@@ -1099,8 +1089,16 @@ function calculateDamage(waveNumber){
               (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
               (1 + npSpBuffs) *  attrAdvantage3 + flatAttack;
 
-  //alert(atk + " " +  np + " " + npCardType + " " +  classAdvantage1 + " " + servantClassMultiplier +
-  //   + attackUp + " " + cardBuffs + " " + npBuffs + " " + flatAttack + " result: " + damageDealt1);
+  // don't double add servant saved buffs for np gain
+  if(currServant.nptype.localeCompare("Buster") == 0){
+    cardBuffs = busterUp - parseFloat(currServant.busterup)/100;
+  }
+  else if(currServant.nptype.localeCompare("Arts") == 0){
+    cardBuffs = artsUp - parseFloat(currServant.artsup)/100;
+  }
+  else if(currServant.nptype.localeCompare("Quick") == 0){
+    cardBuffs = quickUp - parseFloat(currServant.quickup)/100;
+  }
 
   // return average low and high damage dealt
   return [Math.round(0.9 * damageDealt1), Math.round(damageDealt1), Math.round(1.1 * damageDealt1),
@@ -1157,8 +1155,10 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
   else if(savedServants[servant].nptype.localeCompare("Quick") == 0){
     cardNpValue = 1;
     cardMod = savedServants[servant].quickup/100;
+    alert(savedServants[servant].quickup);
   }
   cardMod = (Number(cardMod) + Number(cardBuff));
+  alert(cardMod);
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
@@ -1171,7 +1171,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
     console.log("damage1: " + damage);
 
     if(!ignoreEnemy1){
-      if(hp1 - damage <= 0){
+      if(hp1 - damage < 0){
         overkillModifier = 1.5;
       }
       else{
@@ -1186,7 +1186,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
     hp2 -= damage;
 
     if(!ignoreEnemy2){
-      if(hp2 - damage <= 0){
+      if(hp2 - damage < 0){
         overkillModifier = 1.5;
       }
       else{
@@ -1201,7 +1201,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
     hp3 -= damage;
 
     if(!ignoreEnemy2){
-      if(hp3 - damage <= 0){
+      if(hp3 - damage < 0){
         overkillModifier = 1.5;
       }
       else{
