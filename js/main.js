@@ -8,7 +8,7 @@ var party = JSON.parse(localStorage.getItem("party") || "[]");
 var servant = JSON.parse(localStorage.getItem("servant") || "[]");
 var quest = JSON.parse(localStorage.getItem("quest") || "[]");
 var questEnemyHP = [];
-var questRefunds = []
+var questRefunds = [];
 var startup = true;
 
 // actions to do when the page is loaded
@@ -162,6 +162,62 @@ $('#inputServant').on('change', function(){
   }
 });
 
+// automatically input default enemy np gain mod based on class
+$('#enemy1Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy1Class').val());
+  console.log("enemy1class: " + enemyclass);
+  $('#enemy1NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy2Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy2Class').val());
+  console.log("enemy2class: " + enemyclass);
+  $('#enemy2NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy3Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy3Class').val());
+  console.log("enemy3class: " + enemyclass);
+  $('#enemy3NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy4Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy4Class').val());
+  console.log("enemy4class: " + enemyclass);
+  $('#enemy4NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy5Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy5Class').val());
+  console.log("enemy5class: " + enemyclass);
+  $('#enemy5NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy6Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy6Class').val());
+  console.log("enemy6class: " + enemyclass);
+  $('#enemy6NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy7Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy7Class').val());
+  console.log("enemy7class: " + enemyclass);
+  $('#enemy7NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy8Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy8Class').val());
+  console.log("enemy8class: " + enemyclass);
+  $('#enemy8NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+$('#enemy9Class').on('change', function(){
+  let enemyclass = getClassValue($('#enemy9Class').val());
+  console.log("enemy9class: " + enemyclass);
+  $('#enemy9NPGainMod').val(EnemyServerMod[enemyclass]);
+});
+
+
 // reset servant form
 document.getElementById('resetServantForm').onclick = function(){
   resetServant();
@@ -278,9 +334,9 @@ document.getElementById('submitBattleForm1').onclick = function(){
     $('#questEnemy3HPLeft').empty().html('HP Left: ' + (questEnemyHP[6] - result[6]) + ' / '
       + (questEnemyHP[7] - result[7]) + ' / ' + (questEnemyHP[8] - result[8]));
 
-    // calculate np refund - pass in hp, damage dealt, cardBuff, npGainUp
-    let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], result[0],
-      result[3], result[6], result[9], result[10]);
+    // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
+    let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], curr.enemy1npgainmod, curr.enemy2npgainmod, curr.enemy3npgainmod,
+     result[0], result[3], result[6], result[9], result[10]);
 
     $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
     $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
@@ -338,8 +394,10 @@ document.getElementById('submitBattleForm2').onclick = function(){
     $('#questEnemy6HPLeft').empty().html('HP Left: ' + (questEnemyHP[15] - result[6]) + ' / '
       + (questEnemyHP[16] - result[7]) + ' / ' + (questEnemyHP[17] - result[8]));
 
-    // calculate np refund
-    let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], result[0], result[3], result[6], result[9], result[10]);
+    // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
+    let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
+      result[0], result[3], result[6], result[9], result[10]);
+
     if(typeof questRefunds[0] === "undefined"){
       $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
     }
@@ -401,8 +459,10 @@ document.getElementById('submitBattleForm3').onclick = function(){
     $('#questEnemy9HPLeft').empty().html('HP Left: ' + (questEnemyHP[24] - result[6]) + ' / '
       + (questEnemyHP[25] - result[7]) + ' / ' + (questEnemyHP[26] - result[8]));
 
-    // calculate np refund
-    let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], result[0], result[3], result[6], result[9], result[10]);
+    // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
+    let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
+      result[0], result[3], result[6], result[9], result[10]);
+
     if(typeof questRefunds[1] === "undefined"){
       $('#npRefundDisplay3').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
     }
@@ -886,15 +946,16 @@ function saveQuest(){
   }
 
   savedQuests.unshift({"name": $('#QuestName').val(),
-    "enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),
-    "enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),
-    "enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),
-    "enemy4hp": $('#enemy4HP').val(),"enemy4class": $('#enemy4Class').val(),"enemy4attribute": $('#enemy4Attribute').val(),
-    "enemy5hp": $('#enemy5HP').val(),"enemy5class": $('#enemy5Class').val(),"enemy5attribute": $('#enemy5Attribute').val(),
-    "enemy6hp": $('#enemy6HP').val(),"enemy6class": $('#enemy6Class').val(),"enemy6attribute": $('#enemy6Attribute').val(),
-    "enemy7hp": $('#enemy7HP').val(),"enemy7class": $('#enemy7Class').val(),"enemy7attribute": $('#enemy7Attribute').val(),
-    "enemy8hp": $('#enemy8HP').val(),"enemy8class": $('#enemy8Class').val(),"enemy8attribute": $('#enemy8Attribute').val(),
-    "enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val()});
+    "enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),"enemy1npgainmod": $('#enemy1NPGainMod').val(),
+    "enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),"enemy2npgainmod": $('#enemy2NPGainMod').val(),
+    "enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),"enemy3npgainmod": $('#enemy3NPGainMod').val(),
+    "enemy4hp": $('#enemy4HP').val(),"enemy4class": $('#enemy4Class').val(),"enemy4attribute": $('#enemy4Attribute').val(),"enemy4npgainmod": $('#enemy4NPGainMod').val(),
+    "enemy5hp": $('#enemy5HP').val(),"enemy5class": $('#enemy5Class').val(),"enemy5attribute": $('#enemy5Attribute').val(),"enemy5npgainmod": $('#enemy5NPGainMod').val(),
+    "enemy6hp": $('#enemy6HP').val(),"enemy6class": $('#enemy6Class').val(),"enemy6attribute": $('#enemy6Attribute').val(),"enemy6npgainmod": $('#enemy6NPGainMod').val(),
+    "enemy7hp": $('#enemy7HP').val(),"enemy7class": $('#enemy7Class').val(),"enemy7attribute": $('#enemy7Attribute').val(),"enemy7npgainmod": $('#enemy7NPGainMod').val(),
+    "enemy8hp": $('#enemy8HP').val(),"enemy8class": $('#enemy8Class').val(),"enemy8attribute": $('#enemy8Attribute').val(),"enemy8npgainmod": $('#enemy8NPGainMod').val(),
+    "enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val(),"enemy9npgainmod": $('#enemy9NPGainMod').val()
+  });
   localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
   return true;
 }
@@ -1122,7 +1183,7 @@ function calculateDamage(waveNumber){
 
 // np refund calcluation
 // rider +10%, caster +20%, assassin -10%, berserker -20%
-function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, npGainUp){
+function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp){
   // if enemies start at 0 health, ignore them for np regen calculations
   var ignoreEnemy1 = false;
   var ignoreEnemy2 = false;
@@ -1141,7 +1202,9 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
     console.log("ignore enemy 3");
   }
 
-  var enemyServerMod = 1;
+  var enemyServerMod1 = enemyMod1; // changes based on enemy class and type
+  var enemyServerMod2 = enemyMod2; // changes based on enemy class and type
+  var enemyServerMod3 = enemyMod3; // changes based on enemy class and type
   var firstCardBonus = 0; // 0 because NP card
   var cardNpValue = 0; // buster quick arts card modifier
   var cardMod = 0; // % buster,quick,arts up etc
@@ -1188,12 +1251,12 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
 
       console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
       console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
-        " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod: " + enemyServerMod +
+        " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod1: " + enemyServerMod1 +
         " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
       console.log("damage1: " + damage);
 
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
-        enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
 
     }
 
@@ -1213,7 +1276,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
         overkillModifier = 1;
       }
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
-        enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
 
     // update hp
@@ -1231,7 +1294,7 @@ function calculateNPRefund(hp1, hp2, hp3, damage1, damage2, damage3, cardBuff, n
         overkillModifier = 1;
       }
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) ))) *
-        enemyServerMod * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+        enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
 
     // update hp
