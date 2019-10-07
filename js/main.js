@@ -25,6 +25,8 @@ $(document).ready(function() {
 
   console.log("servant: " + servant);
 
+  //alert(JSON.stringify(party));
+
   initializeBattleSim();
   initializeBattleParty();
   updateSavedServantsDisplay();
@@ -232,21 +234,40 @@ $('#enemy9Class').on('change', function(){
 document.getElementById('resetServantForm').onclick = function(){
   resetServant();
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
+
+  // reset form validation display
+  var forms = document.getElementsByClassName('needs-validation-servant');
+  Array.prototype.filter.call(forms, function(form) {
+    form.classList.remove('was-validated');
+  });
 };
 
 // reset quest form
 document.getElementById('resetQuestForm').onclick = function(){
   resetQuest();
+
+  // reset form validation display
+  var forms = document.getElementsByClassName('needs-validation-quest');
+  Array.prototype.filter.call(forms, function(form) {
+    form.classList.remove('was-validated');
+  });
 };
 
-// reset form
+// delete all party members
 document.getElementById('deleteAllPartyMembers').onclick = function(){
   if(debug){
     alert("deleteAllPartyMembers");
   }
   party = [];
   localStorage.setItem("party", JSON.stringify(party));
-  location.reload();
+
+  updateSavedServantsDisplay();
+  updateServantToggles();
+  initializeBattleSim();
+  initializeBattleParty();
+  updateQuestPartyToggles();
+
+  //location.reload();
 };
 
 // delete all saved servants
@@ -254,13 +275,24 @@ document.getElementById('deleteAllServants').onclick = function(){
   if(debug){
     alert("deleteAllServants");
   }
+  event.preventDefault();
+  event.stopPropagation();
+
   if(savedServants.length == 0){
    return;
   }
   if(confirm('Do you want to delete ALL saved servants?')){
     party = [];
     localStorage.setItem("party", JSON.stringify(party));
+
     deleteAllServants();
+
+    updateSavedServantsDisplay();
+    initializeBattleSim();
+    initializeBattleParty();
+    updateQuestPartyToggles();
+
+    //reload is necessary to show battle sim as needing servants
     location.reload();
   }
 };
@@ -296,8 +328,16 @@ document.getElementById('addServant').onclick = function(){
   if(valid && saveServant()){
     $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
     updateSavedServantsDisplay();
+    updateServantToggles();
     resetServant();
-    location.reload();
+
+    // reset form validation display
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
+
+    // testing updating without needing reload
+    //location.reload();
   }
 };
 
@@ -324,12 +364,23 @@ document.getElementById('addQuest').onclick = function(){
     }
     localStorage.setItem("quest", JSON.stringify(quest));
     updateSavedQuestsDisplay();
-    location.reload();
+    updateQuestToggles();
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
+
+    // testing updates without reload
+    //location.reload();
   }
 };
 
 // calculate NP Damage for Wave 1
 document.getElementById('submitBattleForm1').onclick = function(){
+  // if no servant selected
+  if(typeof savedServants[servant] === "undefined"){
+    return;
+  }
+
   let valid = true;
   'use strict';
   var forms = document.getElementsByClassName('needs-validation-battle1');
@@ -375,6 +426,11 @@ document.getElementById('submitBattleForm1').onclick = function(){
     questEnemyHP[6] -= result[6];
     questEnemyHP[7] -= result[7];
     questEnemyHP[8] -= result[8];
+
+    // reset form validation display
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
   }
 };
 
@@ -386,10 +442,21 @@ document.getElementById('resetHP1').onclick = function(){
 // reset battle sim form wave 1
 document.getElementById('resetBattleForm1').onclick = function(){
   resetBattleForm(1);
+
+  // reset form validation display
+  var forms = document.getElementsByClassName('needs-validation-battle1');
+  Array.prototype.filter.call(forms, function(form) {
+    form.classList.remove('was-validated');
+  });
 }
 
 // calculate NP Damage for Wave 2
 document.getElementById('submitBattleForm2').onclick = function(){
+  // if no servant selected
+  if(typeof savedServants[servant] === "undefined"){
+    return;
+  }
+
   let valid = true;
   'use strict';
   var forms = document.getElementsByClassName('needs-validation-battle2');
@@ -440,21 +507,38 @@ document.getElementById('submitBattleForm2').onclick = function(){
     questEnemyHP[15] -= result[6];
     questEnemyHP[16] -= result[7];
     questEnemyHP[17] -= result[8];
+
+    // reset form validation display
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
   }
 };
 
 // reset battle sim wave 2
 document.getElementById('resetHP2').onclick = function(){
   resetBattleSim(2);
+
 }
 
 // reset battle sim form wave 2
 document.getElementById('resetBattleForm2').onclick = function(){
   resetBattleForm(2);
+
+  // reset form validation display
+  var forms = document.getElementsByClassName('needs-validation-battle2');
+  Array.prototype.filter.call(forms, function(form) {
+    form.classList.remove('was-validated');
+  });
 }
 
 // calculate NP Damage for Wave 3
 document.getElementById('submitBattleForm3').onclick = function(){
+  // if no servant selected
+  if(typeof savedServants[servant] === "undefined"){
+    return;
+  }
+
   let valid = true;
   'use strict';
   var forms = document.getElementsByClassName('needs-validation-battle3');
@@ -504,6 +588,11 @@ document.getElementById('submitBattleForm3').onclick = function(){
     questEnemyHP[24] -= result[6];
     questEnemyHP[25] -= result[7];
     questEnemyHP[26] -= result[8];
+
+    // reset form validation display
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
   }
 };
 
@@ -515,6 +604,12 @@ document.getElementById('resetHP3').onclick = function(){
 // reset battle sim form wave 3
 document.getElementById('resetBattleForm3').onclick = function(){
   resetBattleForm(3);
+
+  // reset form validation display
+  var forms = document.getElementsByClassName('needs-validation-battle3');
+  Array.prototype.filter.call(forms, function(form) {
+    form.classList.remove('was-validated');
+  });
 }
 
 // update saved servant display
@@ -562,12 +657,17 @@ function updateSavedServantsDisplay(){
         alert("deleteservant" +  i);
       }
       if(party.length !== 0){
-        alert("Please have no servants in party when deleting.");
+        alert("Please have no servants in party when deleting!");
         return;
       }
       savedServants.splice(i,1);
       localStorage.setItem("savedServants", JSON.stringify(savedServants));
-      location.reload();
+
+      updateSavedServantsDisplay();
+      updateServantToggles();
+
+      // test update without reload
+      //location.reload();
     });
 
     // link up servant select button
@@ -576,6 +676,8 @@ function updateSavedServantsDisplay(){
         alert("useservant"+ i);
       }
       //alert("using servant in party");
+
+      // remove servant from party
       if(party.includes(i)){
         servant = "";
         servantNPType = "";
@@ -588,20 +690,35 @@ function updateSavedServantsDisplay(){
         // save changes
         localStorage.setItem("servant", JSON.stringify(servant));
         localStorage.setItem("party", JSON.stringify(party));
-        location.reload();
+
+        // test update without reload
+        initializeBattleSim();
+        initializeBattleParty();
+        updateQuestPartyToggles();
+
+        //location.reload();
       }
+      // add servant to party
       else{
         if(party.length == 4){
-          if(!alert("You can only have 4 servants in a party.")){
-            location.reload();
-          }
+          alert("You can only have 4 servants in a party.");
+
+          //location.reload();
+
+          document.getElementById("useServant" + i).setAttribute('aria-pressed', false);
           return;
         }
 
         party.unshift(i);
         localStorage.setItem("party", JSON.stringify(party));
         //alert(JSON.stringify(party));
-        location.reload();
+
+        // test update without reload
+        initializeBattleSim();
+        initializeBattleParty();
+        updateQuestPartyToggles();
+
+        //location.reload();
       }
     });
   }
@@ -643,33 +760,44 @@ function updateSavedQuestsDisplay(){
     // link up delete button
     document.getElementById("deleteQuest" + i).addEventListener("click", function(){
       if(debug){
-        alert("deletequest" + i);
+        alert("deletequest " + i);
       }
-      if(quest !== ""){
+      if(quest !== "" && quest.length !== 0){
         alert("Please have no quest selected when deleting!");
+        if(debug){
+          alert(JSON.stringify(quest));
+        }
         return;
       }
       savedQuests.splice(i,1);
       localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
-      //updateSavedQuestsDisplay();
-      location.reload();
+
+      updateSavedQuestsDisplay();
+
+      //location.reload();
     });
     // link up use button
     document.getElementById("useQuest" + i).addEventListener("click", function(){
       if(debug){
-        alert("usequest" + i);
+        alert("usequest " + i);
       }
       if(quest === i){
         //alert("deselect quest");
         quest = "";
         updateQuestToggles();
         localStorage.setItem("quest", JSON.stringify(quest));
+
+        // reload needed to update battle sim
         location.reload();
       }
       else{
-        //alert("select quest");
+        if(debug){
+          alert("select quest ");
+        }
         quest = i;
         localStorage.setItem("quest", JSON.stringify(quest));
+
+        // reload needed to update battle sim
         location.reload();
       }
     });
@@ -681,18 +809,21 @@ function updateSavedQuestsDisplay(){
 // make sure party buttons are toggled correctly
 function updateServantToggles(){
   for(let i = 0; i < party.length; i++){
-    $('#useServant' + party[i]).click();
+    $('#useServant' + party[i]).addClass('active');
+    $('#useServant' + party[i]).attr('aria-pressed', true);
   }
 }
 
 // make sure quest buttons are toggled correctly
 function updateQuestToggles(){
-  $('#useQuest' + quest).click();
+  $('#useQuest' + quest).addClass('active');
+  $('#useQuest' + quest).attr('aria-pressed', true);
 }
 
 // make sure quest party toggles are toggled
 function updateQuestPartyToggles(){
-  $('#battlePartySelect' + party.indexOf(servant)).click();
+  $('#battlePartySelect' + party.indexOf(servant)).addClass('active');
+  $('#battlePartySelect' + party.indexOf(servant)).attr('aria-pressed', true);
 }
 
 // initialize battle sim
@@ -789,19 +920,20 @@ function initializeBattleSim(){
   }
 
   let currServant = savedServants[servant];
-  if(servant != ""){
-    $('#servantNameDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
+  // if there is a servant selected
+  if(!(typeof currServant === "undefined")){
+    $('#servantBattleDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
   }
-
 }
 
-
-// intialzie the battle party
+// initialize the battle party
 function initializeBattleParty(){
+  $('#battlePartyDisplay').empty();
+
   for(let i = 0; i < party.length; i++){
     let curr = savedServants[party[i]];
 
-    $('#questPartyDisplay').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
+    $('#battlePartyDisplay').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
      curr.craftessence +
      '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
      ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
@@ -817,13 +949,18 @@ function initializeBattleParty(){
         // deselect
         servant = "";
         localStorage.setItem("servant", JSON.stringify(servant));
-        location.reload();
+
+        $('#servantBattleDisplay').empty().html('<b>Current Servant: </b>');
       }
       else{
         // add and shift party
         servant = party[i];
         localStorage.setItem("servant", JSON.stringify(servant));
-        location.reload();
+        initializeBattleParty();
+        updateQuestPartyToggles();
+
+        let currServant = savedServants[party[i]];
+        $('#servantBattleDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
       }
     });
   }
@@ -1005,7 +1142,6 @@ function deleteAllServants(){
   savedServants = [];
   localStorage.setItem("servant", JSON.stringify(servant));
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
-  updateSavedServantsDisplay();
 }
 
 // delete quests and save
