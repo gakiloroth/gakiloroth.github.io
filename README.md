@@ -11,6 +11,8 @@ Enter all the information a servant would have, including their passives, and th
 ## Quests Manager Tab
 Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. 
 
+**Tip**: If you're not sure what an enemy's attribute might be, make your attacking servant and the enemy's attribute the same, which will set the attribute damage modifier to 1.
+
 The "NP Gain Mod" entries are **usually** the default that gets put in when you choose classes. However, there are "special" enemies that have different NP Gain Mods. If you know that the enemy you are testing is "special" and you know their specific NP Gain Mod, you can change it here to whatever you need. Otherwise, just leave it as is.
 
 ## Battle Simulator Tab
