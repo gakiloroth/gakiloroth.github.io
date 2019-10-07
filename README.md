@@ -4,6 +4,9 @@ This is a small personal project I'm working on to learn how to do some basic we
 
 If there are any bugs PLEASE leave an issue [here](https://github.com/gakiloroth/gakiloroth.github.io/issues) and I will try to fix it when time permits.
 
+# Important
+Updates may change some how of the backend are done, and if calculations don't work or some things are broken, please try testing in an incognito window(will have no cached data). If it works there, you may have to empty your cache or manually empty your party, delete all servants, and delete all quests.
+
 # How to Use
 ## Servants Manager Tab
 Enter all the information a servant would have, including their passives, and the buffs from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 4, to test in the battle simulator.
