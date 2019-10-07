@@ -28,3 +28,5 @@ Then, you can choose one servant and one quest, and test NP damage and NP refund
 
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.)
+- Edit servants and quests
+- Keep track of total NP Animation Time (in seconds)
