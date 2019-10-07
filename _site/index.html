@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator Beta v0.3</title>
+    <title>FGO 3T Simulator Beta v0.4</title>
   </head>
 
   <!--- car is a baka -->
@@ -35,7 +35,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator Beta v0.3
+        <h1 class="title">FGO 3T Simulator Beta v0.4
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -140,7 +140,7 @@
               <div class="input-group-prepend">
                 <label class="input-group-text" for="NPDamagePercent">NP Damage</label>
               </div>
-              <input type="number" class="form-control" id="NPDamagePercent" value="0" min="0" required>
+              <input type="number" class="form-control" id="NPDamagePercent" value="0" min="0" max="999999" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -157,7 +157,7 @@
                   <img src="images/buffs/npdamageup.png" height="23"></img>
                 </label>
               </div>
-              <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" required>
+              <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" max="9999" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -189,7 +189,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="NPGainUpPercentage">NP Gain Up</label>
                 </div>
-                <input type="number" class="form-control" id="NpGainUpPercentage" value="0" min="0" required>
+                <input type="number" class="form-control" id="NpGainUpPercentage" value="0" min="0" max="9999" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -207,7 +207,7 @@
                 <label class="input-group-text" for="BusterUpPercentage">Buster Up&nbsp;
                   <img src="images/buffs/busterup.png" height="23"></img></label>
               </div>
-              <input type="number" class="form-control" id="BusterUpPercentage" value="0" min="0" required>
+              <input type="number" class="form-control" id="BusterUpPercentage" value="0" min="0" max="9999" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -223,7 +223,7 @@
                 <label class="input-group-text" for="ArtsUpPercentage">Arts Up&nbsp;
                   <img src="images/buffs/artsup.png" height="23"></img></label>
               </div>
-              <input type="number" class="form-control" id="ArtsUpPercentage" value="0" min="0" required>
+              <input type="number" class="form-control" id="ArtsUpPercentage" value="0" min="0" max="9999" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -239,7 +239,7 @@
                 <label class="input-group-text" for="QuickUpPercentage">Quick Up&nbsp;
                   <img src="images/buffs/quickup.png" height="23"></img></label>
               </div>
-              <input type="number" class="form-control" id="QuickUpPercentage" value="0" min="0"required>
+              <input type="number" class="form-control" id="QuickUpPercentage" value="0" min="0" max="9999" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -255,7 +255,7 @@
                 <label class="input-group-text" for="AttackUpPercentage">Attack Up&nbsp;
                   <img src="images/buffs/attackup.png" height="23"></img></label>
               </div>
-              <input type="number" class="form-control" id="AttackUpPercentage" value="0" min="0" required>
+              <input type="number" class="form-control" id="AttackUpPercentage" value="0" min="0" max="9999" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -272,7 +272,7 @@
               <div class="input-group-prepend">
                 <label class="input-group-text" for="FlatAttackUp">Flat Attack Up</label>
               </div>
-              <input type="number" class="form-control" id="FlatAttackUp" value="0" min="0" required>
+              <input type="number" class="form-control" id="FlatAttackUp" value="0" min="0" max="999999" required>
               <div class="invalid-feedback">
                 Valid Flat Attack up required.
               </div>
@@ -1911,7 +1911,7 @@
         my discord
         <a href="https://discord.gg/ZZkDDNN">server</a>
         <br>
-      inspired by:
+      inspired by
       <a href="https://maketakunai.github.io/">maketakunai</a> &nbsp;
         please report bugs <a href="https://github.com/gakiloroth/gakiloroth.github.io/issues">here</a>
       </p>

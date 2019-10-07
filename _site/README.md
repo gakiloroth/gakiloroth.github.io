@@ -1,4 +1,4 @@
-# FGO 3T Simulator
+# FGO 3T Simulator   <img src="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/images/padoru_vector_by_manaalchemist.png" width="48">
 
 This is a small personal project I'm working on to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/).
 
@@ -9,7 +9,9 @@ If there are any bugs PLEASE leave an issue [here](https://github.com/gakiloroth
 Enter all the information a servant would have, including their passives, and the buffs from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 4, to test in the battle simulator.
 
 ## Quests Manager Tab
-Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0.
+Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. 
+
+The "NP Gain Mod" entries are **usually** the default that gets put in when you choose classes. However, there are "special" enemies that have different NP Gain Mods. If you know that the enemy you are testing is "special" and you know their specific NP Gain Mod, you can change it here to whatever you need. Otherwise, just leave it as is.
 
 ## Battle Simulator Tab
 Once you have servants selected (in your party) and a quest selected, you can then test NP damage and NP refund in the battle simulator tab. Select one of the servants from your party from the bottom of the screen, apply further buffs you might use on that wave, and then click "Calculate NP Damage" to see NP damage and NP refund.
@@ -26,4 +28,3 @@ Then, you can choose one servant and one quest, and test NP damage and NP refund
 
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.)
-- Different NP gain multipliers for certain enemy classes

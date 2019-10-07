@@ -10,6 +10,7 @@ var quest = JSON.parse(localStorage.getItem("quest") || "[]");
 var questEnemyHP = [];
 var questRefunds = [];
 var startup = true;
+var debug = false;
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -34,7 +35,17 @@ $(document).ready(function() {
   startup = false;
 });
 
-// tooltip
+// prevent enter from submitting form
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
+
+// initialize tooltips
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
@@ -217,7 +228,6 @@ $('#enemy9Class').on('change', function(){
   $('#enemy9NPGainMod').val(EnemyServerMod[enemyclass]);
 });
 
-
 // reset servant form
 document.getElementById('resetServantForm').onclick = function(){
   resetServant();
@@ -231,6 +241,9 @@ document.getElementById('resetQuestForm').onclick = function(){
 
 // reset form
 document.getElementById('deleteAllPartyMembers').onclick = function(){
+  if(debug){
+    alert("deleteAllPartyMembers");
+  }
   party = [];
   localStorage.setItem("party", JSON.stringify(party));
   location.reload();
@@ -238,6 +251,9 @@ document.getElementById('deleteAllPartyMembers').onclick = function(){
 
 // delete all saved servants
 document.getElementById('deleteAllServants').onclick = function(){
+  if(debug){
+    alert("deleteAllServants");
+  }
   if(savedServants.length == 0){
    return;
   }
@@ -261,6 +277,10 @@ document.getElementById('deleteAllQuests').onclick = function(){
 
 // save servant data into array
 document.getElementById('addServant').onclick = function(){
+  if(debug){
+    alert("addservant");
+  }
+
   let valid = true;
   'use strict';
   var forms = document.getElementsByClassName('needs-validation-servant');
@@ -283,6 +303,9 @@ document.getElementById('addServant').onclick = function(){
 
 // add quest data into array
 document.getElementById('addQuest').onclick = function(){
+  if(debug){
+    alert("addquest");
+  }
   let valid = true;
   'use strict';
   var forms = document.getElementsByClassName('needs-validation-quest');
@@ -523,7 +546,7 @@ function updateSavedServantsDisplay(){
      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
      ' | Attr. : ' + curr.attribute + '<br> ' + busterstring + artsstring + quickstring +
      '<span class="float-right"><button type="button" id=' + "useServant" + i +
-     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">Select</button> <button type="button" id=' + "deleteServant" + i +
+     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">In Party</button> <button type="button" id=' + "deleteServant" + i +
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
 
@@ -535,6 +558,9 @@ function updateSavedServantsDisplay(){
 
     // link up delete button
     document.getElementById("deleteServant" + i).addEventListener("click", function(){
+      if(debug){
+        alert("deleteservant" +  i);
+      }
       if(party.length !== 0){
         alert("Please have no servants in party when deleting.");
         return;
@@ -546,6 +572,10 @@ function updateSavedServantsDisplay(){
 
     // link up servant select button
     document.getElementById("useServant" + i).addEventListener("click", function(){
+      if(debug){
+        alert("useservant"+ i);
+      }
+      //alert("using servant in party");
       if(party.includes(i)){
         servant = "";
         servantNPType = "";
@@ -612,6 +642,9 @@ function updateSavedQuestsDisplay(){
 
     // link up delete button
     document.getElementById("deleteQuest" + i).addEventListener("click", function(){
+      if(debug){
+        alert("deletequest" + i);
+      }
       if(quest !== ""){
         alert("Please have no quest selected when deleting!");
         return;
@@ -623,6 +656,9 @@ function updateSavedQuestsDisplay(){
     });
     // link up use button
     document.getElementById("useQuest" + i).addEventListener("click", function(){
+      if(debug){
+        alert("usequest" + i);
+      }
       if(quest === i){
         //alert("deselect quest");
         quest = "";
@@ -774,6 +810,9 @@ function initializeBattleParty(){
 
     // link up delete button
     document.getElementById("battlePartySelect" + i).addEventListener("click", function(){
+      if(debug){
+        alert("battlepartyselect" + i);
+      }
       if(servant === party[i]){
         // deselect
         servant = "";
@@ -921,7 +960,7 @@ function saveServant(){
   // party indexes incremented, match with servant
   if(typeof servant === "undefined" || servant.length == 0){
     //alert("undefined");
-    // don't increment if first servant
+    //don't increment if first servant
   }
   else{
     servant++;
