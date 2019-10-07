@@ -1,4 +1,4 @@
-# FGO 3T Simulator
+# FGO 3T Simulator   <img src="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/images/padoru_vector_by_manaalchemist.png" width="48">
 
 This is a small personal project I'm working on to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/).
 
@@ -26,4 +26,3 @@ Then, you can choose one servant and one quest, and test NP damage and NP refund
 
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.)
-- Different NP gain multipliers for certain enemy classes
