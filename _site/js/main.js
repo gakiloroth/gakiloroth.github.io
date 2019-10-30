@@ -147,30 +147,40 @@ $('#inputServant').on('change', function(){
           $('#hasNPupgrade').show();
         }
 
-        if ($('#maxGrailed').is(':checked')){
-          $('#attack').val( Number( attk[2]) );
+      if ($('#maxGrailed').is(':checked')){
+        $('#attack').val( Number( attk[2]) );
+      }
+      else{
+        $('#attack').val( Number( attk[1]) );
+      }
+
+      $('#' + servantNPType).prop("checked", true).click();
+
+      // on change updates
+      $('#maxGrailed').on('change', function(){
+        if ($(this).is(':checked')) {
+          $('#maxGoldFou').prop('checked', false);
+          $('#maxGoldFou').prop('disabled', true);
+          $('#maxFou').prop('checked', false);
+          $('#attack').val( Number(attk[2]) );
         }
-        else
-          $('#attack').val( Number( attk[1]) );
+        else {
+          $('#maxGoldFou').prop('checked', false);
+          $('#maxGoldFou').prop('disabled', true);
+          $('#maxFou').prop('checked', false);
+          $('#attack').val( Number(attk[1]) );
+        }
+      });
 
-        $('#maxGrailed').on('change', function(){
-          if ($(this).is(':checked')) {
-            $('#maxGoldFou').prop('checked', false);
-            $('#maxGoldFou').prop('disabled', true);
-            $('#maxFou').prop('checked', false);
-            $('#attack').val( Number(attk[2]) );
-          }
-          else {
-            $('#maxGoldFou').prop('checked', false);
-            $('#maxGoldFou').prop('disabled', true);
-            $('#maxFou').prop('checked', false);
-            $('#attack').val( Number(attk[1]) );
-          }
-        });
+      $('#inputNPLevel').on('change', function(){
+        $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
+      });
 
-        $('#inputNPLevel').on('change', function(){
-          $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
-        });
+      $('#NPType').on('change', function(){
+        servantNPType = $('#NPType').val();
+        console.log(servantNPType);
+      });
+
     }
   }
 });
@@ -627,13 +637,13 @@ function updateSavedServantsDisplay(){
     console.log("busterup: " + curr.busterup);
     if(parseFloat(curr.busterup) !== 0){
       console.log("busterup isnt 0");
-      busterstring = 'Buster Up: ' + curr.busterup;
+      busterstring = 'Buster Up: ' + curr.busterup + '%';
     }
     if(parseFloat(curr.artsup) !== 0){
-      artsstring = ' Arts Up: ' + curr.artsup;
+      artsstring = ' Arts Up: ' + curr.artsup + '%';
     }
     if(parseFloat(curr.quickup) !== 0){
-      quickstring = ' Quick Up: ' + curr.quickup;
+      quickstring = ' Quick Up: ' + curr.quickup + '%';
     }
 
     $('#savedServants1').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
@@ -1109,8 +1119,10 @@ function saveServant(){
   savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": servantNPType,"npgainup": $('#NpGainUpPercentage').val(),
+    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
     "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
+
+  console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
 }

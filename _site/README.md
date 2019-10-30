@@ -4,12 +4,17 @@ This is a small personal project I'm working on to learn how to do some basic we
 
 If there are any bugs PLEASE leave an issue [here](https://github.com/gakiloroth/gakiloroth.github.io/issues) and I will try to fix it when time permits.
 
+# Important
+Updates may change some how of the backend are done, and if calculations don't work or some things are broken, please try testing in an incognito window(will have no cached data). If it works there, you may have to empty your cache or manually empty your party, delete all servants, and delete all quests.
+
 # How to Use
 ## Servants Manager Tab
 Enter all the information a servant would have, including their passives, and the buffs from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 4, to test in the battle simulator.
 
 ## Quests Manager Tab
 Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. 
+
+**Tip**: If you're not sure what an enemy's attribute might be, make your attacking servant and the enemy's attribute the same, which will set the attribute damage modifier to 1.
 
 The "NP Gain Mod" entries are **usually** the default that gets put in when you choose classes. However, there are "special" enemies that have different NP Gain Mods. If you know that the enemy you are testing is "special" and you know their specific NP Gain Mod, you can change it here to whatever you need. Otherwise, just leave it as is.
 
@@ -24,9 +29,9 @@ Click the "Prev" and "Next" buttons to test on other waves.
 ## Functionality Goals
 
 With this simulator you will be able to save a servant's stats (with CE), and quest nodes (3 waves of enemies).
-Then, you can choose one servant and one quest, and test NP damage and NP refund.
+Then, you can choose several servants, one quest, and test NP damage and NP refund.
 
 Work in Progress:
-- Buttons to add popular buffs (Waver, Umu Bride, etc.)
+- Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
 - Edit servants and quests
 - Keep track of total NP Animation Time (in seconds)
