@@ -272,4 +272,4 @@ const servantList = [{"id":1,"name":"Mash Kyrielight","class":"Shielder","attack
 {"id":272,"name":"Super Orion","class":"Archer","attack":"1940, 12557, 13746","npmultiplier":"","overcharge":"","deck":"QABBB(A)","npupgrade":0,"attribute":"Earth","npchargeatk":0.96,"nphitcount":0},
 {"id":273,"name":"Mandricardo","class":"Rider","attack":"1254, 6756, 9143","npmultiplier":"900, 1200, 1350, 1425, 1500","overcharge":"","deck":"QQAAB(A)","npupgrade":0,"attribute":"Man","npchargeatk":0.86,"nphitcount":4},
 {"id":274,"name":"Europa","class":"Rider","attack":"1813, 11737, 12848","npmultiplier":"300, 400, 450, 475, 500","overcharge":"","deck":"QAABB(B)","npupgrade":0,"attribute":"Sky","npchargeatk":0.58,"nphitcount":4},
-{"id":275,"name":"Yang Guifei","class":"Foreigner","attack":"1907, 13365, 15510","npmultiplier":"900, 1200, 1350, 1425, 1500","overcharge":"","deck":"QQAAB(A)","npupgrade":0,"attribute":"Man","npchargeatk":0.51,"nphitcount":4}]
+{"id":275,"name":"Yang Guifei","class":"Foreigner","attack":"1960, 13365, 15510","npmultiplier":"900, 1200, 1350, 1425, 1500","overcharge":"","deck":"QQAAB(A)","npupgrade":0,"attribute":"Man","npchargeatk":0.51,"nphitcount":4}]
