@@ -14,7 +14,7 @@ var editServantMode = false;
 var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
-var debug = true;
+var debug = false;
 
 // actions to do when the page is loaded
 $(document).ready(function() {
