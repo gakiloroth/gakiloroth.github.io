@@ -10,7 +10,9 @@ var quest = JSON.parse(localStorage.getItem("quest") || "[]");
 var questEnemyHP = [];
 var questRefunds = [];
 var startup = true;
-var debug = false;
+var editMode = false;
+var editServant = -1;
+var debug = true;
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -53,7 +55,8 @@ $(function () {
 })
 
 // filter out a list of servants based on class
-$("#inputClass").change(function(){
+$("#inputClass").change(function(){ loadServantOptions();});
+function loadServantOptions(){
   $('#maxGrailed').prop('disabled', true);
   $('#maxGrailed').prop('checked', false);
   $('#maxFou').prop('checked', false);
@@ -66,7 +69,7 @@ $("#inputClass").change(function(){
       $("#inputServant").append($('<option></option').val(serv.id).html(`${serv.id}: ${serv.name}`));
     }
   });
-});
+}
 
 // add or remove 1k attack based on Fou's
 $('#maxFou').on('change', function(){
@@ -319,36 +322,7 @@ document.getElementById('deleteAllQuests').onclick = function(){
 
 // save servant data into array
 document.getElementById('addServant').onclick = function(){
-  if(debug){
-    alert("addservant");
-  }
-
-  let valid = true;
-  'use strict';
-  var forms = document.getElementsByClassName('needs-validation-servant');
-  var validation = Array.prototype.filter.call(forms, function(form) {
-    if (form.checkValidity() === false) {
-      valid = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    form.classList.add('was-validated');
-  });
-
-  if(valid && saveServant()){
-    $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-    updateSavedServantsDisplay();
-    updateServantToggles();
-    resetServant();
-
-    // reset form validation display
-    Array.prototype.filter.call(forms, function(form) {
-      form.classList.remove('was-validated');
-    });
-
-    // testing updating without needing reload
-    //location.reload();
-  }
+  addServant();
 };
 
 // add quest data into array
@@ -669,6 +643,12 @@ function updateSavedServantsDisplay(){
       if(debug){
         alert("deleteservant" +  i);
       }
+
+      if(editMode){
+        alert("Please do not delete a servant while editing!");
+        return;
+      }
+
       if(party.length !== 0){
         alert("Please have no servants in party when deleting!");
         return;
@@ -713,8 +693,8 @@ function updateSavedServantsDisplay(){
       }
       // add servant to party
       else{
-        if(party.length == 4){
-          alert("You can only have 4 servants in a party.");
+        if(party.length == 6){
+          alert("You can only have 6 servants in a party.");
 
           //location.reload();
 
@@ -733,6 +713,66 @@ function updateSavedServantsDisplay(){
 
         //location.reload();
       }
+    });
+
+    // link up edit servant button
+    document.getElementById("editServant" + i).addEventListener("click", function(){
+      if(debug){
+        alert("editservant"+ i);
+        //alert(JSON.stringify(savedServants));
+      }
+
+      // if already editing this unit, stop editing
+      if(editServant === i){
+        location.reload();
+        return;
+      }
+
+      // set all buttons to non active
+      for(var j = 0; j < savedServants.length; j++){
+        $('#editServant' + j ).removeClass('active');
+      }
+      editMode = true;
+      editServant = i;
+      $('#editServant' + i).addClass('active');
+
+      // change display to servant
+      $('#inputClass').val(savedServants[i].class);
+
+      // load servant options
+      loadServantOptions();
+      servantName = savedServants[i].name;
+      $('#inputServant').val(getServantID(servantName));
+
+      // load fields
+      $('#attack').val(savedServants[i].attack);
+      $('#inputNPLevel').val(savedServants[i].nplevel);
+      $('#NPDamagePercent').val(savedServants[i].npdamagepercent);
+      $('#BusterUpPercentage').val(savedServants[i].busterup);
+      $('#ArtsUpPercentage').val(savedServants[i].artsup);
+      $('#QuickUpPercentage').val(savedServants[i].quickup);
+      $('#AttackUpPercentage').val(savedServants[i].attackup);
+      $('#FlatAttackUp').val(savedServants[i].flatattackup);
+      $('#NPDamageUp').val(savedServants[i].npdamageup);
+      servantNPGain = savedServants[i].npgain;
+
+      // load np type button
+      var servantNPType = savedServants[i].nptype;
+      $('#' + servantNPType).prop('checked',true).click();
+
+      // load fields
+      $('#NpGainUpPercentage').val(savedServants[i].npgainup);
+      servantNPHits = savedServants[i].nphits;
+      $('#PowerMod').val(savedServants[i].powermod);
+      $('#inputAttribute').val(savedServants[i].attribute);
+      $('#inputCE').val(savedServants[i].craftessence);
+      $('#NPDamageUp').val(savedServants[i].npdamageup);
+
+      // change add servant to save servant
+      $('#addServant').prop('disabled', false);
+      $('#addServant').text('Save Servant');
+      $('#addServant').attr("id","saveEditedServant");
+      document.getElementById("saveEditedServant").onclick = function() { saveEditedServant(i); };
     });
   }
 }
@@ -1096,6 +1136,39 @@ function resetBattleSim(wavenumber){
   }
 }
 
+function addServant(){
+  if(debug){
+    alert("addservant");
+  }
+
+  let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation-servant');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  if(valid && saveServant()){
+    $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
+    updateSavedServantsDisplay();
+    updateServantToggles();
+    resetServant();
+
+    // reset form validation display
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
+
+    // testing updating without needing reload
+    //location.reload();
+  }
+}
+
 // save servant data into array
 function saveServant(){
   if(savedServants.length > 600){
@@ -1128,6 +1201,26 @@ function saveServant(){
   console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
+}
+
+// save servant data into array
+function saveEditedServant(index){
+  if(debug){
+    console.log("Saving edited servant: " + index);
+  }
+
+  savedServants[index]=({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+    "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
+    "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
+    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
+    "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
+
+  localStorage.setItem("savedServants", JSON.stringify(savedServants));
+
+  updateSavedServantsDisplay();
+  updateServantToggles();
+  resetServant();
+  return;
 }
 
 // save quest data into array
@@ -1618,4 +1711,12 @@ function cardDmg(input){
   }
 
   return cardVal;
+}
+
+function getServantID(name){
+  for(var i = 0; i < servantList.length; i++){
+    if(servantList[i].name.localeCompare(name) === 0){
+      return servantList[i].id;
+    }
+  }
 }
