@@ -651,7 +651,10 @@ function updateSavedServantsDisplay(){
      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
      ' | Attr. : ' + curr.attribute + '<br> ' + busterstring + artsstring + quickstring +
      '<span class="float-right"><button type="button" id=' + "useServant" + i +
-     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">In Party</button> <button type="button" id=' + "deleteServant" + i +
+     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">In Party</button> ' +
+     '<button type="button" id=' + "editServant" + i +
+     ' class="btn btn-outline-warning btn-sm">Edit</button> ' +
+     '<button type="button" id=' + "deleteServant" + i +
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
 
