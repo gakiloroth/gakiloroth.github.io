@@ -10,8 +10,10 @@ var quest = JSON.parse(localStorage.getItem("quest") || "[]");
 var questEnemyHP = [];
 var questRefunds = [];
 var startup = true;
-var editMode = false;
+var editServantMode = false;
 var editServant = -1;
+var editQuestMode = false;
+var editQuest = -1;
 var debug = true;
 
 // actions to do when the page is loaded
@@ -327,35 +329,7 @@ document.getElementById('addServant').onclick = function(){
 
 // add quest data into array
 document.getElementById('addQuest').onclick = function(){
-  if(debug){
-    alert("addquest");
-  }
-  let valid = true;
-  'use strict';
-  var forms = document.getElementsByClassName('needs-validation-quest');
-  var validation = Array.prototype.filter.call(forms, function(form) {
-    if (form.checkValidity() === false) {
-      valid = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    form.classList.add('was-validated');
-  });
-
-  if(valid && saveQuest()){
-    if(quest.length !== 0){
-      quest++;
-    }
-    localStorage.setItem("quest", JSON.stringify(quest));
-    updateSavedQuestsDisplay();
-    updateQuestToggles();
-    Array.prototype.filter.call(forms, function(form) {
-      form.classList.remove('was-validated');
-    });
-
-    // testing updates without reload
-    //location.reload();
-  }
+  addQuest();
 };
 
 // calculate NP Damage for Wave 1
@@ -644,7 +618,7 @@ function updateSavedServantsDisplay(){
         alert("deleteservant" +  i);
       }
 
-      if(editMode){
+      if(editServantMode){
         alert("Please do not delete a servant while editing!");
         return;
       }
@@ -732,7 +706,7 @@ function updateSavedServantsDisplay(){
       for(var j = 0; j < savedServants.length; j++){
         $('#editServant' + j ).removeClass('active');
       }
-      editMode = true;
+      editServantMode = true;
       editServant = i;
       $('#editServant' + i).addClass('active');
 
@@ -742,7 +716,20 @@ function updateSavedServantsDisplay(){
       // load servant options
       loadServantOptions();
       servantName = savedServants[i].name;
-      $('#inputServant').val(getServantID(servantName));
+      let servantID = getServantID(servantName);
+      $('#inputServant').val(servantID);
+      $('#inputServant').on('change', function(){
+        loadNPPercentages($('#inputServant').val());
+        $('#maxGrailed').prop('disabled', false);
+        $('#maxGrailed').prop('checked', false);
+        $('#maxFou').prop('checked', false);
+        $('#inputNPLevel').val(1);
+        $('#hasNPupgrade').hide();
+        // update display with servant stats
+        if (servantList[$('#inputServant').val() - 1].npupgrade == 1) {
+            $('#hasNPupgrade').show();
+          }
+      });
 
       // load fields
       $('#attack').val(savedServants[i].attack);
@@ -755,6 +742,7 @@ function updateSavedServantsDisplay(){
       $('#FlatAttackUp').val(savedServants[i].flatattackup);
       $('#NPDamageUp').val(savedServants[i].npdamageup);
       servantNPGain = savedServants[i].npgain;
+      loadNPPercentages(servantID);
 
       // load np type button
       var servantNPType = savedServants[i].nptype;
@@ -808,12 +796,18 @@ function updateSavedQuestsDisplay(){
     ' E9: ' + curr.enemy9hp + ' ' + curr.enemy9class + ' (' + curr.enemy9attribute + ') ' +
     '<span class="float-right"> <button type="button" id=' + "useQuest" + i +
     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">Select</button> ' +
+    '<button type="button" id=' + "editQuest" + i + ' class="btn btn-outline-warning btn-sm">Edit</button> ' +
     '<button type="button" id=' + "deleteQuest" + i + ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
     // link up delete button
     document.getElementById("deleteQuest" + i).addEventListener("click", function(){
       if(debug){
         alert("deletequest " + i);
+      }
+
+      if(editQuestMode){
+        alert("Please do not delete a quest while editing!");
+        return;
       }
       if(quest !== "" && quest.length !== 0){
         alert("Please have no quest selected when deleting!");
@@ -822,6 +816,7 @@ function updateSavedQuestsDisplay(){
         }
         return;
       }
+
       savedQuests.splice(i,1);
       localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
 
@@ -829,6 +824,7 @@ function updateSavedQuestsDisplay(){
 
       //location.reload();
     });
+
     // link up use button
     document.getElementById("useQuest" + i).addEventListener("click", function(){
       if(debug){
@@ -853,6 +849,67 @@ function updateSavedQuestsDisplay(){
         // reload needed to update battle sim
         location.reload();
       }
+    });
+
+    // link up edit button
+    document.getElementById("editQuest" + i).addEventListener("click", function(){
+      if(debug){
+        alert("editquest"+ i);
+        //alert(JSON.stringify(savedServants));
+      }
+
+      // if already editing this unit, stop editing
+      if(editQuest === i){
+        location.reload();
+        return;
+      }
+
+      // set all buttons to non active
+      for(var j = 0; j < savedQuests.length; j++){
+        $('#editQuest' + j ).removeClass('active');
+      }
+      editQuestMode = true;
+      editQuest = i;
+      $('#editQuest' + i).addClass('active');
+
+
+      let curr = savedQuests[i];
+      // change display to servant
+      $('#QuestName').val(curr.name);
+
+      $('#enemy1HP').val(curr.enemy1hp);
+      $('#enemy1Class').val(curr.enemy1class);
+      $('#enemy1Attribute').val(curr.enemy1attribute);
+      $('#enemy2HP').val(curr.enemy2hp);
+      $('#enemy2Class').val(curr.enemy2class);
+      $('#enemy2Attribute').val(curr.enemy2attribute);
+      $('#enemy3HP').val(curr.enemy3hp);
+      $('#enemy3Class').val(curr.enemy3class);
+      $('#enemy3Attribute').val(curr.enemy3attribute);
+      $('#enemy4HP').val(curr.enemy4hp);
+      $('#enemy4Class').val(curr.enemy4class);
+      $('#enemy4Attribute').val(curr.enemy4attribute);
+      $('#enemy5HP').val(curr.enemy5hp);
+      $('#enemy5Class').val(curr.enemy5class);
+      $('#enemy5Attribute').val(curr.enemy5attribute);
+      $('#enemy6HP').val(curr.enemy6hp);
+      $('#enemy6Class').val(curr.enemy6class);
+      $('#enemy6Attribute').val(curr.enemy6attribute);
+      $('#enemy7HP').val(curr.enemy7hp);
+      $('#enemy7Class').val(curr.enemy7class);
+      $('#enemy7Attribute').val(curr.enemy7attribute);
+      $('#enemy8HP').val(curr.enemy8hp);
+      $('#enemy8Class').val(curr.enemy8class);
+      $('#enemy8Attribute').val(curr.enemy8attribute);
+      $('#enemy9HP').val(curr.enemy9hp);
+      $('#enemy9Class').val(curr.enemy9class);
+      $('#enemy9Attribute').val(curr.enemy9attribute);
+
+      //change add servant to save servant
+      $('#addQuest').prop('disabled', false);
+      $('#addQuest').text('Save Quest');
+      $('#addQuest').attr("id","saveEditedQuest");
+      document.getElementById("saveEditedQuest").onclick = function() { saveEditedQuest(i); };
     });
   }
   //parsed = JSON.stringify(quest);
@@ -1209,17 +1266,110 @@ function saveEditedServant(index){
     console.log("Saving edited servant: " + index);
   }
 
-  savedServants[index]=({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
-    "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
-    "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
-    "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
+  let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation-servant');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
 
-  localStorage.setItem("savedServants", JSON.stringify(savedServants));
+  if(valid){
+    savedServants[index]=({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+      "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
+      "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
+      "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
+      "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
 
-  updateSavedServantsDisplay();
-  updateServantToggles();
-  resetServant();
+    // reset form validation display
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
+
+    localStorage.setItem("savedServants", JSON.stringify(savedServants));
+
+    updateSavedServantsDisplay();
+    updateServantToggles();
+    resetServant();
+  }
+  return;
+}
+
+function addQuest(){
+  if(debug){
+    alert("addquest");
+  }
+  let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation-quest');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  if(valid && saveQuest()){
+    if(quest.length !== 0){
+      quest++;
+    }
+    localStorage.setItem("quest", JSON.stringify(quest));
+    updateSavedQuestsDisplay();
+    updateQuestToggles();
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
+
+    // testing updates without reload
+    //location.reload();
+  }
+}
+
+function saveEditedQuest(index){
+  if(debug){
+    console.log("Saving edited quest: " + index);
+  }
+
+  let valid = true;
+  'use strict';
+  var forms = document.getElementsByClassName('needs-validation-quest');
+  var validation = Array.prototype.filter.call(forms, function(form) {
+    if (form.checkValidity() === false) {
+      valid = false;
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    form.classList.add('was-validated');
+  });
+
+  if(valid){
+    savedQuests[index] = ({"name": $('#QuestName').val(),
+      "enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),"enemy1npgainmod": $('#enemy1NPGainMod').val(),
+      "enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),"enemy2npgainmod": $('#enemy2NPGainMod').val(),
+      "enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),"enemy3npgainmod": $('#enemy3NPGainMod').val(),
+      "enemy4hp": $('#enemy4HP').val(),"enemy4class": $('#enemy4Class').val(),"enemy4attribute": $('#enemy4Attribute').val(),"enemy4npgainmod": $('#enemy4NPGainMod').val(),
+      "enemy5hp": $('#enemy5HP').val(),"enemy5class": $('#enemy5Class').val(),"enemy5attribute": $('#enemy5Attribute').val(),"enemy5npgainmod": $('#enemy5NPGainMod').val(),
+      "enemy6hp": $('#enemy6HP').val(),"enemy6class": $('#enemy6Class').val(),"enemy6attribute": $('#enemy6Attribute').val(),"enemy6npgainmod": $('#enemy6NPGainMod').val(),
+      "enemy7hp": $('#enemy7HP').val(),"enemy7class": $('#enemy7Class').val(),"enemy7attribute": $('#enemy7Attribute').val(),"enemy7npgainmod": $('#enemy7NPGainMod').val(),
+      "enemy8hp": $('#enemy8HP').val(),"enemy8class": $('#enemy8Class').val(),"enemy8attribute": $('#enemy8Attribute').val(),"enemy8npgainmod": $('#enemy8NPGainMod').val(),
+      "enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val(),"enemy9npgainmod": $('#enemy9NPGainMod').val()
+    });
+
+    localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
+    updateSavedQuestsDisplay();
+    updateQuestToggles();
+    Array.prototype.filter.call(forms, function(form) {
+      form.classList.remove('was-validated');
+    });
+  }
+
+  location.reload();
   return;
 }
 
@@ -1719,4 +1869,18 @@ function getServantID(name){
       return servantList[i].id;
     }
   }
+}
+
+function loadNPPercentages(servantID){
+  // set np related stats
+  let npmulti = [0,0,0,0,0];
+  if (servantList[servantID - 1].npmultiplier){
+    npmulti = servantList[servantID - 1].npmultiplier.split(',');
+  }
+
+  $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
+  $('#inputNPLevel').on('change', function(){
+    $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
+  });
+
 }
