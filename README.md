@@ -33,5 +33,4 @@ Then, you can choose several servants, one quest, and test NP damage and NP refu
 
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
-- Edit servants and quests
 - Keep track of total NP Animation Time (in seconds)
