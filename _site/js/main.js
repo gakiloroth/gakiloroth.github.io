@@ -18,6 +18,9 @@ var debug = false;
 
 // actions to do when the page is loaded
 $(document).ready(function() {
+  init();
+});
+function init(){
   // save which tab was active
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -27,19 +30,16 @@ $(document).ready(function() {
       $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
   }
 
-  console.log("servant: " + servant);
-
-  //alert(JSON.stringify(party));
-
+  initializeClassDropdown();
   initializeBattleSim();
   initializeBattleParty();
   updateSavedServantsDisplay();
   updateSavedQuestsDisplay();
   updateServantToggles();
-  updateQuestPartyToggles();
+  updateBattlePartyToggles();
   updateQuestToggles();
   startup = false;
-});
+}
 
 // prevent enter from submitting form
 $(document).ready(function() {
@@ -246,7 +246,7 @@ $('#enemy9Class').on('change', function(){
 });
 
 // reset servant form
-document.getElementById('resetServantForm').onclick = function(){
+$('#resetServantForm').click(function(){
   resetServant();
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
 
@@ -255,10 +255,10 @@ document.getElementById('resetServantForm').onclick = function(){
   Array.prototype.filter.call(forms, function(form) {
     form.classList.remove('was-validated');
   });
-};
+});
 
 // reset quest form
-document.getElementById('resetQuestForm').onclick = function(){
+$('#resetQuestForm').click(function(){
   resetQuest();
 
   // reset form validation display
@@ -266,10 +266,10 @@ document.getElementById('resetQuestForm').onclick = function(){
   Array.prototype.filter.call(forms, function(form) {
     form.classList.remove('was-validated');
   });
-};
+});
 
 // delete all party members
-document.getElementById('deleteAllPartyMembers').onclick = function(){
+$('#deleteAllPartyMembers').click(function(){
   if(debug){
     alert("deleteAllPartyMembers");
   }
@@ -280,13 +280,11 @@ document.getElementById('deleteAllPartyMembers').onclick = function(){
   updateServantToggles();
   initializeBattleSim();
   initializeBattleParty();
-  updateQuestPartyToggles();
-
-  //location.reload();
-};
+  updateBattlePartyToggles();
+});
 
 // delete all saved servants
-document.getElementById('deleteAllServants').onclick = function(){
+$('#deleteAllServants').click(function(){
   if(debug){
     alert("deleteAllServants");
   }
@@ -305,35 +303,31 @@ document.getElementById('deleteAllServants').onclick = function(){
     updateSavedServantsDisplay();
     initializeBattleSim();
     initializeBattleParty();
-    updateQuestPartyToggles();
+    updateBattlePartyToggles();
 
     //reload is necessary to show battle sim as needing servants
     location.reload();
   }
-};
+});
 
 // delete all quests
-document.getElementById('deleteAllQuests').onclick = function(){
+$('#deleteAllQuests').click(function(){
   if(savedQuests.length == 0){
    return;
   }
   if(confirm('Do you want to delete ALL quests?')){
     deleteAllQuests();
   }
-};
+});
 
 // save servant data into array
-document.getElementById('addServant').onclick = function(){
-  addServant();
-};
+$('#addServant').click(addServant);
 
 // add quest data into array
-document.getElementById('addQuest').onclick = function(){
-  addQuest();
-};
+$('#addQuest').click(addQuest);
 
 // calculate NP Damage for Wave 1
-document.getElementById('submitBattleForm1').onclick = function(){
+$('#submitBattleForm1').click(function(){
   // if no servant selected
   if(typeof savedServants[servant] === "undefined"){
     return;
@@ -390,26 +384,16 @@ document.getElementById('submitBattleForm1').onclick = function(){
       form.classList.remove('was-validated');
     });
   }
-};
+});
 
 // reset battle sim wave 1
-document.getElementById('resetHP1').onclick = function(){
-  resetBattleSim(1);
-}
+$('#resetHP1').click({wave: 1}, resetBattleSim);
 
 // reset battle sim form wave 1
-document.getElementById('resetBattleForm1').onclick = function(){
-  resetBattleForm(1);
-
-  // reset form validation display
-  var forms = document.getElementsByClassName('needs-validation-battle1');
-  Array.prototype.filter.call(forms, function(form) {
-    form.classList.remove('was-validated');
-  });
-}
+$('#resetBattleForm1').click({wave: 1}, resetBattleForm);
 
 // calculate NP Damage for Wave 2
-document.getElementById('submitBattleForm2').onclick = function(){
+$('#submitBattleForm2').click(function(){
   // if no servant selected
   if(typeof savedServants[servant] === "undefined"){
     return;
@@ -471,27 +455,16 @@ document.getElementById('submitBattleForm2').onclick = function(){
       form.classList.remove('was-validated');
     });
   }
-};
+});
 
 // reset battle sim wave 2
-document.getElementById('resetHP2').onclick = function(){
-  resetBattleSim(2);
-
-}
+$('#resetHP2').click({wave: 2}, resetBattleSim);
 
 // reset battle sim form wave 2
-document.getElementById('resetBattleForm2').onclick = function(){
-  resetBattleForm(2);
-
-  // reset form validation display
-  var forms = document.getElementsByClassName('needs-validation-battle2');
-  Array.prototype.filter.call(forms, function(form) {
-    form.classList.remove('was-validated');
-  });
-}
+$('#resetBattleForm2').click({wave: 2}, resetBattleForm);
 
 // calculate NP Damage for Wave 3
-document.getElementById('submitBattleForm3').onclick = function(){
+$('#submitBattleForm3').click(function(){
   // if no servant selected
   if(typeof savedServants[servant] === "undefined"){
     return;
@@ -552,52 +525,39 @@ document.getElementById('submitBattleForm3').onclick = function(){
       form.classList.remove('was-validated');
     });
   }
-};
+});
 
 // reset battle sim wave 3
-document.getElementById('resetHP3').onclick = function(){
-  resetBattleSim(3);
-}
+$('#resetHP3').click({wave: 3}, resetBattleSim);
 
 // reset battle sim form wave 3
-document.getElementById('resetBattleForm3').onclick = function(){
-  resetBattleForm(3);
-
-  // reset form validation display
-  var forms = document.getElementsByClassName('needs-validation-battle3');
-  Array.prototype.filter.call(forms, function(form) {
-    form.classList.remove('was-validated');
-  });
-}
+$('#resetBattleForm3').click({wave: 3}, resetBattleForm);
 
 // update saved servant display
 function updateSavedServantsDisplay(){
-  //let parsed = "";
-  /*parsed = JSON.stringify(savedServants);
-  console.log("saved servants: " + parsed);*/
   $('#savedServants1').empty();
   $('#savedServants2').empty();
   for(let i = 0; i < savedServants.length; i++){
-    let curr = savedServants[i];
+    let currServant = savedServants[i];
     let busterstring = "";
     let artsstring = "";
     let quickstring = "";
-    console.log("busterup: " + curr.busterup);
-    if(parseFloat(curr.busterup) !== 0){
+    console.log("busterup: " + currServant.busterup);
+    if(parseFloat(currServant.busterup) !== 0){
       console.log("busterup isnt 0");
-      busterstring = 'Buster Up: ' + curr.busterup + '%';
+      busterstring = 'Buster Up: ' + currServant.busterup + '%';
     }
-    if(parseFloat(curr.artsup) !== 0){
-      artsstring = ' Arts Up: ' + curr.artsup + '%';
+    if(parseFloat(currServant.artsup) !== 0){
+      artsstring = ' Arts Up: ' + currServant.artsup + '%';
     }
-    if(parseFloat(curr.quickup) !== 0){
-      quickstring = ' Quick Up: ' + curr.quickup + '%';
+    if(parseFloat(currServant.quickup) !== 0){
+      quickstring = ' Quick Up: ' + currServant.quickup + '%';
     }
 
-    $('#savedServants1').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-     curr.craftessence + ' | Power Mod: ' + curr.powermod + '% | NP Gain Up: ' + curr.npgainup + '%<br>' + 'NP Level: ' +
-     curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
-     ' | Attr. : ' + curr.attribute + '<br> ' + busterstring + artsstring + quickstring +
+    $('#savedServants1').append($('<li class="list-group-item"><b>' + currServant.name + '</b> | CE: ' +
+     currServant.craftessence + ' | Power Mod: ' + currServant.powermod + '% | NP Gain Up: ' + currServant.npgainup + '%<br>' + 'NP Level: ' +
+     currServant.nplevel + ' | Attack: ' + currServant.attack + ' | NP Buff: ' + currServant.npdamageup + '%' +
+     ' | Attr. : ' + currServant.attribute + '<br> ' + busterstring + artsstring + quickstring +
      '<span class="float-right"><button type="button" id=' + "useServant" + i +
      ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false" autocomplete="false">In Party</button> ' +
      '<button type="button" id=' + "editServant" + i +
@@ -606,14 +566,14 @@ function updateSavedServantsDisplay(){
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
 
-     $('#savedServants2').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-      curr.craftessence + ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
-      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
-      ' | Attr. : ' + curr.attribute + '<br> Buster Up: ' + curr.busterup + ' | Arts Up: ' + curr.artsup +
-      ' | Quick Up: ' + curr.quickup + '</li>'));
+     $('#savedServants2').append($('<li class="list-group-item"><b>' + currServant.name + '</b> | CE: ' +
+      currServant.craftessence + ' | Power Mod: ' + currServant.powermod + '%<br>' + 'NP Level: ' +
+      currServant.nplevel + ' | Attack: ' + currServant.attack + ' | NP Buff: ' + currServant.npdamageup + '%' +
+      ' | Attr. : ' + currServant.attribute + '<br> Buster Up: ' + currServant.busterup + ' | Arts Up: ' + currServant.artsup +
+      ' | Quick Up: ' + currServant.quickup + '</li>'));
 
     // link up delete button
-    document.getElementById("deleteServant" + i).addEventListener("click", function(){
+    $('#deleteServant' + i).click(function(){
       if(debug){
         alert("deleteservant" +  i);
       }
@@ -638,11 +598,10 @@ function updateSavedServantsDisplay(){
     });
 
     // link up servant select button
-    document.getElementById("useServant" + i).addEventListener("click", function(){
+    $('#useServant' + i).click(function(){
       if(debug){
         alert("useservant"+ i);
       }
-      //alert("using servant in party");
 
       // remove servant from party
       if(party.includes(i)){
@@ -652,7 +611,6 @@ function updateSavedServantsDisplay(){
         // remove servant from party
         servantPartyIndex = party.indexOf(i);
         party.splice(servantPartyIndex,1);
-        //alert(JSON.stringify(party));
 
         // save changes
         localStorage.setItem("servant", JSON.stringify(servant));
@@ -661,36 +619,29 @@ function updateSavedServantsDisplay(){
         // test update without reload
         initializeBattleSim();
         initializeBattleParty();
-        updateQuestPartyToggles();
-
-        //location.reload();
+        updateBattlePartyToggles();
       }
       // add servant to party
       else{
         if(party.length == 6){
           alert("You can only have 6 servants in a party.");
 
-          //location.reload();
-
-          document.getElementById("useServant" + i).setAttribute('aria-pressed', false);
+          // de-highlight button
+          $('#useServant' + i).attr('class', 'btn btn-outline-success btn-sm');
           return;
         }
 
         party.unshift(i);
         localStorage.setItem("party", JSON.stringify(party));
-        //alert(JSON.stringify(party));
 
-        // test update without reload
         initializeBattleSim();
         initializeBattleParty();
-        updateQuestPartyToggles();
-
-        //location.reload();
+        updateBattlePartyToggles();
       }
     });
 
     // link up edit servant button
-    document.getElementById("editServant" + i).addEventListener("click", function(){
+    $('#editServant' + i).click(function(){
       if(debug){
         alert("editservant"+ i);
         //alert(JSON.stringify(savedServants));
@@ -703,20 +654,23 @@ function updateSavedServantsDisplay(){
       }
 
       // set all buttons to non active
-      for(var j = 0; j < savedServants.length; j++){
+      for(let j = 0; j < savedServants.length; j++){
         $('#editServant' + j ).removeClass('active');
       }
       editServantMode = true;
       editServant = i;
       $('#editServant' + i).addClass('active');
 
+      let currServant = savedServants[i];
       // change display to servant
-      $('#inputClass').val(savedServants[i].class);
+      $('#inputClass').val(currServant.class);
 
-      // load servant options
+      // load servant options\
       loadServantOptions();
-      servantName = savedServants[i].name;
+      servantName = currServant.name;
       let servantID = getServantID(servantName);
+
+      // hook up servant change value updates
       $('#inputServant').val(servantID);
       $('#inputServant').on('change', function(){
         loadNPPercentages($('#inputServant').val());
@@ -725,6 +679,7 @@ function updateSavedServantsDisplay(){
         $('#maxFou').prop('checked', false);
         $('#inputNPLevel').val(1);
         $('#hasNPupgrade').hide();
+
         // update display with servant stats
         if (servantList[$('#inputServant').val() - 1].npupgrade == 1) {
             $('#hasNPupgrade').show();
@@ -732,42 +687,42 @@ function updateSavedServantsDisplay(){
       });
 
       // load fields
-      $('#attack').val(savedServants[i].attack);
-      $('#inputNPLevel').val(savedServants[i].nplevel);
-      $('#NPDamagePercent').val(savedServants[i].npdamagepercent);
-      $('#BusterUpPercentage').val(savedServants[i].busterup);
-      $('#ArtsUpPercentage').val(savedServants[i].artsup);
-      $('#QuickUpPercentage').val(savedServants[i].quickup);
-      $('#AttackUpPercentage').val(savedServants[i].attackup);
-      $('#FlatAttackUp').val(savedServants[i].flatattackup);
-      $('#NPDamageUp').val(savedServants[i].npdamageup);
-      servantNPGain = savedServants[i].npgain;
+      $('#attack').val(currServant.attack);
+      $('#inputNPLevel').val(currServant.nplevel);
+      $('#NPDamagePercent').val(currServant.npdamagepercent);
+      $('#BusterUpPercentage').val(currServant.busterup);
+      $('#ArtsUpPercentage').val(currServant.artsup);
+      $('#QuickUpPercentage').val(currServant.quickup);
+      $('#AttackUpPercentage').val(currServant.attackup);
+      $('#FlatAttackUp').val(currServant.flatattackup);
+      $('#NPDamageUp').val(currServant.npdamageup);
+      servantNPGain = currServant.npgain;
       loadNPPercentages(servantID);
 
       // load np type button
-      var servantNPType = savedServants[i].nptype;
+      servantNPType = currServant.nptype;
       $('#' + servantNPType).prop('checked',true).click();
 
       // load fields
-      $('#NpGainUpPercentage').val(savedServants[i].npgainup);
-      servantNPHits = savedServants[i].nphits;
-      $('#PowerMod').val(savedServants[i].powermod);
-      $('#inputAttribute').val(savedServants[i].attribute);
-      $('#inputCE').val(savedServants[i].craftessence);
-      $('#NPDamageUp').val(savedServants[i].npdamageup);
+      $('#NpGainUpPercentage').val(currServant.npgainup);
+      servantNPHits = currServant.nphits;
+      $('#PowerMod').val(currServant.powermod);
+      $('#inputAttribute').val(currServant.attribute);
+      $('#inputCE').val(currServant.craftessence);
+      $('#NPDamageUp').val(currServant.npdamageup);
 
       // change add servant to save servant
       $('#addServant').prop('disabled', false);
+      $('#addServant').unbind();
       $('#addServant').text('Save Servant');
       $('#addServant').attr("id","saveEditedServant");
-      document.getElementById("saveEditedServant").onclick = function() { saveEditedServant(i); };
+      $('#saveEditedServant').click(function() { saveEditedServant(i); });
     });
   }
 }
 
 // update quest updateSavedQuestsDisplay
 function updateSavedQuestsDisplay(){
-  //let parsed = "";
   $('#savedQuests1').empty();
   $('#savedQuests2').empty();
   for(let i = 0; i < savedQuests.length; i++){
@@ -819,19 +774,15 @@ function updateSavedQuestsDisplay(){
 
       savedQuests.splice(i,1);
       localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
-
       updateSavedQuestsDisplay();
-
-      //location.reload();
     });
 
     // link up use button
-    document.getElementById("useQuest" + i).addEventListener("click", function(){
+    $('#useQuest' + i).click(function(){
       if(debug){
         alert("usequest " + i);
       }
       if(quest === i){
-        //alert("deselect quest");
         quest = "";
         updateQuestToggles();
         localStorage.setItem("quest", JSON.stringify(quest));
@@ -852,10 +803,9 @@ function updateSavedQuestsDisplay(){
     });
 
     // link up edit button
-    document.getElementById("editQuest" + i).addEventListener("click", function(){
+    $('#editQuest' + i).click(function(){
       if(debug){
         alert("editquest"+ i);
-        //alert(JSON.stringify(savedServants));
       }
 
       // if already editing this unit, stop editing
@@ -865,7 +815,7 @@ function updateSavedQuestsDisplay(){
       }
 
       // set all buttons to non active
-      for(var j = 0; j < savedQuests.length; j++){
+      for(let j = 0; j < savedQuests.length; j++){
         $('#editQuest' + j ).removeClass('active');
       }
       editQuestMode = true;
@@ -909,978 +859,7 @@ function updateSavedQuestsDisplay(){
       $('#addQuest').prop('disabled', false);
       $('#addQuest').text('Save Quest');
       $('#addQuest').attr("id","saveEditedQuest");
-      document.getElementById("saveEditedQuest").onclick = function() { saveEditedQuest(i); };
+      $('#saveEditedQuest').click(function() { saveEditedQuest(i); });
     });
   }
-  //parsed = JSON.stringify(quest);
-  //$('#test').empty().append(parsed);
-}
-
-// make sure party buttons are toggled correctly
-function updateServantToggles(){
-  for(let i = 0; i < party.length; i++){
-    $('#useServant' + party[i]).addClass('active');
-    $('#useServant' + party[i]).attr('aria-pressed', true);
-  }
-}
-
-// make sure quest buttons are toggled correctly
-function updateQuestToggles(){
-  $('#useQuest' + quest).addClass('active');
-  $('#useQuest' + quest).attr('aria-pressed', true);
-}
-
-// make sure quest party toggles are toggled
-function updateQuestPartyToggles(){
-  $('#battlePartySelect' + party.indexOf(servant)).addClass('active');
-  $('#battlePartySelect' + party.indexOf(servant)).attr('aria-pressed', true);
-}
-
-// initialize battle sim
-function initializeBattleSim(){
-  if(savedQuests.length === 0 || savedServants.length === 0 || quest.length === 0 || quest === ""){
-    console.log("savedquestlength: " + savedQuests.length + " savedservantlength: " + savedServants.length +
-      " quest: " + quest);
-    return;
-  }
-
-  // initialize quest related data
-  console.log("quest: " + quest + " " + JSON.stringify(savedServants));
-  let currQuest = savedQuests[quest];
-  $('#questNameDisplay').empty().html('<b>Current Quest: </b>' + currQuest.name);
-
-  document.getElementById('questEnemy1Class').src = "images/" + currQuest.enemy1class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy2Class').src = "images/" + currQuest.enemy2class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy3Class').src = "images/" + currQuest.enemy3class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy4Class').src = "images/" + currQuest.enemy4class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy5Class').src = "images/" + currQuest.enemy5class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy6Class').src = "images/" + currQuest.enemy6class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy7Class').src = "images/" + currQuest.enemy7class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy8Class').src = "images/" + currQuest.enemy8class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy9Class').src = "images/" + currQuest.enemy9class.toLowerCase().replace(/\s/g, '') + ".png";
-
-  $('#questEnemy1HP').empty().html('HP: ' + currQuest.enemy1hp);
-  $('#questEnemy2HP').empty().html('HP: ' + currQuest.enemy2hp);
-  $('#questEnemy3HP').empty().html('HP: ' + currQuest.enemy3hp);
-  $('#questEnemy4HP').empty().html('HP: ' + currQuest.enemy4hp);
-  $('#questEnemy5HP').empty().html('HP: ' + currQuest.enemy5hp);
-  $('#questEnemy6HP').empty().html('HP: ' + currQuest.enemy6hp);
-  $('#questEnemy7HP').empty().html('HP: ' + currQuest.enemy7hp);
-  $('#questEnemy8HP').empty().html('HP: ' + currQuest.enemy8hp);
-  $('#questEnemy9HP').empty().html('HP: ' + currQuest.enemy9hp);
-
-  $('#questEnemy1NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy2NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy3NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy4NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy5NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy6NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy7NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy8NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy9NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-
-  $('#questEnemy1HPLeft').empty().html('HP Left: ' + currQuest.enemy1hp + " / " + currQuest.enemy1hp + " / " + currQuest.enemy1hp);
-  $('#questEnemy2HPLeft').empty().html('HP Left: ' + currQuest.enemy2hp + " / " + currQuest.enemy2hp + " / " + currQuest.enemy2hp);
-  $('#questEnemy3HPLeft').empty().html('HP Left: ' + currQuest.enemy3hp + " / " + currQuest.enemy3hp + " / " + currQuest.enemy3hp);
-  $('#questEnemy4HPLeft').empty().html('HP Left: ' + currQuest.enemy4hp + " / " + currQuest.enemy4hp + " / " + currQuest.enemy4hp);
-  $('#questEnemy5HPLeft').empty().html('HP Left: ' + currQuest.enemy5hp + " / " + currQuest.enemy5hp + " / " + currQuest.enemy5hp);
-  $('#questEnemy6HPLeft').empty().html('HP Left: ' + currQuest.enemy6hp + " / " + currQuest.enemy6hp + " / " + currQuest.enemy6hp);
-  $('#questEnemy7HPLeft').empty().html('HP Left: ' + currQuest.enemy7hp + " / " + currQuest.enemy7hp + " / " + currQuest.enemy7hp);
-  $('#questEnemy8HPLeft').empty().html('HP Left: ' + currQuest.enemy8hp + " / " + currQuest.enemy8hp + " / " + currQuest.enemy8hp);
-  $('#questEnemy9HPLeft').empty().html('HP Left: ' + currQuest.enemy9hp + " / " + currQuest.enemy9hp + " / " + currQuest.enemy9hp);
-
-  // fill in array to store enemy hp remaining values
-  for(let i = 0; i < 27; i++){
-    if(i >= 0 && i <= 2){
-      questEnemyHP[i] = currQuest.enemy1hp;
-    }
-    else if(i >= 3 && i <= 5){
-      questEnemyHP[i] = currQuest.enemy2hp;
-    }
-    else if(i >= 6 && i <= 8){
-      questEnemyHP[i] = currQuest.enemy3hp;
-    }
-    else if(i >= 9 && i <= 11){
-      questEnemyHP[i] = currQuest.enemy4hp;
-    }
-    else if(i >= 12 && i <= 14){
-      questEnemyHP[i] = currQuest.enemy5hp;
-    }
-    else if(i >= 15 && i <= 17){
-      questEnemyHP[i] = currQuest.enemy6hp;
-    }
-    else if(i >= 18 && i <= 20){
-      questEnemyHP[i] = currQuest.enemy7hp;
-    }
-    else if(i >= 21 && i <= 23){
-      questEnemyHP[i] = currQuest.enemy8hp;
-    }
-    else if(i >= 24 && i <= 26){
-      questEnemyHP[i] = currQuest.enemy9hp;
-    }
-  }
-
-  // initialize servant related data
-  console.log("servant: " + servant + " " + JSON.stringify(servant));
-  console.log("party: " + party.length + " " + JSON.stringify(party));
-
-  if(party.length === 0 || typeof servant === "undefined"){
-    console.log("partylength: " + party.length + " servantlength: " + servant.length)
-    return;
-  }
-
-  let currServant = savedServants[servant];
-  // if there is a servant selected
-  if(!(typeof currServant === "undefined")){
-    $('#servantBattleDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
-  }
-}
-
-// initialize the battle party
-function initializeBattleParty(){
-  $('#battlePartyDisplay').empty();
-
-  for(let i = 0; i < party.length; i++){
-    let curr = savedServants[party[i]];
-
-    $('#battlePartyDisplay').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-     curr.craftessence +
-     '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
-     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
-     ' autocomplete="false">Select</button></span>' + '</li>'));
-    //alert(i);
-
-    // link up delete button
-    document.getElementById("battlePartySelect" + i).addEventListener("click", function(){
-      if(debug){
-        alert("battlepartyselect" + i);
-      }
-      if(servant === party[i]){
-        // deselect
-        servant = "";
-        localStorage.setItem("servant", JSON.stringify(servant));
-
-        $('#servantBattleDisplay').empty().html('<b>Current Servant: </b>');
-      }
-      else{
-        // add and shift party
-        servant = party[i];
-        localStorage.setItem("servant", JSON.stringify(servant));
-        initializeBattleParty();
-        updateQuestPartyToggles();
-
-        let currServant = savedServants[party[i]];
-        $('#servantBattleDisplay').empty().html('<b>Current Servant: </b>' + currServant.name + ' NP ' + currServant.nplevel);
-      }
-    });
-  }
-}
-
-// reset battle sim wave
-function resetBattleSim(wavenumber){
-  // reset wave's hp remaining
-  let currQuest = savedQuests[quest];
-
-  if(wavenumber === 1){
-    questRefunds[0] = undefined;
-
-    $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>N/A');
-
-    if(typeof questRefunds[1] === "undefined"){
-      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
-    }
-    else{
-      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>' + questRefunds[1] + '%');
-    }
-
-    $('#questEnemy1HPLeft').empty().html('HP Left: ' + currQuest.enemy1hp + " / " + currQuest.enemy1hp + " / " + currQuest.enemy1hp);
-    $('#questEnemy2HPLeft').empty().html('HP Left: ' + currQuest.enemy2hp + " / " + currQuest.enemy2hp + " / " + currQuest.enemy2hp);
-    $('#questEnemy3HPLeft').empty().html('HP Left: ' + currQuest.enemy3hp + " / " + currQuest.enemy3hp + " / " + currQuest.enemy3hp);
-    $('#questEnemy1NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-    $('#questEnemy2NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-    $('#questEnemy3NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-
-    for(let i = 0; i < 9; i++){
-      if(i >= 0 && i <= 2){
-        questEnemyHP[i] = currQuest.enemy1hp;
-      }
-      else if(i >= 3 && i <= 5){
-        questEnemyHP[i] = currQuest.enemy2hp;
-      }
-      else if(i >= 6 && i <= 8){
-        questEnemyHP[i] = currQuest.enemy3hp;
-      }
-    }
-  }
-  if(wavenumber === 2){
-    questRefunds[1] = undefined;
-    if(typeof questRefunds[0] === "undefined"){
-      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
-    }
-    else{
-      $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + questRefunds[0] + '% <b>| Min. NP Refunded: </b>N/A');
-    }
-
-    if(typeof questRefunds[1] === "undefined" && typeof questRefunds[2] === "undefined"){
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
-    }
-    else if(typeof questRefunds[1] === "undefined"){
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>' + questRefunds[2] + '%');
-    }
-    else if(typeof questRefunds[2] === "undefined"){
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '% <b>| Min. NP Refunded: </b>N/A');
-    }
-    else{
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
-    }
-
-    $('#questEnemy4HPLeft').empty().html('HP Left: ' + currQuest.enemy4hp + " / " + currQuest.enemy4hp + " / " + currQuest.enemy4hp);
-    $('#questEnemy5HPLeft').empty().html('HP Left: ' + currQuest.enemy5hp + " / " + currQuest.enemy5hp + " / " + currQuest.enemy5hp);
-    $('#questEnemy6HPLeft').empty().html('HP Left: ' + currQuest.enemy6hp + " / " + currQuest.enemy6hp + " / " + currQuest.enemy6hp);
-    $('#questEnemy4NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-    $('#questEnemy5NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-    $('#questEnemy6NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-
-    for(let i = 9; i < 18; i++){
-      if(i >= 9 && i <= 11){
-        questEnemyHP[i] = currQuest.enemy4hp;
-      }
-      else if(i >= 12 && i <= 14){
-        questEnemyHP[i] = currQuest.enemy5hp;
-      }
-      else if(i >= 15 && i <= 17){
-        questEnemyHP[i] = currQuest.enemy6hp;
-      }
-    }
-  }
-  if(wavenumber === 3){
-    questRefunds[2] = undefined;
-
-    if(typeof questRefunds[1] === "undefined" && typeof questRefunds[2] === "undefined"){
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
-    }
-    else if(typeof questRefunds[1] === "undefined"){
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>' + questRefunds[2] + '%');
-    }
-    else if(typeof questRefunds[2] === "undefined"){
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '% <b>| Min. NP Refunded: </b>N/A');
-    }
-    else{
-      $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b> N/A <b>| Min. NP Refunded: </b>N/A');
-    }
-
-    $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave:  </b>' + questRefunds[1] +'% <b>| Min. NP Refunded: </b>N/A');
-    $('#questEnemy7HPLeft').empty().html('HP Left: ' + currQuest.enemy7hp + " / " + currQuest.enemy7hp + " / " + currQuest.enemy7hp);
-    $('#questEnemy8HPLeft').empty().html('HP Left: ' + currQuest.enemy8hp + " / " + currQuest.enemy8hp + " / " + currQuest.enemy8hp);
-    $('#questEnemy9HPLeft').empty().html('HP Left: ' + currQuest.enemy9hp + " / " + currQuest.enemy9hp + " / " + currQuest.enemy9hp);
-    $('#questEnemy7NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-    $('#questEnemy8NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-    $('#questEnemy9NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-
-    questRefunds[2] = undefined;
-
-    for(let i = 18; i < 27; i++){
-      if(i >= 18 && i <= 20){
-        questEnemyHP[i] = currQuest.enemy7hp;
-      }
-      else if(i >= 21 && i <= 23){
-        questEnemyHP[i] = currQuest.enemy8hp;
-      }
-      else if(i >= 24 && i <= 26){
-        questEnemyHP[i] = currQuest.enemy9hp;
-      }
-    }
-  }
-}
-
-function addServant(){
-  if(debug){
-    alert("addservant");
-  }
-
-  let valid = true;
-  'use strict';
-  var forms = document.getElementsByClassName('needs-validation-servant');
-  var validation = Array.prototype.filter.call(forms, function(form) {
-    if (form.checkValidity() === false) {
-      valid = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    form.classList.add('was-validated');
-  });
-
-  if(valid && saveServant()){
-    $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
-    updateSavedServantsDisplay();
-    updateServantToggles();
-    resetServant();
-
-    // reset form validation display
-    Array.prototype.filter.call(forms, function(form) {
-      form.classList.remove('was-validated');
-    });
-
-    // testing updating without needing reload
-    //location.reload();
-  }
-}
-
-// save servant data into array
-function saveServant(){
-  if(savedServants.length > 600){
-    return false;
-  }
-
-  // increment party indexes
-  for(let j = 0; j < party.length; j++){
-    party[j]++;
-  }
-  //alert(servant);
-  // party indexes incremented, match with servant
-  if(typeof servant === "undefined" || servant.length == 0){
-    //alert("undefined");
-    //don't increment if first servant
-  }
-  else{
-    servant++;
-  }
-  //alert(servant);
-  localStorage.setItem("party", JSON.stringify(party));
-  localStorage.setItem("servant", JSON.stringify(servant));
-
-  savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
-    "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
-    "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
-    "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
-
-  console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
-  localStorage.setItem("savedServants", JSON.stringify(savedServants));
-  return true;
-}
-
-// save servant data into array
-function saveEditedServant(index){
-  if(debug){
-    console.log("Saving edited servant: " + index);
-  }
-
-  let valid = true;
-  'use strict';
-  var forms = document.getElementsByClassName('needs-validation-servant');
-  var validation = Array.prototype.filter.call(forms, function(form) {
-    if (form.checkValidity() === false) {
-      valid = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    form.classList.add('was-validated');
-  });
-
-  if(valid){
-    savedServants[index]=({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
-      "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
-      "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-      "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
-      "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
-
-    // reset form validation display
-    Array.prototype.filter.call(forms, function(form) {
-      form.classList.remove('was-validated');
-    });
-
-    localStorage.setItem("savedServants", JSON.stringify(savedServants));
-
-    updateSavedServantsDisplay();
-    updateServantToggles();
-    resetServant();
-  }
-  return;
-}
-
-function addQuest(){
-  if(debug){
-    alert("addquest");
-  }
-  let valid = true;
-  'use strict';
-  var forms = document.getElementsByClassName('needs-validation-quest');
-  var validation = Array.prototype.filter.call(forms, function(form) {
-    if (form.checkValidity() === false) {
-      valid = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    form.classList.add('was-validated');
-  });
-
-  if(valid && saveQuest()){
-    if(quest.length !== 0){
-      quest++;
-    }
-    localStorage.setItem("quest", JSON.stringify(quest));
-    updateSavedQuestsDisplay();
-    updateQuestToggles();
-    Array.prototype.filter.call(forms, function(form) {
-      form.classList.remove('was-validated');
-    });
-
-    // testing updates without reload
-    //location.reload();
-  }
-}
-
-function saveEditedQuest(index){
-  if(debug){
-    console.log("Saving edited quest: " + index);
-  }
-
-  let valid = true;
-  'use strict';
-  var forms = document.getElementsByClassName('needs-validation-quest');
-  var validation = Array.prototype.filter.call(forms, function(form) {
-    if (form.checkValidity() === false) {
-      valid = false;
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    form.classList.add('was-validated');
-  });
-
-  if(valid){
-    savedQuests[index] = ({"name": $('#QuestName').val(),
-      "enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),"enemy1npgainmod": $('#enemy1NPGainMod').val(),
-      "enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),"enemy2npgainmod": $('#enemy2NPGainMod').val(),
-      "enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),"enemy3npgainmod": $('#enemy3NPGainMod').val(),
-      "enemy4hp": $('#enemy4HP').val(),"enemy4class": $('#enemy4Class').val(),"enemy4attribute": $('#enemy4Attribute').val(),"enemy4npgainmod": $('#enemy4NPGainMod').val(),
-      "enemy5hp": $('#enemy5HP').val(),"enemy5class": $('#enemy5Class').val(),"enemy5attribute": $('#enemy5Attribute').val(),"enemy5npgainmod": $('#enemy5NPGainMod').val(),
-      "enemy6hp": $('#enemy6HP').val(),"enemy6class": $('#enemy6Class').val(),"enemy6attribute": $('#enemy6Attribute').val(),"enemy6npgainmod": $('#enemy6NPGainMod').val(),
-      "enemy7hp": $('#enemy7HP').val(),"enemy7class": $('#enemy7Class').val(),"enemy7attribute": $('#enemy7Attribute').val(),"enemy7npgainmod": $('#enemy7NPGainMod').val(),
-      "enemy8hp": $('#enemy8HP').val(),"enemy8class": $('#enemy8Class').val(),"enemy8attribute": $('#enemy8Attribute').val(),"enemy8npgainmod": $('#enemy8NPGainMod').val(),
-      "enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val(),"enemy9npgainmod": $('#enemy9NPGainMod').val()
-    });
-
-    localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
-    updateSavedQuestsDisplay();
-    updateQuestToggles();
-    Array.prototype.filter.call(forms, function(form) {
-      form.classList.remove('was-validated');
-    });
-  }
-
-  location.reload();
-  return;
-}
-
-// save quest data into array
-function saveQuest(){
-  if(savedQuests.length > 600){
-    return false;
-  }
-
-  savedQuests.unshift({"name": $('#QuestName').val(),
-    "enemy1hp": $('#enemy1HP').val(),"enemy1class": $('#enemy1Class').val(),"enemy1attribute": $('#enemy1Attribute').val(),"enemy1npgainmod": $('#enemy1NPGainMod').val(),
-    "enemy2hp": $('#enemy2HP').val(),"enemy2class": $('#enemy2Class').val(),"enemy2attribute": $('#enemy2Attribute').val(),"enemy2npgainmod": $('#enemy2NPGainMod').val(),
-    "enemy3hp": $('#enemy3HP').val(),"enemy3class": $('#enemy3Class').val(),"enemy3attribute": $('#enemy3Attribute').val(),"enemy3npgainmod": $('#enemy3NPGainMod').val(),
-    "enemy4hp": $('#enemy4HP').val(),"enemy4class": $('#enemy4Class').val(),"enemy4attribute": $('#enemy4Attribute').val(),"enemy4npgainmod": $('#enemy4NPGainMod').val(),
-    "enemy5hp": $('#enemy5HP').val(),"enemy5class": $('#enemy5Class').val(),"enemy5attribute": $('#enemy5Attribute').val(),"enemy5npgainmod": $('#enemy5NPGainMod').val(),
-    "enemy6hp": $('#enemy6HP').val(),"enemy6class": $('#enemy6Class').val(),"enemy6attribute": $('#enemy6Attribute').val(),"enemy6npgainmod": $('#enemy6NPGainMod').val(),
-    "enemy7hp": $('#enemy7HP').val(),"enemy7class": $('#enemy7Class').val(),"enemy7attribute": $('#enemy7Attribute').val(),"enemy7npgainmod": $('#enemy7NPGainMod').val(),
-    "enemy8hp": $('#enemy8HP').val(),"enemy8class": $('#enemy8Class').val(),"enemy8attribute": $('#enemy8Attribute').val(),"enemy8npgainmod": $('#enemy8NPGainMod').val(),
-    "enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val(),"enemy9npgainmod": $('#enemy9NPGainMod').val()
-  });
-  localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
-  return true;
-}
-
-// delete servants and save
-function deleteAllServants(){
-  servant = "";
-  savedServants = [];
-  localStorage.setItem("servant", JSON.stringify(servant));
-  localStorage.setItem("savedServants", JSON.stringify(savedServants));
-}
-
-// delete quests and save
-function deleteAllQuests(){
-  quest = "";
-  savedQuests = [];
-  localStorage.setItem("quest", JSON.stringify(quest));
-  localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
-  updateSavedQuestsDisplay();
-}
-
-// reset battle forms
-function resetBattleForm(waveNumber){
-  $('#NPDamageUpQuest' + waveNumber).val(0);
-  $('#NPGainUpPercentageQuest' + waveNumber).val(0);
-  $('#AttackUpPercentageQuest' + waveNumber).val(0);
-  $('#FlatAttackUpQuest' + waveNumber).val(0);
-  $('#BusterUpPercentageQuest' + waveNumber).val(0);
-  $('#ArtsUpPercentageQuest' + waveNumber).val(0);
-  $('#QuickUpPercentageQuest' + waveNumber).val(0);
-  $('#PowerModQuest' + waveNumber).val(0);
-  $('#BusterDebuffPercentageQuest' + waveNumber).val(0);
-  $('#ArtsDebuffPercentageQuest' + waveNumber).val(0);
-  $('#QuickDebuffPercentageQuest' + waveNumber).val(0);
-  $('#NPSpecialAttackQuest' + waveNumber).val(0);
-  $('#DefenseDebuffPercentageQuest' + waveNumber).val(0);
-}
-
-// reset servant form
-function resetServant() {
-  $('#hasNPupgrade').hide();
-  $('#maxGrailed').prop('disabled', true);
-  $('#maxGrailed').prop('checked', false);
-  $('#maxFou').prop('checked', false);
-  $('#maxGoldFou').prop('checked', false);
-  $('#maxGoldFou').prop('disabled', true);
-  $('#inputNPLevel').val(1);
-  $('#NPDamagePercent').val(0);
-  $('#attack').val(0);
-  $('#NPDamageUp').val(0);
-  $('#NPStartCharge').val(0);
-  $('#BusterUpPercentage').val(0);
-  $('#ArtsUpPercentage').val(0);
-  $('#QuickUpPercentage').val(0);
-  $('#AttackUpPercentage').val(0);
-  $('#FlatAttackUp').val(0);
-  $('#addServant').attr('disabled', true);
-  $('#inputClass').val(0);
-  $('#inputCE').val("");
-}
-
-// reset quest form
-function resetQuest() {
-  $('#enemy1HP').val(0);
-  $('#enemy1Class').val("Saber");
-  $('#enemy1Attribute').val("Man");
-  $('#enemy2HP').val(0);
-  $('#enemy2Class').val("Saber");
-  $('#enemy2Attribute').val("Man");
-  $('#enemy3HP').val(0);
-  $('#enemy3Class').val("Saber");
-  $('#enemy3Attribute').val("Man");
-  $('#enemy4HP').val(0);
-  $('#enemy4Class').val("Saber");
-  $('#enemy4Attribute').val("Man");
-  $('#enemy5HP').val(0);
-  $('#enemy5Class').val("Saber");
-  $('#enemy5Attribute').val("Man");
-  $('#enemy6HP').val(0);
-  $('#enemy6Class').val("Saber");
-  $('#enemy6Attribute').val("Man");
-  $('#enemy7HP').val(0);
-  $('#enemy7Class').val("Saber");
-  $('#enemy7Attribute').val("Man");
-  $('#enemy8HP').val(0);
-  $('#enemy8Class').val("Saber");
-  $('#enemy8Attribute').val("Man");
-  $('#enemy9HP').val(0);
-  $('#enemy9Class').val("Saber");
-  $('#enemy9Attribute').val("Man");
-  $('#QuestName').val("Quest Name");
-}
-
-function calculateDamage(waveNumber){
-  var currServant = savedServants[servant];
-  var currQuest = savedQuests[quest];
-  var questClass1 = "";
-  var questClass2 = "";
-  var questClass3 = "";
-  var questAttr1 = "";
-  var questAttr2 = "";
-  var questAttr3 = "";
-  var cardBuffs = "";
-
-  // retrieve servant values
-  var servantClass = getClassValue(currServant.class);
-  var servantAttr = getAttrValue(currServant.attribute);
-  var atk = parseFloat(currServant.attack) || 0;
-  var np = parseFloat(currServant.npdamagepercent)/100 || 0;
-  var npCardType = cardDmg(currServant.nptype) || 0;
-  var servantClassMultiplier = classMultiplier(currServant.class) || 0;
-
-  // calculate buffs
-  var busterUp = parseFloat(currServant.busterup)/100 + parseFloat($('#BusterUpPercentageQuest' + waveNumber).val())/100 || 0;
-  var artsUp = parseFloat(currServant.artsup)/100 + parseFloat($('#ArtsUpPercentageQuest' + waveNumber).val())/100 || 0;
-  var quickUp = parseFloat(currServant.quickup)/100 + parseFloat($('#QuickUpPercentageQuest' + waveNumber).val())/100 || 0;
-  var attackUp = parseFloat(currServant.attackup)/100 + parseFloat($('#AttackUpPercentageQuest' + waveNumber).val())/100 || 0;
-  var npBuffs = parseFloat(currServant.npdamageup)/100 + parseFloat($('#NPDamageUpQuest' + waveNumber).val())/100 || 0;
-  var flatAttack = parseFloat(currServant.flatattackup) + parseFloat($('#FlatAttackUpQuest' + waveNumber).val()) || 0;
-  var busterDefenseDebuffs = parseFloat($('#BusterDebuffPercentageQuest' + waveNumber).val())/100 || 0;
-  var artsDefenseDebuffs = parseFloat($('#ArtsDebuffPercentageQuest' + waveNumber).val())/100 || 0;
-  var quickDefenseDebuffs = parseFloat($('#QuickDebuffPercentageQuest' + waveNumber).val())/100 || 0;
-  var cardDebuffs = 0;
-  var defenseDebuffs = parseFloat($('#DefenseDebuffPercentageQuest' + waveNumber).val())/100 || 0;
-  var npSpBuffs = parseFloat($('#NPSpecialAttackQuest' + waveNumber).val())/100 || 0;
-  var powerBuff = parseFloat(currServant.powermod + $('#PowerModQuest' + waveNumber).val())/100 || 0;
-  var npGainBuff = parseFloat($('#NPGainUpPercentageQuest' + waveNumber).val()/100) || 0
-
-  console.log("busterup: " + busterUp + " artsup: " + artsUp + " quickup: " + quickUp + " npbuffs: " + npBuffs +
-     " attackup: " + attackUp + " flatattackup: " + flatAttack + " busterdefensedebuff: " + busterDefenseDebuffs +
-     " artsdefensedebuff: " + artsDefenseDebuffs + " quickdefensedebuff: " + quickDefenseDebuffs + " powerbuff: " +
-      powerBuff + " defensedebuff:" + defenseDebuffs + " npSpBuffs: " + npSpBuffs + " npGainBuff: " + npGainBuff);
-
-  if(currServant.nptype.localeCompare("Buster") == 0){
-    cardBuffs = busterUp;
-    cardDebuffs = busterDefenseDebuffs;
-  }
-  else if(currServant.nptype.localeCompare("Arts") == 0){
-    cardBuffs = artsUp;
-    cardDebuffs = artsDefenseDebuffs;
-  }
-  else if(currServant.nptype.localeCompare("Quick") == 0){
-    cardBuffs = quickUp;
-    cardDebuffs = quickDefenseDebuffs;
-  }
-
-  // enemy value calculations
-  if(waveNumber === 1){
-    questClass1 = getClassValue(currQuest.enemy1class);
-    questClass2 = getClassValue(currQuest.enemy2class);
-    questClass3 = getClassValue(currQuest.enemy3class);
-    questAttr1 = getAttrValue(currQuest.enemy1attribute);
-    questAttr2 = getAttrValue(currQuest.enemy2attribute);
-    questAttr3 = getAttrValue(currQuest.enemy3attribute);
-  }
-  else if(waveNumber === 2){
-    questClass1 = getClassValue(currQuest.enemy4class);
-    questClass2 = getClassValue(currQuest.enemy5class);
-    questClass3 = getClassValue(currQuest.enemy6class);
-    questAttr1 = getAttrValue(currQuest.enemy4attribute);
-    questAttr2 = getAttrValue(currQuest.enemy5attribute);
-    questAttr3 = getAttrValue(currQuest.enemy6attribute);
-  }
-  else if(waveNumber === 3){
-    questClass1 = getClassValue(currQuest.enemy7class);
-    questClass2 = getClassValue(currQuest.enemy8class);
-    questClass3 = getClassValue(currQuest.enemy9class);
-    questAttr1 = getAttrValue(currQuest.enemy7attribute);
-    questAttr2 = getAttrValue(currQuest.enemy8attribute);
-    questAttr3 = getAttrValue(currQuest.enemy9attribute);
-  }
-
-  // interactive calculations
-  var classAdvantage1 = ClassAdv[servantClass][questClass1];
-  var classAdvantage2 = ClassAdv[servantClass][questClass2];
-  var classAdvantage3 = ClassAdv[servantClass][questClass3];
-  var attrAdvantage1 = AttrAdv[servantAttr][questAttr1];
-  var attrAdvantage2 = AttrAdv[servantAttr][questAttr2];
-  var attrAdvantage3 = AttrAdv[servantAttr][questAttr3];
-
-  console.log("multiplier class 1: " + classAdvantage1);
-  console.log("multiplier attr 1: " + attrAdvantage1);
-
-  //alert(cardBuffs + " " + parseFloat($('#QuickUpPercentageQuest' + waveNumber).val())/100);
-
-  var damageDealt1 = atk * np * npCardType * classAdvantage1 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
-              (1 + npSpBuffs) * attrAdvantage1 + flatAttack;
-  var damageDealt2 = atk * np * npCardType * classAdvantage2 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
-              (1 + npSpBuffs) * attrAdvantage2 + flatAttack;
-  var damageDealt3 = atk * np * npCardType * classAdvantage3 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
-              (1 + npSpBuffs) *  attrAdvantage3 + flatAttack;
-
-  // don't double add servant saved buffs for np gain
-  if(currServant.nptype.localeCompare("Buster") == 0){
-    cardBuffs = busterUp - parseFloat(currServant.busterup)/100;
-  }
-  else if(currServant.nptype.localeCompare("Arts") == 0){
-    cardBuffs = artsUp - parseFloat(currServant.artsup)/100;
-  }
-  else if(currServant.nptype.localeCompare("Quick") == 0){
-    cardBuffs = quickUp - parseFloat(currServant.quickup)/100;
-  }
-
-  // add card resist down to cardbuffs for np refund calculations
-  if(currServant.nptype.localeCompare("Buster") == 0){
-    cardBuffs += busterDefenseDebuffs;
-  }
-  else if(currServant.nptype.localeCompare("Arts") == 0){
-    cardBuffs += artsDefenseDebuffs;
-  }
-  else if(currServant.nptype.localeCompare("Quick") == 0){
-    cardBuffs += quickDefenseDebuffs;
-  }
-
-  // return average low and high damage dealt
-  return [Math.round(0.9 * damageDealt1), Math.round(damageDealt1), Math.round(1.1 * damageDealt1),
-    Math.round(0.9 * damageDealt2), Math.round(damageDealt2), Math.round(1.1 * damageDealt2),
-    Math.round(0.9 * damageDealt3), Math.round(damageDealt3), Math.round(1.1 * damageDealt3),
-    cardBuffs, npGainBuff];
-}
-
-// np refund calcluation
-// rider +10%, caster +20%, assassin -10%, berserker -20%
-function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp){
-  // if enemies start at 0 health, ignore them for np regen calculations
-  var ignoreEnemy1 = false;
-  var ignoreEnemy2 = false;
-  var ignoreEnemy3 = false;
-
-  if(parseFloat(hp1) === 0 || parseFloat(hp1) <= 0){
-    ignoreEnemy1 = true;
-    console.log("ignore enemy 1");
-  }
-  if(parseFloat(hp2) === 0 || parseFloat(hp2) <= 0){
-    ignoreEnemy2 = true;
-    console.log("ignore enemy 2");
-  }
-  if(parseFloat(hp3) === 0 || parseFloat(hp3) <= 0){
-    ignoreEnemy3 = true;
-    console.log("ignore enemy 3");
-  }
-
-  var enemyServerMod1 = enemyMod1; // changes based on enemy class and type
-  var enemyServerMod2 = enemyMod2; // changes based on enemy class and type
-  var enemyServerMod3 = enemyMod3; // changes based on enemy class and type
-  var firstCardBonus = 0; // 0 because NP card
-  var cardNpValue = 0; // buster quick arts card modifier
-  var cardMod = 0; // % buster,quick,arts up etc
-  var npChargeRateMod = savedServants[servant].npgainup/100 + npGainUp || 0; // changes to np charge rate
-  var npChargeOff = savedServants[servant].npgain; // np gain offensive
-  var critMod = 1; // no NP Crit
-  var overkillModifier = 1;
-  var npRefund = 0;
-  var npHits = savedServants[servant].nphits // how many hits this np has
-
-  console.log("cardBuff: " + cardBuff + " servant np gain up: " + savedServants[servant].npgainup + " servantbasenpgain: " + savedServants[servant].npgain +
-    " servant busterup: " + savedServants[servant].busterup + " servant arts up: " + savedServants[servant].artsup +
-    " servant quickup: " + savedServants[servant].quickup);
-
-  // set np card type and card buffs
-  if(savedServants[servant].nptype.localeCompare("Buster") == 0){
-    cardNpValue = 0;
-    cardMod = savedServants[servant].busterup/100;
-  }
-  else if(savedServants[servant].nptype.localeCompare("Arts") == 0){
-    cardNpValue = 3;
-    cardMod = savedServants[servant].artsup/100;
-  }
-  else if(savedServants[servant].nptype.localeCompare("Quick") == 0){
-    cardNpValue = 1;
-    cardMod = savedServants[servant].quickup/100;
-    //alert(savedServants[servant].quickup);
-  }
-  cardMod = (Number(cardMod) + Number(cardBuff));
-  //alert(cardMod);
-
-  let damage = 0;
-  for(let i = 0; i < npHits; i++){
-    damage = damage1 * NPHitDist[npHits - 1][i];
-
-    // check overkill
-    if(!ignoreEnemy1){
-      if(hp1 - damage < 0){
-        overkillModifier = 1.5;
-      }
-      else{
-        overkillModifier = 1;
-      }
-
-      console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
-      console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
-        " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod1: " + enemyServerMod1 +
-        " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
-      console.log("damage1: " + damage);
-
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
-        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
-
-    }
-
-    // update hp
-    hp1 -= damage;
-
-    console.log(npRefund);
-
-    damage = damage2 * NPHitDist[npHits - 1][i];
-
-    // check overkill
-    if(!ignoreEnemy2){
-      if(hp2 - damage < 0){
-        overkillModifier = 1.5;
-      }
-      else{
-        overkillModifier = 1;
-      }
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
-        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
-    }
-
-    // update hp
-    hp2 -= damage;
-
-    console.log(npRefund);
-
-    damage = damage3 * NPHitDist[npHits - 1][i];
-
-    if(!ignoreEnemy3){
-      if(hp3 - damage < 0){
-        overkillModifier = 1.5;
-      }
-      else{
-        overkillModifier = 1;
-      }
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) ))) *
-        enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
-    }
-
-    // update hp
-    hp3 -= damage;
-
-    console.log(npRefund);
-  }
-
-  return npRefund;
-}
-
-
-// Saber = 0, Archer = 1, Lancer = 2, Rider = 3, Caster = 4, Assassin = 5, Berserker = 6,
-// Ruler = 7, Avenger = 8, Moon Cancer = 9, Alter Ego = 10, Foreigner = 11, Shielder = 12
-function getClassValue(input){
-  var classVal = 0;
-
-  if(input.localeCompare("Saber") == 0){
-    console.log("saber");
-    classVal = 0;
-  }
-  else if(input.localeCompare("Archer") == 0){
-    console.log("archer");
-    classVal = 1;
-  }
-  else if(input.localeCompare("Lancer") == 0){
-    console.log("lancer");
-    classVal = 2;
-  }
-  else if(input.localeCompare("Rider") == 0){
-    console.log("rider");
-    classVal = 3;
-  }
-  else if(input.localeCompare("Caster") == 0){
-    console.log("caster");
-    classVal = 4;
-  }
-  else if(input.localeCompare("Assassin") == 0){
-    console.log("assassin");
-    classVal = 5;
-  }
-  else if(input.localeCompare("Berserker") == 0){
-    console.log("berserker");
-    classVal = 6;
-  }
-  else if(input.localeCompare("Ruler") == 0){
-    console.log("ruler");
-    classVal = 7;
-  }
-  else if(input.localeCompare("Avenger") == 0){
-    console.log("avenger");
-    classVal = 8;
-  }
-  else if(input.localeCompare("Moon Cancer") == 0){
-    console.log("moon cancer");
-    classVal = 9;
-  }
-  else if(input.localeCompare("Alter Ego") == 0){
-    console.log("alter ego");
-    classVal = 10;
-  }
-  else if(input.localeCompare("Foreigner") == 0){
-    console.log("foreigner");
-    classVal = 11;
-  }
-  else if(input.localeCompare("Shielder") == 0){
-    console.log("shielder");
-    classVal = 12;
-  }
-
-  return classVal;
-}
-
-// Man = 0, Sky = 1, Earth = 2
-function getAttrValue(input){
-  var attrVal = 0;
-
-  if(input.localeCompare("Man") == 0){
-    console.log("man");
-    attrVal = 0;
-  }
-  else if(input.localeCompare("Sky") == 0){
-    console.log("sky");
-    attrVal = 1;
-  }
-  else if(input.localeCompare("Earth") == 0){
-    console.log("sky");
-    attrVal = 2;
-  }
-
-  return attrVal;
-}
-
-function classMultiplier(input){
-  var classVal = 1;
-
-  if (input.localeCompare("Archer") == 0){
-    console.log("archer");
-    classVal = 0.95;
-  }
-  else if (input.localeCompare("Lancer") == 0 ){
-    console.log("lancer");
-    classVal = 1.05;
-  }
-  else if (input.localeCompare("Caster") == 0 || input.localeCompare("Assassin") == 0 ){
-    console.log("caster or assassin");
-    classVal = 0.9;
-  }
-  else if (input.localeCompare("Berseker") == 0 || input.localeCompare("Ruler") == 0 ||
-  input.localeCompare("Avenger") == 0){
-    console.log("berserker or ruler or avenger");
-    classVal = 1.1;
-  }
-  return classVal;
-}
-
-function cardDmg(input){
-  var cardVal = 1;
-
-  if (input.localeCompare("Buster") == 0){
-    console.log("np type buster");
-    cardVal = 1.5;
-  }
-  else if (input.localeCompare("Arts") == 0){
-    console.log("np type arts");
-    cardVal = 1.0;
-  }
-  else if (input.localeCompare("Quick") == 0){
-    console.log("np type quick");
-    cardVal = 0.8;
-  }
-
-  return cardVal;
-}
-
-function getServantID(name){
-  for(var i = 0; i < servantList.length; i++){
-    if(servantList[i].name.localeCompare(name) === 0){
-      return servantList[i].id;
-    }
-  }
-}
-
-function loadNPPercentages(servantID){
-  // set np related stats
-  let npmulti = [0,0,0,0,0];
-  if (servantList[servantID - 1].npmultiplier){
-    npmulti = servantList[servantID - 1].npmultiplier.split(',');
-  }
-
-  $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
-  $('#inputNPLevel').on('change', function(){
-    $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
-  });
-
 }
