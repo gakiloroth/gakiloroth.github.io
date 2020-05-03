@@ -1608,9 +1608,9 @@ function calculateDamage(waveNumber){
   }
 
   // return average low and high damage dealt
-  return [Math.round(0.9 * damageDealt1), Math.round(damageDealt1), Math.round(1.1 * damageDealt1),
-    Math.round(0.9 * damageDealt2), Math.round(damageDealt2), Math.round(1.1 * damageDealt2),
-    Math.round(0.9 * damageDealt3), Math.round(damageDealt3), Math.round(1.1 * damageDealt3),
+  return [Math.round(0.9 * (damageDealt1 - flatAttack) + flatAttack), Math.round(damageDealt1), Math.round(1.1 * (damageDealt1 - flatAttack) + flatAttack),
+    Math.round(0.9 * (damageDealt2 - flatAttack) + flatAttack), Math.round(damageDealt2), Math.round(1.1 * (damageDealt2 - flatAttack) + flatAttack),
+    Math.round(0.9 * (damageDealt3 - flatAttack) + flatAttack), Math.round(damageDealt3), Math.round(1.1 * (damageDealt3 - flatAttack) + flatAttack),
     cardBuffs, npGainBuff];
 }
 
