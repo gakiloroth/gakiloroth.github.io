@@ -1515,7 +1515,7 @@ function calculateDamage(waveNumber){
   var cardDebuffs = 0;
   var defenseDebuffs = parseFloat($('#DefenseDebuffPercentageQuest' + waveNumber).val())/100 || 0;
   var npSpBuffs = parseFloat($('#NPSpecialAttackQuest' + waveNumber).val())/100 || 0;
-  var powerBuff = parseFloat(currServant.powermod + $('#PowerModQuest' + waveNumber).val())/100 || 0;
+  var powerBuff = parseFloat(currServant.powermod)/100 + $('#PowerModQuest' + waveNumber).val()/100 || 0;
   var npGainBuff = parseFloat($('#NPGainUpPercentageQuest' + waveNumber).val()/100) || 0
 
   console.log("busterup: " + busterUp + " artsup: " + artsUp + " quickup: " + quickUp + " npbuffs: " + npBuffs +
