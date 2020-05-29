@@ -1486,13 +1486,12 @@ function resetQuest() {
 function calculateDamage(waveNumber){
   var currServant = savedServants[servant];
   var currQuest = savedQuests[quest];
-  var questClass1 = "";
-  var questClass2 = "";
-  var questClass3 = "";
-  var questAttr1 = "";
-  var questAttr2 = "";
-  var questAttr3 = "";
+  var questClass = new Array(3);
+  var questAttr = new Array(3);
+  var questNpSp = new Array(3);
+  var questPower = new Array(3);
   var cardBuffs = "";
+  var waveOffset = ((waveNumber - 1) * 3) + 1; // 1,4,7
 
   // retrieve servant values
   var servantClass = getClassValue(currServant.class);
@@ -1518,10 +1517,18 @@ function calculateDamage(waveNumber){
   var powerBuff = parseFloat(currServant.powermod)/100 + $('#PowerModQuest' + waveNumber).val()/100 || 0;
   var npGainBuff = parseFloat($('#NPGainUpPercentageQuest' + waveNumber).val()/100) || 0
 
-  console.log("busterup: " + busterUp + " artsup: " + artsUp + " quickup: " + quickUp + " npbuffs: " + npBuffs +
-     " attackup: " + attackUp + " flatattackup: " + flatAttack + " busterdefensedebuff: " + busterDefenseDebuffs +
-     " artsdefensedebuff: " + artsDefenseDebuffs + " quickdefensedebuff: " + quickDefenseDebuffs + " powerbuff: " +
-      powerBuff + " defensedebuff:" + defenseDebuffs + " npSpBuffs: " + npSpBuffs + " npGainBuff: " + npGainBuff);
+  // load in enemy specific mods
+  for(var i = 0; i < 3; i++){
+    questNpSp[i] =  parseFloat($('#NPSpecialAttackQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+    questPower[i] =  parseFloat($('#PowerModQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+  }
+
+  if(debug){
+    console.log("busterup: " + busterUp + " artsup: " + artsUp + " quickup: " + quickUp + " npbuffs: " + npBuffs +
+       " attackup: " + attackUp + " flatattackup: " + flatAttack + " busterdefensedebuff: " + busterDefenseDebuffs +
+       " artsdefensedebuff: " + artsDefenseDebuffs + " quickdefensedebuff: " + quickDefenseDebuffs + " powerbuff: " +
+        powerBuff + " defensedebuff:" + defenseDebuffs + " npSpBuffs: " + npSpBuffs + " npGainBuff: " + npGainBuff);
+    }
 
   if(currServant.nptype.localeCompare("Buster") == 0){
     cardBuffs = busterUp;
@@ -1537,53 +1544,41 @@ function calculateDamage(waveNumber){
   }
 
   // enemy value calculations
-  if(waveNumber === 1){
-    questClass1 = getClassValue(currQuest.enemy1class);
-    questClass2 = getClassValue(currQuest.enemy2class);
-    questClass3 = getClassValue(currQuest.enemy3class);
-    questAttr1 = getAttrValue(currQuest.enemy1attribute);
-    questAttr2 = getAttrValue(currQuest.enemy2attribute);
-    questAttr3 = getAttrValue(currQuest.enemy3attribute);
+  for(var i = waveOffset; i <= 2 + waveOffset; i++){
+    questClass[i-waveOffset] = getClassValue(currQuest['enemy' + i + 'class']);
+    questAttr[i-waveOffset] = getAttrValue(currQuest['enemy' + i + 'attribute']);
   }
-  else if(waveNumber === 2){
-    questClass1 = getClassValue(currQuest.enemy4class);
-    questClass2 = getClassValue(currQuest.enemy5class);
-    questClass3 = getClassValue(currQuest.enemy6class);
-    questAttr1 = getAttrValue(currQuest.enemy4attribute);
-    questAttr2 = getAttrValue(currQuest.enemy5attribute);
-    questAttr3 = getAttrValue(currQuest.enemy6attribute);
-  }
-  else if(waveNumber === 3){
-    questClass1 = getClassValue(currQuest.enemy7class);
-    questClass2 = getClassValue(currQuest.enemy8class);
-    questClass3 = getClassValue(currQuest.enemy9class);
-    questAttr1 = getAttrValue(currQuest.enemy7attribute);
-    questAttr2 = getAttrValue(currQuest.enemy8attribute);
-    questAttr3 = getAttrValue(currQuest.enemy9attribute);
+
+  if(debug){
+    console.log("quest class 1: " + questClass[0]);
+    console.log("quest attr 1: " + questAttr[0]);
+    console.log("quest class 2: " + questClass[1]);
+    console.log("quest attr 2: " + questAttr[1]);
   }
 
   // interactive calculations
-  var classAdvantage1 = ClassAdv[servantClass][questClass1];
-  var classAdvantage2 = ClassAdv[servantClass][questClass2];
-  var classAdvantage3 = ClassAdv[servantClass][questClass3];
-  var attrAdvantage1 = AttrAdv[servantAttr][questAttr1];
-  var attrAdvantage2 = AttrAdv[servantAttr][questAttr2];
-  var attrAdvantage3 = AttrAdv[servantAttr][questAttr3];
+  var classAdvantage = new Array(3);
+  var attrAdvantage = new Array(3);
+  for(var i = 0; i < 3; i++){
+    classAdvantage[i] = ClassAdv[servantClass][questClass[i]];
+    attrAdvantage[i] = AttrAdv[servantAttr][questAttr[i]];
+  }
 
-  console.log("multiplier class 1: " + classAdvantage1);
-  console.log("multiplier attr 1: " + attrAdvantage1);
+  if(debug){
+    console.log("multiplier class 1: " + classAdvantage[0]);
+    console.log("multiplier attr 1: " + attrAdvantage[0]);
+  }
 
-  //alert(cardBuffs + " " + parseFloat($('#QuickUpPercentageQuest' + waveNumber).val())/100);
+  var damageDealt = new Array(3);
+  for(var i = 0; i < 3; i++){
+    damageDealt[i] = atk * np * npCardType * classAdvantage[i] * servantClassMultiplier * 0.23 *
+                (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + (powerBuff + questPower[i])) *
+                (1 + (npSpBuffs + questNpSp[i])) * attrAdvantage[i] + flatAttack;
+  }
 
-  var damageDealt1 = atk * np * npCardType * classAdvantage1 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
-              (1 + npSpBuffs) * attrAdvantage1 + flatAttack;
-  var damageDealt2 = atk * np * npCardType * classAdvantage2 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
-              (1 + npSpBuffs) * attrAdvantage2 + flatAttack;
-  var damageDealt3 = atk * np * npCardType * classAdvantage3 * servantClassMultiplier * 0.23 *
-              (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + powerBuff) *
-              (1 + npSpBuffs) *  attrAdvantage3 + flatAttack;
+  if(debug){
+    console.log("damageDealt[0]: " + damageDealt[0]);
+  }
 
   // don't double add servant saved buffs for np gain
   if(currServant.nptype.localeCompare("Buster") == 0){
@@ -1608,9 +1603,9 @@ function calculateDamage(waveNumber){
   }
 
   // return average low and high damage dealt
-  return [Math.round(0.9 * (damageDealt1 - flatAttack) + flatAttack), Math.round(damageDealt1), Math.round(1.1 * (damageDealt1 - flatAttack) + flatAttack),
-    Math.round(0.9 * (damageDealt2 - flatAttack) + flatAttack), Math.round(damageDealt2), Math.round(1.1 * (damageDealt2 - flatAttack) + flatAttack),
-    Math.round(0.9 * (damageDealt3 - flatAttack) + flatAttack), Math.round(damageDealt3), Math.round(1.1 * (damageDealt3 - flatAttack) + flatAttack),
+  return [Math.round(0.9 * (damageDealt[0] - flatAttack) + flatAttack), Math.round(damageDealt[0]), Math.round(1.1 * (damageDealt[0] - flatAttack) + flatAttack),
+    Math.round(0.9 * (damageDealt[1] - flatAttack) + flatAttack), Math.round(damageDealt[1]), Math.round(1.1 * (damageDealt[1] - flatAttack) + flatAttack),
+    Math.round(0.9 * (damageDealt[2] - flatAttack) + flatAttack), Math.round(damageDealt[2]), Math.round(1.1 * (damageDealt[2] - flatAttack) + flatAttack),
     cardBuffs, npGainBuff];
 }
 
