@@ -21,6 +21,8 @@ The "NP Gain Mod" entries are **usually** the default that gets put in when you 
 ## Battle Simulator Tab
 Once you have servants selected (in your party) and a quest selected, you can then test NP damage and NP refund in the battle simulator tab. Select one of the servants from your party from the bottom of the screen, apply further buffs you might use on that wave, and then click "Calculate NP Damage" to see NP damage and NP refund.
 
+There is also now the ability to mark NP Sp. Attack and Power Mod for specific enemies (for situations such as Sieg / Mordred).
+
 Remember Passive Skill effects and effects that "activate first" before NP(or things like Arash OC NP Damage)!
 
 Click the "Prev" and "Next" buttons to test on other waves.
