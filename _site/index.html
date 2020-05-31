@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v1.16</title>
+    <title>FGO 3T Simulator v1.17</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v1.16
+        <h1 class="title">FGO 3T Simulator v1.17
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -1152,7 +1152,7 @@
             </div>
           </div>
 
-          <div class="row mt-2">
+          <div class="row mt-4">
             <div class="col-md-4">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -1304,104 +1304,116 @@
             </div>
           </div>
 
-          <div class="row mt-2">
+          <div class="row mt-4">
             <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="NPSpecialAttackQuest1Enemy1">NP Sp. Attack (Enemy 1)&nbsp;
-                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                </div>
-                <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy1" value="0" min="0" required>
-                <div class="input-group-append">
-                  <label class="input-group-text" for="percent">%</label>
-                </div>
-                <div class="invalid-feedback">
-                  Valid NP Special Attack value required.
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="NPSpecialAttackQuest1Enemy2">NP Sp. Attack (Enemy 2)&nbsp;
-                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                </div>
-                <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy2" value="0" min="0" required>
-                <div class="input-group-append">
-                  <label class="input-group-text" for="percent">%</label>
-                </div>
-                <div class="invalid-feedback">
-                  Valid Defense Debuff value required.
-                </div>
-              </div>
-            </div>
-
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="NPSpecialAttackQuest1Enemy3">NP Sp. Attack (Enemy 3)&nbsp;
-                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                </div>
-                <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy3" value="0" min="0" required>
-                <div class="input-group-append">
-                  <label class="input-group-text" for="percent">%</label>
-                </div>
-                <div class="invalid-feedback">
-                  Valid Power Mod required.
-                </div>
-              </div>
+              <p>
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific1" aria-expanded="false" aria-controls="collapseEnemySpecific1">
+                   Toggle Enemy Specific Display
+                </button>
+              </p>
             </div>
           </div>
 
-          <div class="row mt-2">
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="PowerModQuest1Enemy1">Power Mod (Enemy 1)&nbsp;
-                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                    <img src="images/buffs/specialattackup.png" height="23"></img></label>
+          <div class="collapse" id="collapseEnemySpecific1">
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPSpecialAttackQuest1Enemy1">NP Sp. Attack (Enemy 1)&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy1" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Special Attack value required.
+                  </div>
                 </div>
-                <input type="number" class="form-control" id="PowerModQuest1Enemy1" value="0" min="0" required>
-                <div class="input-group-append">
-                  <label class="input-group-text" for="percent">%</label>
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPSpecialAttackQuest1Enemy2">NP Sp. Attack (Enemy 2)&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Defense Debuff value required.
+                  </div>
                 </div>
-                <div class="invalid-feedback">
-                  Valid NP Special Attack value required.
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPSpecialAttackQuest1Enemy3">NP Sp. Attack (Enemy 3)&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Power Mod required.
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="PowerModQuest1Enemy2">Power Mod (Enemy 2)&nbsp;
-                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                    <img src="images/buffs/specialattackup.png" height="23"></img></label>
-                </div>
-                <input type="number" class="form-control" id="PowerModQuest1Enemy2" value="0" min="0" required>
-                <div class="input-group-append">
-                  <label class="input-group-text" for="percent">%</label>
-                </div>
-                <div class="invalid-feedback">
-                  Valid Defense Debuff value required.
+            <div class="row mt-2">
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="PowerModQuest1Enemy1">Power Mod (Enemy 1)&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="PowerModQuest1Enemy1" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Special Attack value required.
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="col-md-4">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <label class="input-group-text" for="PowerModQuest1Enemy3">Power Mod (Enemy 3)&nbsp;
-                    <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                    <img src="images/buffs/specialattackup.png" height="23"></img></label>
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="PowerModQuest1Enemy2">Power Mod (Enemy 2)&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="PowerModQuest1Enemy2" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Defense Debuff value required.
+                  </div>
                 </div>
-                <input type="number" class="form-control" id="PowerModQuest1Enemy3" value="0" min="0" required>
-                <div class="input-group-append">
-                  <label class="input-group-text" for="percent">%</label>
-                </div>
-                <div class="invalid-feedback">
-                  Valid Power Mod required.
+              </div>
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="PowerModQuest1Enemy3">Power Mod (Enemy 3)&nbsp;
+                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                  </div>
+                  <input type="number" class="form-control" id="PowerModQuest1Enemy3" value="0" min="0" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid Power Mod required.
+                  </div>
                 </div>
               </div>
             </div>
@@ -1687,104 +1699,116 @@
               </div>
             </div>
 
-            <div class="row mt-2">
+            <div class="row mt-4">
               <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest2Enemy4">NP Sp. Attack (Enemy 4)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy4" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid NP Special Attack value required.
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest2Enemy5">NP Sp. Attack (Enemy 5)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy5" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Defense Debuff value required.
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest2Enemy6">NP Sp. Attack (Enemy 6)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy6" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Power Mod required.
-                  </div>
-                </div>
+                <p>
+                  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific2" aria-expanded="false" aria-controls="collapseEnemySpecific2">
+                     Toggle Enemy Specific Display
+                  </button>
+                </p>
               </div>
             </div>
 
-            <div class="row mt-2">
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest2Enemy4">Power Mod (Enemy 4)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+            <div class="collapse" id="collapseEnemySpecific2">
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPSpecialAttackQuest2Enemy4">NP Sp. Attack (Enemy 4)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy4" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid NP Special Attack value required.
+                    </div>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest2Enemy4" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPSpecialAttackQuest2Enemy5">NP Sp. Attack (Enemy 5)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy5" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Defense Debuff value required.
+                    </div>
                   </div>
-                  <div class="invalid-feedback">
-                    Valid NP Special Attack value required.
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPSpecialAttackQuest2Enemy6">NP Sp. Attack (Enemy 6)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy6" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Power Mod required.
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest2Enemy5">Power Mod (Enemy 5)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="PowerModQuest2Enemy5" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Defense Debuff value required.
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="PowerModQuest2Enemy4">Power Mod (Enemy 4)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                        <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="PowerModQuest2Enemy4" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid NP Special Attack value required.
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest2Enemy6">Power Mod (Enemy 6)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="PowerModQuest2Enemy5">Power Mod (Enemy 5)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                        <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="PowerModQuest2Enemy5" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Defense Debuff value required.
+                    </div>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest2Enemy6" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Power Mod required.
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="PowerModQuest2Enemy6">Power Mod (Enemy 6)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                        <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="PowerModQuest2Enemy6" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Power Mod required.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1919,7 +1943,7 @@
               </div>
             </div>
 
-            <div class="row mt-2">
+            <div class="row mt-4">
               <div class="col-md-4">
                 <div class="input-group">
                   <div class="input-group-prepend">
@@ -2069,104 +2093,117 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-2">
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest3Enemy7">NP Sp. Attack (Enemy 7)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy7" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid NP Special Attack value required.
-                  </div>
-                </div>
-              </div>
 
+            <div class="row mt-4">
               <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest3Enemy8">NP Sp. Attack (Enemy 8)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy8" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Defense Debuff value required.
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="NPSpecialAttackQuest3Enemy9">NP Sp. Attack (Enemy 9)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy9" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Power Mod required.
-                  </div>
-                </div>
+                <p>
+                  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific3" aria-expanded="false" aria-controls="collapseEnemySpecific3">
+                     Toggle Enemy Specific Display
+                  </button>
+                </p>
               </div>
             </div>
 
-            <div class="row mt-2">
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest3Enemy7">Power Mod (Enemy 7)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+            <div class="collapse" id="collapseEnemySpecific3">
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPSpecialAttackQuest3Enemy7">NP Sp. Attack (Enemy 7)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy7" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid NP Special Attack value required.
+                    </div>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest3Enemy7" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPSpecialAttackQuest3Enemy8">NP Sp. Attack (Enemy 8)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy8" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Defense Debuff value required.
+                    </div>
                   </div>
-                  <div class="invalid-feedback">
-                    Valid NP Special Attack value required.
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPSpecialAttackQuest3Enemy9">NP Sp. Attack (Enemy 9)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy9" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Power Mod required.
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest3Enemy8">Power Mod (Enemy 8)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
-                  </div>
-                  <input type="number" class="form-control" id="PowerModQuest3Enemy8" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Defense Debuff value required.
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="PowerModQuest3Enemy7">Power Mod (Enemy 7)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                        <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="PowerModQuest3Enemy7" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid NP Special Attack value required.
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="col-md-4">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text" for="PowerModQuest3Enemy9">Power Mod (Enemy 9)&nbsp;
-                      <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
-                      <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="PowerModQuest3Enemy8">Power Mod (Enemy 8)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                        <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="PowerModQuest3Enemy8" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Defense Debuff value required.
+                    </div>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest3Enemy9" value="0" min="0" required>
-                  <div class="input-group-append">
-                    <label class="input-group-text" for="percent">%</label>
-                  </div>
-                  <div class="invalid-feedback">
-                    Valid Power Mod required.
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="PowerModQuest3Enemy9">Power Mod (Enemy 9)&nbsp;
+                        <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
+                        <img src="images/buffs/specialattackup.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="PowerModQuest3Enemy9" value="0" min="0" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Power Mod required.
+                    </div>
                   </div>
                 </div>
               </div>

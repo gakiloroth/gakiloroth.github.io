@@ -12,7 +12,7 @@ Updates may change some how of the backend are done, and if calculations don't w
 Enter all the information a servant would have, including their passives, and the buffs from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 4, to test in the battle simulator.
 
 ## Quests Manager Tab
-Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. 
+Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0.
 
 **Tip**: If you're not sure what an enemy's attribute might be, make your attacking servant and the enemy's attribute the same, which will set the attribute damage modifier to 1.
 
@@ -20,6 +20,8 @@ The "NP Gain Mod" entries are **usually** the default that gets put in when you 
 
 ## Battle Simulator Tab
 Once you have servants selected (in your party) and a quest selected, you can then test NP damage and NP refund in the battle simulator tab. Select one of the servants from your party from the bottom of the screen, apply further buffs you might use on that wave, and then click "Calculate NP Damage" to see NP damage and NP refund.
+
+There is also now the ability to mark NP Sp. Attack and Power Mod for specific enemies (for situations such as Sieg / Mordred). Click on the "Toggle Enemy Specific Display" button to show these buttons. (More modifiers may be added under this if needed.)
 
 Remember Passive Skill effects and effects that "activate first" before NP(or things like Arash OC NP Damage)!
 
@@ -34,3 +36,5 @@ Then, you can choose several servants, one quest, and test NP damage and NP refu
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
 - Keep track of total NP Animation Time (in seconds)
+- Collapse card buff/debuffs into one option
+- Add ability to def. debuff/ card debuff specific enemies (not sure if needed yet)
