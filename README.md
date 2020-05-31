@@ -34,3 +34,5 @@ Then, you can choose several servants, one quest, and test NP damage and NP refu
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
 - Keep track of total NP Animation Time (in seconds)
+- Collapse card buff/debuffs into one option
+- Add ability to def. debuff/ card debuff specific enemies (not sure if needed yet)
