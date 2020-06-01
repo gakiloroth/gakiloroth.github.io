@@ -13,6 +13,7 @@ var servant = JSON.parse(localStorage.getItem("servant") || "[]");
 var quest = JSON.parse(localStorage.getItem("quest") || "[]");
 var questEnemyHP = [];
 var questRefunds = [];
+var questNPTotalTime = 0;
 var startup = true;
 var editServantMode = false;
 var editServant = -1;
@@ -288,6 +289,20 @@ document.getElementById('addQuest').onclick = function(){
   addQuest();
 };
 
+function updateNPTime(){
+  $('#npTotalTimeDisplay').empty().html('<b>Total NP Time  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="These are rough estimates - use as a general guide. Hopefully I\'ll find a more accurate way of measuring NP times in the future."></img> : '
+  + questNPTotalTime + 's &nbsp;&nbsp;</b><button type="button" id="resetTotalNPTime"' + 'class="btn btn-outline-danger btn-sm">Reset</button></p>');
+  attachNPTimeReset();
+}
+
+function attachNPTimeReset(){
+  document.getElementById('resetTotalNPTime').onclick = function(){
+    questNPTotalTime = 0;
+    $('#npTotalTimeDisplay').empty().html('<b>Total NP Time  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="These are rough estimates - use as a general guide. Hopefully I\'ll find a more accurate way of measuring NP times in the future."></img> : '
+    + '0s &nbsp;&nbsp;</b><button type="button" id="resetTotalNPTime" class="btn btn-outline-danger btn-sm">Reset</button></p>');
+  };
+}
+
 // calculate NP Damage for Wave 1
 document.getElementById('submitBattleForm1').onclick = async function(){
   // if no servant selected
@@ -328,8 +343,11 @@ document.getElementById('submitBattleForm1').onclick = async function(){
     let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], curr.enemy1npgainmod, curr.enemy2npgainmod, curr.enemy3npgainmod,
      result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist)
 
+    questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
     $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
     $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
+    updateNPTime();
+
     questRefunds[0] = refunded.toFixed(2);
 
     // update enemy hp in Array
@@ -401,6 +419,7 @@ document.getElementById('submitBattleForm2').onclick = async function(){
     let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
      result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist);
 
+    questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
     if(typeof questRefunds[0] === "undefined"){
       $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
     }
@@ -408,6 +427,8 @@ document.getElementById('submitBattleForm2').onclick = async function(){
       $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + questRefunds[0] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
     }
     $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
+    updateNPTime();
+
     questRefunds[1] = refunded.toFixed(2);
 
     // update enemy hp in Array
@@ -480,12 +501,15 @@ document.getElementById('submitBattleForm3').onclick = async function(){
     let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
      result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist);
 
+    questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
     if(typeof questRefunds[1] === "undefined"){
       $('#npRefundDisplay3').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
     }
     else{
       $('#npRefundDisplay3').empty().html('<b>Wave 3: Last NP Refund from last wave: </b>' + questRefunds[1] + '%<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>');
     }
+    updateNPTime();
+
     questRefunds[2] = refunded.toFixed(2);
 
     // update enemy hp
