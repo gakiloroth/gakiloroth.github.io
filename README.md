@@ -19,7 +19,7 @@ Enter all the HP values, classes, and attributes of all the enemies you want in 
 The "NP Gain Mod" entries are **usually** the default that gets put in when you choose classes. However, there are "special" enemies that have different NP Gain Mods. If you know that the enemy you are testing is "special" and you know their specific NP Gain Mod, you can change it here to whatever you need. Otherwise, just leave it as is.
 
 ## Battle Simulator Tab
-Once you have servants selected (in your party) and a quest selected, you can then test NP damage and NP refund in the battle simulator tab. Select one of the servants from your party from the bottom of the screen, apply further buffs you might use on that wave, and then click "Calculate NP Damage" to see NP damage and NP refund.
+Once you have servants selected (in your party) and a quest selected, you can then test NP damage and NP refund in the battle simulator tab. Select one of the servants from your party from the bottom of the screen, apply further buffs you might use on that wave, and then click "Calculate NP Damage" to see NP damage and NP refund. The NP Total Timer counter at the top counts the NP time every time you calculate NP damage - but keep in mind this is a rough estimate and I hope to put more accurate data in the future if possible. 
 
 There is also now the ability to mark NP Sp. Attack and Power Mod for specific enemies (for situations such as Sieg / Mordred). Click on the "Toggle Enemy Specific Display" button to show these buttons. (More modifiers may be added under this if needed.)
 
@@ -35,6 +35,5 @@ Then, you can choose several servants, one quest, and test NP damage and NP refu
 
 Work in Progress:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
-- Keep track of total NP Animation Time (in seconds)
 - Collapse card buff/debuffs into one option
 - Add ability to def. debuff/ card debuff specific enemies (not sure if needed yet)
