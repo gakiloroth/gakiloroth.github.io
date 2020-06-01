@@ -1,3 +1,6 @@
+const QUEST_ENEMY_COUNT = 9;
+const WAVE_ENEMY_COUNT = 3;
+
 var servantName = "";
 var servantID = 1;
 var servantNPType = "";
@@ -15,10 +18,7 @@ var editServantMode = false;
 var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
-var debug = true;
-
-const QUEST_ENEMY_COUNT = 9;
-const WAVE_ENEMY_COUNT = 3;
+var debug = false;
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -336,7 +336,7 @@ document.getElementById('addQuest').onclick = function(){
 };
 
 // calculate NP Damage for Wave 1
-document.getElementById('submitBattleForm1').onclick = function(){
+document.getElementById('submitBattleForm1').onclick = async function(){
   // if no servant selected
   if(typeof savedServants[servant] === "undefined"){
     return;
@@ -370,8 +370,10 @@ document.getElementById('submitBattleForm1').onclick = function(){
       + (questEnemyHP[7] - result[7]) + ' / ' + (questEnemyHP[8] - result[8]));
 
     // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
+    let currNPHits = savedServants[servant].nphits
+    let currNPHitDist = await fetchNPRefund(currNPHits);
     let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], curr.enemy1npgainmod, curr.enemy2npgainmod, curr.enemy3npgainmod,
-     result[0], result[3], result[6], result[9], result[10]);
+     result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist)
 
     $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
     $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
@@ -441,7 +443,7 @@ document.getElementById('submitBattleForm2').onclick = function(){
       + (questEnemyHP[16] - result[7]) + ' / ' + (questEnemyHP[17] - result[8]));
 
     // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
-    let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
+    let refunded = fetchNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
       result[0], result[3], result[6], result[9], result[10]);
 
     if(typeof questRefunds[0] === "undefined"){
@@ -518,7 +520,7 @@ document.getElementById('submitBattleForm3').onclick = function(){
       + (questEnemyHP[25] - result[7]) + ' / ' + (questEnemyHP[26] - result[8]));
 
     // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
-    let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
+    let refunded = fetchNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
       result[0], result[3], result[6], result[9], result[10]);
 
     if(typeof questRefunds[1] === "undefined"){
@@ -639,7 +641,6 @@ function updateSavedServantsDisplay(){
         // remove servant from party
         servantPartyIndex = party.indexOf(i);
         party.splice(servantPartyIndex,1);
-        //alert(JSON.stringify(party));
 
         // save changes
         localStorage.setItem("servant", JSON.stringify(servant));
@@ -649,15 +650,11 @@ function updateSavedServantsDisplay(){
         initializeBattleSim();
         initializeBattleParty();
         updateQuestPartyToggles();
-
-        //location.reload();
       }
       // add servant to party
       else{
         if(party.length == 6){
           alert("You can only have 6 servants in a party.");
-
-          //location.reload();
 
           document.getElementById("useServant" + i).setAttribute('aria-pressed', false);
           return;
@@ -665,7 +662,6 @@ function updateSavedServantsDisplay(){
 
         party.unshift(i);
         localStorage.setItem("party", JSON.stringify(party));
-        //alert(JSON.stringify(party));
 
         // test update without reload
         initializeBattleSim();
@@ -807,8 +803,6 @@ function updateSavedQuestsDisplay(){
       localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
 
       updateSavedQuestsDisplay();
-
-      //location.reload();
     });
 
     // link up use button
@@ -817,7 +811,6 @@ function updateSavedQuestsDisplay(){
         alert("usequest " + i);
       }
       if(quest === i){
-        //alert("deselect quest");
         quest = "";
         updateQuestToggles();
         localStorage.setItem("quest", JSON.stringify(quest));
@@ -841,7 +834,6 @@ function updateSavedQuestsDisplay(){
     document.getElementById("editQuest" + i).addEventListener("click", function(){
       if(debug){
         alert("editquest"+ i);
-        //alert(JSON.stringify(savedServants));
       }
 
       // if already editing this unit, stop editing
@@ -863,33 +855,12 @@ function updateSavedQuestsDisplay(){
       // change display to servant
       $('#QuestName').val(curr.name);
 
-      $('#enemy1HP').val(curr.enemy1hp);
-      $('#enemy1Class').val(curr.enemy1class);
-      $('#enemy1Attribute').val(curr.enemy1attribute);
-      $('#enemy2HP').val(curr.enemy2hp);
-      $('#enemy2Class').val(curr.enemy2class);
-      $('#enemy2Attribute').val(curr.enemy2attribute);
-      $('#enemy3HP').val(curr.enemy3hp);
-      $('#enemy3Class').val(curr.enemy3class);
-      $('#enemy3Attribute').val(curr.enemy3attribute);
-      $('#enemy4HP').val(curr.enemy4hp);
-      $('#enemy4Class').val(curr.enemy4class);
-      $('#enemy4Attribute').val(curr.enemy4attribute);
-      $('#enemy5HP').val(curr.enemy5hp);
-      $('#enemy5Class').val(curr.enemy5class);
-      $('#enemy5Attribute').val(curr.enemy5attribute);
-      $('#enemy6HP').val(curr.enemy6hp);
-      $('#enemy6Class').val(curr.enemy6class);
-      $('#enemy6Attribute').val(curr.enemy6attribute);
-      $('#enemy7HP').val(curr.enemy7hp);
-      $('#enemy7Class').val(curr.enemy7class);
-      $('#enemy7Attribute').val(curr.enemy7attribute);
-      $('#enemy8HP').val(curr.enemy8hp);
-      $('#enemy8Class').val(curr.enemy8class);
-      $('#enemy8Attribute').val(curr.enemy8attribute);
-      $('#enemy9HP').val(curr.enemy9hp);
-      $('#enemy9Class').val(curr.enemy9class);
-      $('#enemy9Attribute').val(curr.enemy9attribute);
+      for(let i = 1; i <= QUEST_ENEMY_COUNT; i++){
+        $('#enemy' + i + 'HP').val(curr['enemy' + i + 'hp']);
+        $('#enemy' + i + 'Class').val(curr['enemy' + i + 'class']);
+        $('#enemy' + i + 'Attribute').val(curr['enemy' + i + 'attribute']);
+        $('#enemy' + i + 'NPGainMod').val(EnemyServerMod[getClassValue(curr['enemy' + i + 'class'])]);
+      }
 
       //change add servant to save servant
       $('#addQuest').prop('disabled', false);
@@ -898,8 +869,6 @@ function updateSavedQuestsDisplay(){
       document.getElementById("saveEditedQuest").onclick = function() { saveEditedQuest(i); };
     });
   }
-  //parsed = JSON.stringify(quest);
-  //$('#test').empty().append(parsed);
 }
 
 // make sure party buttons are toggled correctly
@@ -1034,7 +1003,6 @@ function initializeBattleParty(){
      '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
      ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
      ' autocomplete="false">Select</button></span>' + '</li>'));
-    //alert(i);
 
     // link up delete button
     document.getElementById("battlePartySelect" + i).addEventListener("click", function(){
@@ -1596,7 +1564,29 @@ function calculateDamage(waveNumber){
 
 // np refund calcluation
 // rider +10%, caster +20%, assassin -10%, berserker -20%
-function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp){
+async function fetchNPRefund(npHits){
+  let currNPHitDist = NPHitDist[npHits - 1];
+
+  // retrieve np hit dist from API - use local data if failure
+  const url = 'https://api.atlasacademy.io/nice/JP/servant/' + savedServants[servant].id;
+  try {
+    const fetchResult = fetch(url);
+    const response = await fetchResult;
+    const jsonData = await response.json();
+    if (jsonData !== null){
+      currNPHitDist = jsonData.noblePhantasms[0].npDistribution.map(x => x/100);
+      console.log(currNPHitDist);
+    }
+    else{
+      console.log("API data error! Using local data.");
+    }
+  } catch(e){
+    console.log(e);
+  }
+  return currNPHitDist;
+}
+
+function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp, npHits, npHitDist){
   // if enemies start at 0 health, ignore them for np regen calculations
   var ignoreEnemy1 = false;
   var ignoreEnemy2 = false;
@@ -1649,7 +1639,7 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
-    damage = damage1 * NPHitDist[npHits - 1][i];
+    damage = damage1 * npHitDist[i];
 
     // check overkill
     if(!ignoreEnemy1){
@@ -1678,7 +1668,7 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
     console.log(npRefund);
 
-    damage = damage2 * NPHitDist[npHits - 1][i];
+    damage = damage2 * npHitDist[i];
 
     // check overkill
     if(!ignoreEnemy2){
@@ -1697,7 +1687,7 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
     console.log(npRefund);
 
-    damage = damage3 * NPHitDist[npHits - 1][i];
+    damage = damage3 * npHitDist[i];
 
     if(!ignoreEnemy3){
       if(hp3 - damage < 0){
@@ -1718,7 +1708,6 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
   return npRefund;
 }
-
 
 // Saber = 0, Archer = 1, Lancer = 2, Rider = 3, Caster = 4, Assassin = 5, Berserker = 6,
 // Ruler = 7, Avenger = 8, Moon Cancer = 9, Alter Ego = 10, Foreigner = 11, Shielder = 12
