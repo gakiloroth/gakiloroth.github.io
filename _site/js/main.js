@@ -1,4 +1,5 @@
 var servantName = "";
+var servantID = 1;
 var servantNPType = "";
 var servantNPGain = "";
 var servantNPHits = "";
@@ -14,7 +15,10 @@ var editServantMode = false;
 var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
-var debug = false;
+var debug = true;
+
+const QUEST_ENEMY_COUNT = 9;
+const WAVE_ENEMY_COUNT = 3;
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -28,8 +32,6 @@ $(document).ready(function() {
   }
 
   console.log("servant: " + servant);
-
-  //alert(JSON.stringify(party));
 
   initializeBattleSim();
   initializeBattleParty();
@@ -113,6 +115,7 @@ $('#inputServant').on('change', function(){
   // find servant in list
   for(let i = 0; i < servantList.length; i++){
     if($('#inputServant').val() == servantList[i].id){
+      servantID = servantList[i].id;
       servantName = servantList[i].name;
       servantNPGain = servantList[i].npchargeatk;
       servantNPHits = servantList[i].nphitcount;
@@ -375,15 +378,9 @@ document.getElementById('submitBattleForm1').onclick = function(){
     questRefunds[0] = refunded.toFixed(2);
 
     // update enemy hp in Array
-    questEnemyHP[0] -= result[0];
-    questEnemyHP[1] -= result[1];
-    questEnemyHP[2] -= result[2];
-    questEnemyHP[3] -= result[3];
-    questEnemyHP[4] -= result[4];
-    questEnemyHP[5] -= result[5];
-    questEnemyHP[6] -= result[6];
-    questEnemyHP[7] -= result[7];
-    questEnemyHP[8] -= result[8];
+    for(let i = 0; i < QUEST_ENEMY_COUNT; i++){
+      questEnemyHP[i] -= result[i];
+    }
 
     // reset form validation display
     Array.prototype.filter.call(forms, function(form) {
@@ -430,6 +427,7 @@ document.getElementById('submitBattleForm2').onclick = function(){
   if(valid) {
     let curr = savedQuests[quest];
     let result = calculateDamage(2);
+    let waveOffset = 9;
 
     $('#questEnemy4NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
     $('#questEnemy5NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
@@ -456,15 +454,9 @@ document.getElementById('submitBattleForm2').onclick = function(){
     questRefunds[1] = refunded.toFixed(2);
 
     // update enemy hp in Array
-    questEnemyHP[9] -= result[0];
-    questEnemyHP[10] -= result[1];
-    questEnemyHP[11] -= result[2];
-    questEnemyHP[12] -= result[3];
-    questEnemyHP[13] -= result[4];
-    questEnemyHP[14] -= result[5];
-    questEnemyHP[15] -= result[6];
-    questEnemyHP[16] -= result[7];
-    questEnemyHP[17] -= result[8];
+    for(let i = 0; i < QUEST_ENEMY_COUNT; i++){
+      questEnemyHP[i + waveOffset] -= result[i];
+    }
 
     // reset form validation display
     Array.prototype.filter.call(forms, function(form) {
@@ -512,6 +504,7 @@ document.getElementById('submitBattleForm3').onclick = function(){
   if(valid) {
     let curr = savedQuests[quest];
     let result = calculateDamage(3);
+    let waveOffset = 18;
 
     $('#questEnemy7NPDamage').empty().html('NP Damage: ' + result[0] + ' / ' + result[1] + ' / ' + result[2]);
     $('#questEnemy8NPDamage').empty().html('NP Damage: ' + result[3] + ' / ' + result[4] + ' / ' + result[5]);
@@ -537,15 +530,9 @@ document.getElementById('submitBattleForm3').onclick = function(){
     questRefunds[2] = refunded.toFixed(2);
 
     // update enemy hp
-    questEnemyHP[18] -= result[0];
-    questEnemyHP[19] -= result[1];
-    questEnemyHP[20] -= result[2];
-    questEnemyHP[21] -= result[3];
-    questEnemyHP[22] -= result[4];
-    questEnemyHP[23] -= result[5];
-    questEnemyHP[24] -= result[6];
-    questEnemyHP[25] -= result[7];
-    questEnemyHP[26] -= result[8];
+    for(let i = 0; i < QUEST_ENEMY_COUNT; i++){
+      questEnemyHP[i + waveOffset] -= result[i];
+    }
 
     // reset form validation display
     Array.prototype.filter.call(forms, function(form) {
@@ -693,7 +680,6 @@ function updateSavedServantsDisplay(){
     document.getElementById("editServant" + i).addEventListener("click", function(){
       if(debug){
         alert("editservant"+ i);
-        //alert(JSON.stringify(savedServants));
       }
 
       // if already editing this unit, stop editing
@@ -716,7 +702,7 @@ function updateSavedServantsDisplay(){
       // load servant options
       loadServantOptions();
       servantName = savedServants[i].name;
-      let servantID = getServantID(servantName);
+      servantID = savedServants[i].id;
       $('#inputServant').val(servantID);
       $('#inputServant').on('change', function(){
         loadNPPercentages($('#inputServant').val());
@@ -1236,20 +1222,19 @@ function saveServant(){
   for(let j = 0; j < party.length; j++){
     party[j]++;
   }
-  //alert(servant);
+
   // party indexes incremented, match with servant
   if(typeof servant === "undefined" || servant.length == 0){
-    //alert("undefined");
     //don't increment if first servant
   }
   else{
     servant++;
   }
-  //alert(servant);
+
   localStorage.setItem("party", JSON.stringify(party));
   localStorage.setItem("servant", JSON.stringify(servant));
 
-  savedServants.unshift({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+  savedServants.unshift({"id": servantID,"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
@@ -1279,7 +1264,7 @@ function saveEditedServant(index){
   });
 
   if(valid){
-    savedServants[index]=({"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+    savedServants[index]=({"id": servantID, "name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
       "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
       "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
       "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
@@ -1659,10 +1644,8 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
   else if(savedServants[servant].nptype.localeCompare("Quick") == 0){
     cardNpValue = 1;
     cardMod = savedServants[servant].quickup/100;
-    //alert(savedServants[servant].quickup);
   }
   cardMod = (Number(cardMod) + Number(cardBuff));
-  //alert(cardMod);
 
   let damage = 0;
   for(let i = 0; i < npHits; i++){
@@ -1682,6 +1665,8 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod1: " + enemyServerMod1 +
         " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
       console.log("damage1: " + damage);
+      console.log("refund1: " + ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier));
 
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
         enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
