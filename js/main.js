@@ -290,7 +290,7 @@ document.getElementById('addQuest').onclick = function(){
 };
 
 function updateNPTime(){
-  $('#npTotalTimeDisplay').empty().html('<b>Total NP Time  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="These are rough estimates - use as a general guide. Hopefully I\'ll find a more accurate way of measuring NP times in the future."></img> : '
+  $('#npTotalTimeDisplay').empty().html('<b>Total NP Time  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="These are rough estimates and are at 2x speed -  estimates and are at 2x speed - use as a general guide. Hopefully I\'ll find a more accurate way of measuring NP times in the future."></img> : '
   + questNPTotalTime + 's &nbsp;&nbsp;</b><button type="button" id="resetTotalNPTime"' + 'class="btn btn-outline-danger btn-sm">Reset</button></p>');
   attachNPTimeReset();
 }
@@ -298,7 +298,7 @@ function updateNPTime(){
 function attachNPTimeReset(){
   document.getElementById('resetTotalNPTime').onclick = function(){
     questNPTotalTime = 0;
-    $('#npTotalTimeDisplay').empty().html('<b>Total NP Time  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="These are rough estimates - use as a general guide. Hopefully I\'ll find a more accurate way of measuring NP times in the future."></img> : '
+    $('#npTotalTimeDisplay').empty().html('<b>Total NP Time  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="These are rough estimates and are at 2x speed - use as a general guide. Hopefully I\'ll find a more accurate way of measuring NP times in the future."></img> : '
     + '0s &nbsp;&nbsp;</b><button type="button" id="resetTotalNPTime" class="btn btn-outline-danger btn-sm">Reset</button></p>');
   };
 }
