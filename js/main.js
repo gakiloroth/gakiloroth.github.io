@@ -194,59 +194,14 @@ $('#inputServant').on('change', function(){
 });
 
 // automatically input default enemy np gain mod based on class
-$('#enemy1Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy1Class').val());
-  console.log("enemy1class: " + enemyclass);
-  $('#enemy1NPGainMod').val(EnemyServerMod[enemyclass]);
-});
+for(let i = 1; i <= QUEST_ENEMY_COUNT; i++){
+  $('#enemy'+ i + 'Class').on('change', function(){
+    let enemyclass = getClassValue($('#enemy'+ i + 'Class').val());
+    console.log("enemy" + i + "class: " + enemyclass);
+    $('#enemy' + i + 'NPGainMod').val(EnemyServerMod[enemyclass]);
+  });
+}
 
-$('#enemy2Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy2Class').val());
-  console.log("enemy2class: " + enemyclass);
-  $('#enemy2NPGainMod').val(EnemyServerMod[enemyclass]);
-});
-
-$('#enemy3Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy3Class').val());
-  console.log("enemy3class: " + enemyclass);
-  $('#enemy3NPGainMod').val(EnemyServerMod[enemyclass]);
-});
-
-$('#enemy4Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy4Class').val());
-  console.log("enemy4class: " + enemyclass);
-  $('#enemy4NPGainMod').val(EnemyServerMod[enemyclass]);
-});
-
-$('#enemy5Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy5Class').val());
-  console.log("enemy5class: " + enemyclass);
-  $('#enemy5NPGainMod').val(EnemyServerMod[enemyclass]);
-});
-
-$('#enemy6Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy6Class').val());
-  console.log("enemy6class: " + enemyclass);
-  $('#enemy6NPGainMod').val(EnemyServerMod[enemyclass]);
-});
-
-$('#enemy7Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy7Class').val());
-  console.log("enemy7class: " + enemyclass);
-  $('#enemy7NPGainMod').val(EnemyServerMod[enemyclass]);
-});
-
-$('#enemy8Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy8Class').val());
-  console.log("enemy8class: " + enemyclass);
-  $('#enemy8NPGainMod').val(EnemyServerMod[enemyclass]);
-});
-
-$('#enemy9Class').on('change', function(){
-  let enemyclass = getClassValue($('#enemy9Class').val());
-  console.log("enemy9class: " + enemyclass);
-  $('#enemy9NPGainMod').val(EnemyServerMod[enemyclass]);
-});
 
 // reset servant form
 document.getElementById('resetServantForm').onclick = function(){
@@ -284,8 +239,6 @@ document.getElementById('deleteAllPartyMembers').onclick = function(){
   initializeBattleSim();
   initializeBattleParty();
   updateQuestPartyToggles();
-
-  //location.reload();
 };
 
 // delete all saved servants
@@ -408,7 +361,7 @@ document.getElementById('resetBattleForm1').onclick = function(){
 }
 
 // calculate NP Damage for Wave 2
-document.getElementById('submitBattleForm2').onclick = function(){
+document.getElementById('submitBattleForm2').onclick = async function(){
   // if no servant selected
   if(typeof savedServants[servant] === "undefined"){
     return;
@@ -443,8 +396,10 @@ document.getElementById('submitBattleForm2').onclick = function(){
       + (questEnemyHP[16] - result[7]) + ' / ' + (questEnemyHP[17] - result[8]));
 
     // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
-    let refunded = fetchNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
-      result[0], result[3], result[6], result[9], result[10]);
+    let currNPHits = savedServants[servant].nphits
+    let currNPHitDist = await fetchNPRefund(currNPHits);
+    let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
+     result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist);
 
     if(typeof questRefunds[0] === "undefined"){
       $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
@@ -485,7 +440,7 @@ document.getElementById('resetBattleForm2').onclick = function(){
 }
 
 // calculate NP Damage for Wave 3
-document.getElementById('submitBattleForm3').onclick = function(){
+document.getElementById('submitBattleForm3').onclick = async function(){
   // if no servant selected
   if(typeof savedServants[servant] === "undefined"){
     return;
@@ -520,8 +475,10 @@ document.getElementById('submitBattleForm3').onclick = function(){
       + (questEnemyHP[25] - result[7]) + ' / ' + (questEnemyHP[26] - result[8]));
 
     // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
-    let refunded = fetchNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
-      result[0], result[3], result[6], result[9], result[10]);
+    let currNPHits = savedServants[servant].nphits
+    let currNPHitDist = await fetchNPRefund(currNPHits);
+    let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
+     result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist);
 
     if(typeof questRefunds[1] === "undefined"){
       $('#npRefundDisplay3').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
@@ -561,9 +518,6 @@ document.getElementById('resetBattleForm3').onclick = function(){
 
 // update saved servant display
 function updateSavedServantsDisplay(){
-  //let parsed = "";
-  /*parsed = JSON.stringify(savedServants);
-  console.log("saved servants: " + parsed);*/
   $('#savedServants1').empty();
   $('#savedServants2').empty();
   for(let i = 0; i < savedServants.length; i++){
@@ -621,9 +575,6 @@ function updateSavedServantsDisplay(){
 
       updateSavedServantsDisplay();
       updateServantToggles();
-
-      // test update without reload
-      //location.reload();
     });
 
     // link up servant select button
@@ -631,7 +582,6 @@ function updateSavedServantsDisplay(){
       if(debug){
         alert("useservant"+ i);
       }
-      //alert("using servant in party");
 
       // remove servant from party
       if(party.includes(i)){
@@ -667,8 +617,6 @@ function updateSavedServantsDisplay(){
         initializeBattleSim();
         initializeBattleParty();
         updateQuestPartyToggles();
-
-        //location.reload();
       }
     });
 
@@ -904,45 +852,12 @@ function initializeBattleSim(){
   let currQuest = savedQuests[quest];
   $('#questNameDisplay').empty().html('<b>Current Quest: </b>' + currQuest.name);
 
-  document.getElementById('questEnemy1Class').src = "images/" + currQuest.enemy1class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy2Class').src = "images/" + currQuest.enemy2class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy3Class').src = "images/" + currQuest.enemy3class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy4Class').src = "images/" + currQuest.enemy4class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy5Class').src = "images/" + currQuest.enemy5class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy6Class').src = "images/" + currQuest.enemy6class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy7Class').src = "images/" + currQuest.enemy7class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy8Class').src = "images/" + currQuest.enemy8class.toLowerCase().replace(/\s/g, '') + ".png";
-  document.getElementById('questEnemy9Class').src = "images/" + currQuest.enemy9class.toLowerCase().replace(/\s/g, '') + ".png";
-
-  $('#questEnemy1HP').empty().html('HP: ' + currQuest.enemy1hp);
-  $('#questEnemy2HP').empty().html('HP: ' + currQuest.enemy2hp);
-  $('#questEnemy3HP').empty().html('HP: ' + currQuest.enemy3hp);
-  $('#questEnemy4HP').empty().html('HP: ' + currQuest.enemy4hp);
-  $('#questEnemy5HP').empty().html('HP: ' + currQuest.enemy5hp);
-  $('#questEnemy6HP').empty().html('HP: ' + currQuest.enemy6hp);
-  $('#questEnemy7HP').empty().html('HP: ' + currQuest.enemy7hp);
-  $('#questEnemy8HP').empty().html('HP: ' + currQuest.enemy8hp);
-  $('#questEnemy9HP').empty().html('HP: ' + currQuest.enemy9hp);
-
-  $('#questEnemy1NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy2NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy3NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy4NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy5NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy6NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy7NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy8NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-  $('#questEnemy9NPDamage').empty().html('NP Damage: 0 / 0 / 0');
-
-  $('#questEnemy1HPLeft').empty().html('HP Left: ' + currQuest.enemy1hp + " / " + currQuest.enemy1hp + " / " + currQuest.enemy1hp);
-  $('#questEnemy2HPLeft').empty().html('HP Left: ' + currQuest.enemy2hp + " / " + currQuest.enemy2hp + " / " + currQuest.enemy2hp);
-  $('#questEnemy3HPLeft').empty().html('HP Left: ' + currQuest.enemy3hp + " / " + currQuest.enemy3hp + " / " + currQuest.enemy3hp);
-  $('#questEnemy4HPLeft').empty().html('HP Left: ' + currQuest.enemy4hp + " / " + currQuest.enemy4hp + " / " + currQuest.enemy4hp);
-  $('#questEnemy5HPLeft').empty().html('HP Left: ' + currQuest.enemy5hp + " / " + currQuest.enemy5hp + " / " + currQuest.enemy5hp);
-  $('#questEnemy6HPLeft').empty().html('HP Left: ' + currQuest.enemy6hp + " / " + currQuest.enemy6hp + " / " + currQuest.enemy6hp);
-  $('#questEnemy7HPLeft').empty().html('HP Left: ' + currQuest.enemy7hp + " / " + currQuest.enemy7hp + " / " + currQuest.enemy7hp);
-  $('#questEnemy8HPLeft').empty().html('HP Left: ' + currQuest.enemy8hp + " / " + currQuest.enemy8hp + " / " + currQuest.enemy8hp);
-  $('#questEnemy9HPLeft').empty().html('HP Left: ' + currQuest.enemy9hp + " / " + currQuest.enemy9hp + " / " + currQuest.enemy9hp);
+  for(let i = 1; i <= QUEST_ENEMY_COUNT; i++){
+      document.getElementById('questEnemy' + i + 'Class').src = "images/" + currQuest['enemy' + i + 'class'].toLowerCase().replace(/\s/g, '') + ".png";
+      $('#questEnemy' + i + 'HP').empty().html('HP: ' + currQuest['enemy' + i + 'hp']);
+      $('#questEnemy' + i + 'NPDamage').empty().html('NP Damage: 0 / 0 / 0');
+      $('#questEnemy' + i + 'HPLeft').empty().html('HP Left: ' + currQuest['enemy' + i + 'hp'] + " / " + currQuest['enemy' + i + 'hp'] + " / " + currQuest['enemy' + i + 'hp']);
+  }
 
   // fill in array to store enemy hp remaining values
   for(let i = 0; i < 27; i++){
