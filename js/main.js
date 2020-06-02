@@ -20,9 +20,13 @@ var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
 var debug = false;
+var version = "1.20";
 
 // actions to do when the page is loaded
 $(document).ready(function() {
+  // clear local storage if version update requires
+  checkVersionAndClearStorage();
+
   // save which tab was active
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     localStorage.setItem('activeTab', $(e.target).attr('href'));
@@ -43,6 +47,22 @@ $(document).ready(function() {
   updateQuestToggles();
   startup = false;
 });
+
+function checkVersionAndClearStorage(){
+  let localVersion = localStorage.getItem("version") || "";
+  if(localVersion.localeCompare(version) !== 0){
+    console.log("New version detected - clearing stored informaation.")
+    localStorage.removeItem("savedServants");
+    localStorage.removeItem("savedQuests");
+    localStorage.removeItem("party");
+    localStorage.removeItem("servant");
+    localStorage.removeItem("quest");
+    localStorage.removeItem("activeTab");
+
+    localStorage.setItem("version", version);
+    location.reload();
+  }
+}
 
 // prevent enter from submitting form
 $(document).ready(function() {
@@ -1514,7 +1534,7 @@ async function fetchNPRefund(npHits){
     const jsonData = await response.json();
     if (jsonData !== null){
       currNPHitDist = jsonData.noblePhantasms[0].npDistribution.map(x => x/100);
-      console.log(currNPHitDist);
+      console.log(url + " | np hit dist: " + currNPHitDist);
     }
     else{
       console.log("API data error! Using local data.");
