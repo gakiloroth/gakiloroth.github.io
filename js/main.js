@@ -1764,7 +1764,7 @@ function classMultiplier(input){
     console.log("caster or assassin");
     classVal = 0.9;
   }
-  else if (input.localeCompare("Berseker") == 0 || input.localeCompare("Ruler") == 0 ||
+  else if (input.localeCompare("Berserker") == 0 || input.localeCompare("Ruler") == 0 ||
   input.localeCompare("Avenger") == 0){
     console.log("berserker or ruler or avenger");
     classVal = 1.1;
