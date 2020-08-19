@@ -17,6 +17,6 @@ const Nodes = [{"id":1, "name":"Proof of Hero: Pirate Ship (Okeanos)",
 "enemy7HP":152140 , "enemy7Class":"Caster", "enemy7Attribute":"Star", "enemy8HP":81581, "enemy8Class":"Avenger", "enemy8Attribute":"Earth", "enemy9HP":0, "enemy9Class":"Saber", "enemy9Attribute":"Man"},
 {"id":5, "name":"Preliminaries: Garden - KAISER FIGHT",
 "enemy1HP":16197 , "enemy1Class":"Lancer", "enemy1Attribute":"Man", "enemy2HP":16715, "enemy2Class":"Lancer", "enemy2Attribute":"Man", "enemy3HP":20889, "enemy3Class":"Berserker", "enemy3Attribute":"Man",
-"enemy4HP":17647, "enemy4Class":"Caster", "enemy4Attribute":"Sky", "enemy5HP":25646, "enemy5Class":"Caster", "enemy5Attribute":"Sky", "enemy6HP":73810 , "enemy6Class":"Caster", "enemy6Attribute":"Earth",
-"enemy7HP":152140 , "enemy7Class":"Caster", "enemy7Attribute":"Star", "enemy8HP":81581, "enemy8Class":"Avenger", "enemy8Attribute":"Earth", "enemy9HP":0, "enemy9Class":"Saber", "enemy9Attribute":"Man"}
+"enemy4HP":23152 , "enemy4Class":"Berserker", "enemy4Attribute":"Man", "enemy5HP":18818 , "enemy5Class":"Lancer", "enemy5Attribute":"Man", "enemy6HP":85591  , "enemy6Class":"Lancer", "enemy6Attribute":"Earth",
+"enemy7HP":104515 , "enemy7Class":"Berserker", "enemy7Attribute":"Man", "enemy8HP":165037 , "enemy8Class":"Lancer", "enemy8Attribute":"Star", "enemy9HP":0, "enemy9Class":"Saber", "enemy9Attribute":"Man"}
 ]
