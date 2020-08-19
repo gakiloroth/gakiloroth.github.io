@@ -40,6 +40,7 @@ $(document).ready(function() {
 
   initializeBattleSim();
   initializeBattleParty();
+  initializeCommonNodes();
   updateSavedServantsDisplay();
   updateSavedQuestsDisplay();
   updateServantToggles();
@@ -246,6 +247,16 @@ document.getElementById('resetQuestForm').onclick = function(){
     form.classList.remove('was-validated');
   });
 };
+
+// filter common nodes list
+$(document).ready(function(){
+  $("#listSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#commonNodesList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
 
 // delete all party members
 document.getElementById('deleteAllPartyMembers').onclick = function(){
@@ -987,6 +998,41 @@ function initializeBattleParty(){
       }
     });
   }
+}
+
+// initialize common nodes
+function initializeCommonNodes(){
+  for(let i = 0; i < Nodes.length; i++){
+    let currNode = Nodes[i];
+    $('#commonNodesList').append('<li class="list-group-item">' + currNode.name + '</li>');
+
+      /*$('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
+     curr.craftessence +
+     '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
+     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
+     ' autocomplete="false">Select</button></span>' + '</li>'));*/
+  }
+  /*document.getElementById("deleteQuest" + i).addEventListener("click", function(){
+    if(debug){
+      alert("deletequest " + i);
+    }
+
+    if(editQuestMode){
+      alert("Please do not delete a quest while editing!");
+      return;
+    }
+    if(quest !== "" && quest.length !== 0){
+      alert("Please have no quest selected when deleting!");
+      if(debug){
+        alert(JSON.stringify(quest));
+      }
+      return;
+    }
+
+    savedQuests.splice(i,1);
+    localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
+
+    updateSavedQuestsDisplay();*/
 }
 
 // reset battle sim wave

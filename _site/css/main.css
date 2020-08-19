@@ -38,7 +38,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .list-group{
     max-height: 400px;
     margin-bottom: 10px;
-    max-width: 700px;
+    max-width: 1000px;
 }
 .list-group-item{
   color:#fff !important;
@@ -70,4 +70,9 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   float: right;
 
   display:inline-block;
+}
+#collapseCommonNodes
+{
+ overflow-y: scroll !important;
+ max-height: 300px !important;
 }
