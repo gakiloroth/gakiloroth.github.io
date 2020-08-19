@@ -1015,11 +1015,11 @@ function initializeCommonNodes(){
       }
 
       // fill in quest values
+      $('#QuestName').val(currNode['name']);
       for(let j = 1; j <= 9; j++){
         $('#enemy'+ j +'HP').val(currNode['enemy'+ j +'HP']);
-        $('#enemy'+ j +'Class').val(currNode['enemy'+ j +'Class']);
+        $('#enemy'+ j +'Class').val(currNode['enemy'+ j +'Class']).change();
         $('#enemy'+ j +'Attribute').val(currNode['enemy'+ j +'Attribute']);
-        $('#enemy'+ j +'NPGainMod').val(currNode['enemy'+ j +'NPGainMod']);
       }
 
     });
@@ -1779,8 +1779,16 @@ function getAttrValue(input){
     attrVal = 1;
   }
   else if(input.localeCompare("Earth") == 0){
-    console.log("sky");
+    console.log("earth");
     attrVal = 2;
+  }
+  else if(input.localeCompare("Star") == 0){
+    console.log("star");
+    attrVal = 3;
+  }
+  else if(input.localeCompare("Beast") == 0){
+    console.log("beast");
+    attrVal = 4;
   }
 
   return attrVal;

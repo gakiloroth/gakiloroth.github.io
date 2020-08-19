@@ -1,11 +1,22 @@
 // common farming nodes
 const Nodes = [{"id":1, "name":"Proof of Hero: Pirate Ship (Okeanos)",
-"enemy1HP":3136, "enemy1Class":"Archer", "enemy1Attribute":"Man", "enemy1NPGainMod":1,"enemy2HP":3136, "enemy2Class":"Archer", "enemy2Attribute":"Man", "enemy2NPGainMod":1, "enemy3HP":3136, "enemy3Class":"Archer", "enemy3Attribute":"Man", "enemy3NPGainMod":1,
-"enemy4HP":3838, "enemy4Class":"Saber", "enemy4Attribute":"Man", "enemy4NPGainMod":1, "enemy5HP":3838, "enemy5Class":"Saber", "enemy5Attribute":"Man", "enemy5NPGainMod":1,"enemy6HP":3838, "enemy6Class":"Saber", "enemy6Attribute":"Man", "enemy6NPGainMod":1,
-"enemy7HP":13332, "enemy7Class":"Saber", "enemy7Attribute":"Man", "enemy7NPGainMod":1, "enemy8HP": 8232, "enemy8Class":"Archer", "enemy8Attribute":"Man", "enemy8NPGainMod":1,"enemy9HP":8232, "enemy9Class":"Archer", "enemy9Attribute":"Man", "enemy9NPGainMod":1},
-{"id":2, "name":"test",
-"enemy1HP":3136, "enemy1Class":"Archer", "enemy1Attribute":"Sky", "enemy1NPGainMod":1.1,"enemy2HP":3137, "enemy2Class":"Archer", "enemy2Attribute":"Man", "enemy2NPGainMod":.9, "enemy3HP":3139, "enemy3Class":"Archer", "enemy3Attribute":"Earth", "enemy3NPGainMod":1,
-"enemy4HP":3838, "enemy4Class":"Saber", "enemy4Attribute":"Man", "enemy4NPGainMod":1, "enemy5HP":3838, "enemy5Class":"Saber", "enemy5Attribute":"Man", "enemy5NPGainMod":1,"enemy6HP":3838, "enemy6Class":"Saber", "enemy6Attribute":"Man", "enemy6NPGainMod":1,
-"enemy7HP":13332, "enemy7Class":"Saber", "enemy7Attribute":"Man", "enemy7NPGainMod":1, "enemy8HP": 8232, "enemy8Class":"Archer", "enemy8Attribute":"Man", "enemy8NPGainMod":1,"enemy9HP":8232, "enemy9Class":"Archer", "enemy9Attribute":"Man", "enemy9NPGainMod":1
-}
+"enemy1HP":3136, "enemy1Class":"Archer", "enemy1Attribute":"Man","enemy2HP":3136, "enemy2Class":"Archer", "enemy2Attribute":"Man", "enemy3HP":3136, "enemy3Class":"Archer", "enemy3Attribute":"Man",
+"enemy4HP":3838, "enemy4Class":"Saber", "enemy4Attribute":"Man", "enemy5HP":3838, "enemy5Class":"Saber", "enemy5Attribute":"Man","enemy6HP":3838, "enemy6Class":"Saber", "enemy6Attribute":"Man",
+"enemy7HP":13332, "enemy7Class":"Saber", "enemy7Attribute":"Man", "enemy8HP": 8232, "enemy8Class":"Archer", "enemy8Attribute":"Man","enemy9HP":8232, "enemy9Class":"Archer", "enemy9Attribute":"Man"},
+{"id":2, "name":"Preliminaries: Club - Merciless! EMPIRE",
+"enemy1HP":11077, "enemy1Class":"Assassin", "enemy1Attribute":"Earth", "enemy2HP":16712, "enemy2Class":"Assassin", "enemy2Attribute":"Earth", "enemy3HP":13013, "enemy3Class":"Assassin", "enemy3Attribute":"Earth",
+"enemy4HP":22242, "enemy4Class":"Assassin", "enemy4Attribute":"Earth", "enemy5HP":31278, "enemy5Class":"Assassin", "enemy5Attribute":"Earth","enemy6HP":0, "enemy6Class":"Saber", "enemy6Attribute":"Man",
+"enemy7HP":39865, "enemy7Class":"Assassin", "enemy7Attribute":"Man", "enemy8HP": 72990, "enemy8Class":"Assassin", "enemy8Attribute":"Earth","enemy9HP":0, "enemy9Class":"Saber", "enemy9Attribute":"Man"},
+{"id":3, "name":"Preliminaries: Gym - NY Defense Regiment",
+"enemy1HP":12820, "enemy1Class":"Archer", "enemy1Attribute":"Man", "enemy2HP":13798, "enemy2Class":"Archer", "enemy2Attribute":"Man", "enemy3HP":23823, "enemy3Class":"Archer", "enemy3Attribute":"Man",
+"enemy4HP":16623, "enemy4Class":"Archer", "enemy4Attribute":"Man", "enemy5HP":51944, "enemy5Class":"Saber", "enemy5Attribute":"Earth", "enemy6HP":29118, "enemy6Class":"Archer", "enemy6Attribute":"Man",
+"enemy7HP":100527, "enemy7Class":"Archer", "enemy7Attribute":"Earth", "enemy8HP":59144, "enemy8Class":"Saber", "enemy8Attribute":"Earth", "enemy9HP":0, "enemy9Class":"Saber", "enemy9Attribute":"Man",},
+{"id":4, "name":"Preliminaries: Arena - Carnegie Hall",
+"enemy1HP":13336, "enemy1Class":"Caster", "enemy1Attribute":"Sky", "enemy2HP":21718, "enemy2Class":"Caster", "enemy2Attribute":"Sky", "enemy3HP":14253, "enemy3Class":"Caster", "enemy3Attribute":"Sky",
+"enemy4HP":17647, "enemy4Class":"Caster", "enemy4Attribute":"Sky", "enemy5HP":25646, "enemy5Class":"Caster", "enemy5Attribute":"Sky", "enemy6HP":73810, "enemy6Class":"Caster", "enemy6Attribute":"Earth",
+"enemy7HP":152140 , "enemy7Class":"Caster", "enemy7Attribute":"Star", "enemy8HP":81581, "enemy8Class":"Avenger", "enemy8Attribute":"Earth", "enemy9HP":0, "enemy9Class":"Saber", "enemy9Attribute":"Man"},
+{"id":5, "name":"Preliminaries: Garden - KAISER FIGHT",
+"enemy1HP":16197 , "enemy1Class":"Lancer", "enemy1Attribute":"Man", "enemy2HP":16715, "enemy2Class":"Lancer", "enemy2Attribute":"Man", "enemy3HP":20889, "enemy3Class":"Berserker", "enemy3Attribute":"Man",
+"enemy4HP":17647, "enemy4Class":"Caster", "enemy4Attribute":"Sky", "enemy5HP":25646, "enemy5Class":"Caster", "enemy5Attribute":"Sky", "enemy6HP":73810 , "enemy6Class":"Caster", "enemy6Attribute":"Earth",
+"enemy7HP":152140 , "enemy7Class":"Caster", "enemy7Attribute":"Star", "enemy8HP":81581, "enemy8Class":"Avenger", "enemy8Attribute":"Earth", "enemy9HP":0, "enemy9Class":"Saber", "enemy9Attribute":"Man"}
 ]
