@@ -1004,35 +1004,26 @@ function initializeBattleParty(){
 function initializeCommonNodes(){
   for(let i = 0; i < Nodes.length; i++){
     let currNode = Nodes[i];
-    $('#commonNodesList').append('<li class="list-group-item">' + currNode.name + '</li>');
+    $('#commonNodesList').append('<li class="list-group-item">' + currNode.name +
+    '<span class="float-right"><button type="button" id=' + "loadNode" + currNode.id +
+    ' class="btn btn-outline-success btn-sm">Load Node</button></span></li></span>');
 
-      /*$('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-     curr.craftessence +
-     '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
-     ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
-     ' autocomplete="false">Select</button></span>' + '</li>'));*/
-  }
-  /*document.getElementById("deleteQuest" + i).addEventListener("click", function(){
-    if(debug){
-      alert("deletequest " + i);
-    }
-
-    if(editQuestMode){
-      alert("Please do not delete a quest while editing!");
-      return;
-    }
-    if(quest !== "" && quest.length !== 0){
-      alert("Please have no quest selected when deleting!");
+    // hook up button
+    document.getElementById("loadNode" + currNode.id).addEventListener("click", function(){
       if(debug){
-        alert(JSON.stringify(quest));
+        alert("load node " + currNode.id);
       }
-      return;
-    }
 
-    savedQuests.splice(i,1);
-    localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
+      // fill in quest values
+      for(let j = 1; j <= 9; j++){
+        $('#enemy'+ j +'HP').val(currNode['enemy'+ j +'HP']);
+        $('#enemy'+ j +'Class').val(currNode['enemy'+ j +'Class']);
+        $('#enemy'+ j +'Attribute').val(currNode['enemy'+ j +'Attribute']);
+        $('#enemy'+ j +'NPGainMod').val(currNode['enemy'+ j +'NPGainMod']);
+      }
 
-    updateSavedQuestsDisplay();*/
+    });
+  }
 }
 
 // reset battle sim wave
