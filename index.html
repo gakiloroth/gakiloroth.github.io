@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v1.33</title>
+    <title>FGO 3T Simulator v1.34</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,12 +36,36 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v1.33
+        <h1 class="title">FGO 3T Simulator v1.34
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
         <h3 class="subtitle">For all you three turn hyper farmers.</h3>
         <h4 class="subtitle"><a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">GitHub ReadMe</a></h4>
+
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#changelogModal">
+          View Changelog
+        </button>
+
+        <div class="modal fade" id="changelogModal" tabindex="-1" role="dialog" aria-labelledby="changelogLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="changelogLabel">Changelog</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                8/20/2020 1.34: Added common bronze mat farming nodes, added changelog<br>
+                8/19/2020 1.33: Added ability to load node data from list of important/common farming nodes<br>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <nav>

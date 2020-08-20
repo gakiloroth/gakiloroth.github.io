@@ -34,7 +34,7 @@ With this simulator you will be able to save a servant's stats (with CE), and qu
 Then, you can choose several servants, one quest, and test NP damage and NP refund.
 
 Work in Progress:
-- Load popular nodes into quest page easily (beta - still adding more nodes, testing for functionality)
+- Load popular nodes into quest page easily (beta - still adding more nodes, testing for functionality). Since I haven't really found a good API to try to scrape this data from, there can be typos from me manually entering common nodes so please point out any mistakes I made. I'm hoping to build something to scrape node data eventually if an API is made(got my eyes on Atlas).
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
 - Collapse card buff/debuffs into one option
 - Add ability to def. debuff/ card debuff specific enemies (not sure if needed yet)
