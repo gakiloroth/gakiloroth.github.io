@@ -1015,7 +1015,11 @@ function initializeCommonNodes(){
       }
 
       // fill in quest values
-      $('#QuestName').val(currNode['name']);
+      if(currNode['name'].indexOf('{') > -1){
+        $('#QuestName').val(currNode['name'].substr(0, currNode['name'].indexOf('{')));
+      } else{
+        $('#QuestName').val(currNode['name']);
+      }
       for(let j = 1; j <= 9; j++){
         $('#enemy'+ j +'HP').val(currNode['enemy'+ j +'HP']);
         $('#enemy'+ j +'Class').val(currNode['enemy'+ j +'Class']).change();
