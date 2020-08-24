@@ -1,5 +1,6 @@
 const QUEST_ENEMY_COUNT = 9;
 const WAVE_ENEMY_COUNT = 3;
+const PARTY_MAX_LIMIT = 20;
 
 var servantName = "";
 var servantID = 1;
@@ -658,8 +659,8 @@ function updateSavedServantsDisplay(){
       }
       // add servant to party
       else{
-        if(party.length == 6){
-          alert("You can only have 6 servants in a party.");
+        if(party.length == PARTY_MAX_LIMIT){
+          alert("You can only have " + PARTY_MAX_LIMIT + " servants in a party.");
 
           document.getElementById("useServant" + i).setAttribute('aria-pressed', false);
           return;
