@@ -185,6 +185,14 @@ $('#inputServant').on('change', function(){
         $('#attack').val( Number( attk[1]) );
       }
 
+      // load passive values
+      $('#NPGainUpPercentage').val(Number(servantList[i].npGainUpPercentage));
+      $('#NPDamageUp').val(Number(servantList[i].npDamageUp));
+      $('#BusterUpPercentage').val(Number(servantList[i].busterUpPercentage));
+      $('#QuickUpPercentage').val(Number(servantList[i].quickUpPercentage));
+      $('#ArtsUpPercentage').val(Number(servantList[i].artsUpPercentage));
+      $('#FlatAttackUp').val(Number(servantList[i].flatAttackUp));
+
       $('#' + servantNPType).prop("checked", true).click();
 
       // on change updates
