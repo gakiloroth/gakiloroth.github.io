@@ -9,7 +9,7 @@ Updates may change some how of the backend are done, and if calculations don't w
 
 # How to Use
 ## Servants Manager Tab
-Enter all the information a servant would have, including their passives, and the buffs from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 4, to test in the battle simulator.
+Enter all the information a servant would have (passives are now loaded in for you) and the effects / attack boost from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 4, to test in the battle simulator.
 
 ## Quests Manager Tab
 Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. You can also toggle common nodes to see and search for common nodes to the enemy data of into the quest editor.
@@ -34,7 +34,6 @@ With this simulator you will be able to save a servant's stats (with CE), and qu
 Then, you can choose several servants, one quest, and test NP damage and NP refund.
 
 Work in Progress:
-- Load popular nodes into quest page easily (beta - still adding more nodes, testing for functionality). Since I haven't really found a good API to try to scrape this data from, there can be typos from me manually entering common nodes so please point out any mistakes I made. I'm hoping to build something to scrape node data eventually if an API is made(got my eyes on Atlas).
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
 - Collapse card buff/debuffs into one option
-- Add ability to def. debuff/ card debuff specific enemies (not sure if needed yet)
+- Add ability to def. debuff/ card debuff specific enemies
