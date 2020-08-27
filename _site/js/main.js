@@ -735,7 +735,7 @@ function updateSavedServantsDisplay(){
       $('#' + servantNPType).prop('checked',true).click();
 
       // load fields
-      $('#NpGainUpPercentage').val(savedServants[i].npgainup);
+      $('#NPGainUpPercentage').val(savedServants[i].npgainup);
       servantNPHits = savedServants[i].nphits;
       $('#PowerMod').val(savedServants[i].powermod);
       $('#inputAttribute').val(savedServants[i].attribute);
@@ -1206,7 +1206,7 @@ function saveServant(){
   savedServants.unshift({"id": servantID,"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
+    "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
     "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
 
   console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
@@ -1236,7 +1236,7 @@ function saveEditedServant(index){
     savedServants[index]=({"id": servantID, "name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
       "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
       "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
-      "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NpGainUpPercentage').val(),
+      "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
       "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
 
     // reset form validation display
