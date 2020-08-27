@@ -185,7 +185,7 @@
                   <img src="images/buffs/npdamageup.png" height="23"></img>
                 </label>
               </div>
-              <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" max="9999" required>
+              <input type="number" class="form-control" id="NPDamageUp" value="0" min="0" max="9999" step="any" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -217,7 +217,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="NPGainUpPercentage">NP Gain Up</label>
                 </div>
-                <input type="number" class="form-control" id="NPGainUpPercentage" value="0" min="0" max="9999" required>
+                <input type="number" class="form-control" id="NPGainUpPercentage" value="0" min="0" max="9999" step="any" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -302,7 +302,7 @@
                 <label class="input-group-text" for="AttackUpPercentage">Attack Up&nbsp;
                   <img src="images/buffs/attackup.png" height="23"></img></label>
               </div>
-              <input type="number" class="form-control" id="AttackUpPercentage" value="0" min="0" max="9999" required>
+              <input type="number" class="form-control" id="AttackUpPercentage" value="0" min="0" max="9999" step="any" required>
               <div class="input-group-append">
                 <label class="input-group-text" for="percent">%</label>
               </div>
@@ -317,7 +317,7 @@
               <div class="input-group-prepend">
                 <label class="input-group-text" for="FlatAttackUp">Flat Attack Up</label>
               </div>
-              <input type="number" class="form-control" id="FlatAttackUp" value="0" min="0" max="999999" required>
+              <input type="number" class="form-control" id="FlatAttackUp" value="0" min="0" max="999999" step="any" required>
               <div class="invalid-feedback">
                 Valid Flat Attack up required.
               </div>
@@ -331,7 +331,7 @@
                 <img src="images/buffs/specialattackup.png" height="23"></img> &nbsp;
                 <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img></label>
             </div>
-            <input type="number" class="form-control" id="PowerMod" value="0" min="0" max="9999" required>
+            <input type="number" class="form-control" id="PowerMod" value="0" min="0" max="9999" step="any" required>
             <div class="input-group-append">
               <label class="input-group-text" for="percent">%</label>
             </div>
@@ -1157,7 +1157,7 @@
                   <label class="input-group-text" for="NPDamageUpQuest1">NP Buff&nbsp;
                     <img src="images/buffs/npdamageup.png" height="23"></img></label>
                 </div>
-                <input type="number" class="form-control" id="NPDamageUpQuest1" value="0" min="0" required>
+                <input type="number" class="form-control" id="NPDamageUpQuest1" value="0" min="0" step="any" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -1172,7 +1172,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="NPGainUpPercentageQuest1">NP Gain Up</label>
                 </div>
-                <input type="number" class="form-control" id="NPGainUpPercentageQuest1" value="0" min="0" required>
+                <input type="number" class="form-control" id="NPGainUpPercentageQuest1" value="0" min="0" step="any" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -1188,7 +1188,7 @@
                   <label class="input-group-text" for="AttackUpPercentageQuest1">Attack Up&nbsp;
                     <img src="images/buffs/attackup.png" height="23"></img></label>
                 </div>
-                <input type="number" class="form-control" id="AttackUpPercentageQuest1" value="0" min="0" required>
+                <input type="number" class="form-control" id="AttackUpPercentageQuest1" value="0" min="0" step="any" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -1203,7 +1203,7 @@
                 <div class="input-group-prepend">
                   <label class="input-group-text" for="FlatAttackUpQuest1">Flat Attack Up</label>
                 </div>
-                <input type="number" class="form-control" id="FlatAttackUpQuest1" value="0" min="0" required>
+                <input type="number" class="form-control" id="FlatAttackUpQuest1" value="0" min="0" step="any" required>
                 <div class="invalid-feedback">
                   Valid Flat Attack Up value required.
                 </div>
@@ -1319,7 +1319,7 @@
                   <label class="input-group-text" for="NPSpecialAttackQuest1">NP Sp. Attack (All)&nbsp;
                     <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                 </div>
-                <input type="number" class="form-control" id="NPSpecialAttackQuest1" value="0" min="0" required>
+                <input type="number" class="form-control" id="NPSpecialAttackQuest1" value="0" min="0" step="any" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -1335,7 +1335,7 @@
                   <label class="input-group-text" for="DefenseDebuffPercentageQuest1">Def. Debuff&nbsp;
                     <img src="images/buffs/defensedown.png" height="23"></img></label>
                 </div>
-                <input type="number" class="form-control" id="DefenseDebuffPercentageQuest1" value="0" min="0" required>
+                <input type="number" class="form-control" id="DefenseDebuffPercentageQuest1" value="0" min="0" step="any" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -1352,7 +1352,7 @@
                     <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                     <img src="images/buffs/specialattackup.png" height="23"></img></label>
                 </div>
-                <input type="number" class="form-control" id="PowerModQuest1" value="0" min="0" required>
+                <input type="number" class="form-control" id="PowerModQuest1" value="0" min="0" step="any" required>
                 <div class="input-group-append">
                   <label class="input-group-text" for="percent">%</label>
                 </div>
@@ -1381,7 +1381,7 @@
                     <label class="input-group-text" for="NPSpecialAttackQuest1Enemy1">NP Sp. Attack (Enemy 1)&nbsp;
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy1" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy1" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1397,7 +1397,7 @@
                     <label class="input-group-text" for="NPSpecialAttackQuest1Enemy2">NP Sp. Attack (Enemy 2)&nbsp;
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1413,7 +1413,7 @@
                     <label class="input-group-text" for="NPSpecialAttackQuest1Enemy3">NP Sp. Attack (Enemy 3)&nbsp;
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest1Enemy3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1432,7 +1432,7 @@
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                       <img src="images/buffs/specialattackup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest1Enemy1" value="0" min="0" required>
+                  <input type="number" class="form-control" id="PowerModQuest1Enemy1" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1449,7 +1449,7 @@
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                       <img src="images/buffs/specialattackup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest1Enemy2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="PowerModQuest1Enemy2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1466,7 +1466,7 @@
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                       <img src="images/buffs/specialattackup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest1Enemy3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="PowerModQuest1Enemy3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1553,7 +1553,7 @@
                     <label class="input-group-text" for="NPDamageUpQuest2">NP Buff&nbsp;
                       <img src="images/buffs/npdamageup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="NPDamageUpQuest2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPDamageUpQuest2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1568,7 +1568,7 @@
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="NPGainUpPercentageQuest2">NP Gain Up</label>
                   </div>
-                  <input type="number" class="form-control" id="NPGainUpPercentageQuest2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPGainUpPercentageQuest2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1584,7 +1584,7 @@
                     <label class="input-group-text" for="AttackUpPercentageQuest2">Attack Up&nbsp;
                       <img src="images/buffs/attackup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="AttackUpPercentageQuest2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="AttackUpPercentageQuest2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1599,7 +1599,7 @@
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="FlatAttackUpQuest2">Flat Attack Up</label>
                   </div>
-                  <input type="number" class="form-control" id="FlatAttackUpQuest2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="FlatAttackUpQuest2" value="0" min="0" step="any" required>
                   <div class="invalid-feedback">
                     Valid Flat Attack Up value required.
                   </div>
@@ -1714,7 +1714,7 @@
                     <label class="input-group-text" for="NPSpecialAttackQuest2">NP Sp. Attack &nbsp;
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1730,7 +1730,7 @@
                     <label class="input-group-text" for="DefenseDebuffPercentageQuest2">Def. Debuff&nbsp;
                       <img src="images/buffs/defensedown.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="DefenseDebuffPercentageQuest2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="DefenseDebuffPercentageQuest2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1747,7 +1747,7 @@
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img>&nbsp;
                       <img src="images/buffs/specialattackup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest2" value="0" min="0" required>
+                  <input type="number" class="form-control" id="PowerModQuest2" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1776,7 +1776,7 @@
                       <label class="input-group-text" for="NPSpecialAttackQuest2Enemy4">NP Sp. Attack (Enemy 4)&nbsp;
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy4" value="0" min="0" required>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy4" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -1792,7 +1792,7 @@
                       <label class="input-group-text" for="NPSpecialAttackQuest2Enemy5">NP Sp. Attack (Enemy 5)&nbsp;
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy5" value="0" min="0" required>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy5" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -1808,7 +1808,7 @@
                       <label class="input-group-text" for="NPSpecialAttackQuest2Enemy6">NP Sp. Attack (Enemy 6)&nbsp;
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy6" value="0" min="0" required>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest2Enemy6" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -1827,7 +1827,7 @@
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                         <img src="images/buffs/specialattackup.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="PowerModQuest2Enemy4" value="0" min="0" required>
+                    <input type="number" class="form-control" id="PowerModQuest2Enemy4" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -1844,7 +1844,7 @@
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                         <img src="images/buffs/specialattackup.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="PowerModQuest2Enemy5" value="0" min="0" required>
+                    <input type="number" class="form-control" id="PowerModQuest2Enemy5" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -1861,7 +1861,7 @@
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                         <img src="images/buffs/specialattackup.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="PowerModQuest2Enemy6" value="0" min="0" required>
+                    <input type="number" class="form-control" id="PowerModQuest2Enemy6" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -1948,7 +1948,7 @@
                     <label class="input-group-text" for="NPDamageUpQuest3">NP Buff&nbsp;
                       <img src="images/buffs/npdamageup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="NPDamageUpQuest3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPDamageUpQuest3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1963,7 +1963,7 @@
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="NPGainUpPercentageQuest3">NP Gain Up</label>
                   </div>
-                  <input type="number" class="form-control" id="NPGainUpPercentageQuest3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPGainUpPercentageQuest3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1979,7 +1979,7 @@
                     <label class="input-group-text" for="AttackUpPercentageQuest3">Attack Up&nbsp;
                       <img src="images/buffs/attackup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="AttackUpPercentageQuest3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="AttackUpPercentageQuest3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -1994,7 +1994,7 @@
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="FlatAttackUpQuest3">Flat Attack Up</label>
                   </div>
-                  <input type="number" class="form-control" id="FlatAttackUpQuest3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="FlatAttackUpQuest3" value="0" min="0" step="any" required>
                   <div class="invalid-feedback">
                     Valid Flat Attack Up value required.
                   </div>
@@ -2109,7 +2109,7 @@
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="NPSpecialAttackQuest3">NP Sp. Attack &nbsp;<img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="NPSpecialAttackQuest3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="NPSpecialAttackQuest3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -2125,7 +2125,7 @@
                     <label class="input-group-text" for="DefenseDebuffPercentageQuest3">Def. Debuff&nbsp;
                       <img src="images/buffs/defensedown.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="DefenseDebuffPercentageQuest3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="DefenseDebuffPercentageQuest3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -2142,7 +2142,7 @@
                       <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                       <img src="images/buffs/specialattackup.png" height="23"></img></label>
                   </div>
-                  <input type="number" class="form-control" id="PowerModQuest3" value="0" min="0" required>
+                  <input type="number" class="form-control" id="PowerModQuest3" value="0" min="0" step="any" required>
                   <div class="input-group-append">
                     <label class="input-group-text" for="percent">%</label>
                   </div>
@@ -2171,7 +2171,7 @@
                       <label class="input-group-text" for="NPSpecialAttackQuest3Enemy7">NP Sp. Attack (Enemy 7)&nbsp;
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy7" value="0" min="0" required>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy7" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2187,7 +2187,7 @@
                       <label class="input-group-text" for="NPSpecialAttackQuest3Enemy8">NP Sp. Attack (Enemy 8)&nbsp;
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy8" value="0" min="0" required>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy8" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2203,7 +2203,7 @@
                       <label class="input-group-text" for="NPSpecialAttackQuest3Enemy9">NP Sp. Attack (Enemy 9)&nbsp;
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="When the NP 'Deals Extra Damage' to certain things.<br>Multipliers like Mordred's overcharge vs. Arthurs would go here.<br>Has a base of 100%, so if the NP does 150% extra, you'd put 50% in the box.<br><b>Not for buff multipliers!</b>"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy9" value="0" min="0" required>
+                    <input type="number" class="form-control" id="NPSpecialAttackQuest3Enemy9" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2222,7 +2222,7 @@
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                         <img src="images/buffs/specialattackup.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="PowerModQuest3Enemy7" value="0" min="0" required>
+                    <input type="number" class="form-control" id="PowerModQuest3Enemy7" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2239,7 +2239,7 @@
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                         <img src="images/buffs/specialattackup.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="PowerModQuest3Enemy8" value="0" min="0" required>
+                    <input type="number" class="form-control" id="PowerModQuest3Enemy8" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2256,7 +2256,7 @@
                         <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Buffs that 'increase own damage against' something.<br>Buffs like Jack's vs. females would go here."></img> &nbsp;
                         <img src="images/buffs/specialattackup.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="PowerModQuest3Enemy9" value="0" min="0" required>
+                    <input type="number" class="form-control" id="PowerModQuest3Enemy9" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>

@@ -1556,6 +1556,14 @@ function calculateDamage(waveNumber){
     cardBuffs += quickDefenseDebuffs;
   }
 
+  // if non damaging np, return 0
+  if(np == 0){
+    return [0, 0, 0,
+            0, 0, 0,
+            0, 0, 0,
+      cardBuffs, npGainBuff];
+  }
+
   // return average low and high damage dealt
   return [Math.round(0.9 * (damageDealt[0] - flatAttack) + flatAttack), Math.round(damageDealt[0]), Math.round(1.1 * (damageDealt[0] - flatAttack) + flatAttack),
     Math.round(0.9 * (damageDealt[1] - flatAttack) + flatAttack), Math.round(damageDealt[1]), Math.round(1.1 * (damageDealt[1] - flatAttack) + flatAttack),
