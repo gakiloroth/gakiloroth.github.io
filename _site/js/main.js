@@ -1661,24 +1661,34 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
     // check overkill
     if(!ignoreEnemy1){
+      let isOverkill = false;
       if(hp1 - damage < 0){
-        overkillModifier = 1.5;
+        overkillModifier = 1.500;
+        isOverkill = true;
       }
       else{
-        overkillModifier = 1;
+        overkillModifier = 1.000;
       }
+      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod);
 
       console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
       console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
         " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod1: " + enemyServerMod1 +
         " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
       console.log("damage1: " + damage);
-      refund1 += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
-        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+      if(isOverkill){
+        refund1 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      } else {
+        refund1 += baseNPGained;
+      }
       console.log("refund1: " + refund1);
 
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
-        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+      if(isOverkill){
+        npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      } else {
+        npRefund += baseNPGained;
+      }
     }
 
     // update hp
@@ -1690,17 +1700,30 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
     // check overkill
     if(!ignoreEnemy2){
+      let isOverkill = false;
       if(hp2 - damage < 0){
-        overkillModifier = 1.5;
+        overkillModifier = 1.500;
+        isOverkill = true;
       }
       else{
-        overkillModifier = 1;
+        overkillModifier = 1.000;
       }
-      refund2 += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
-        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+
+      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod);
+
+      if(isOverkill){
+        refund2 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      } else {
+        refund2 += baseNPGained;
+      }
       console.log("refund2: " + refund2);
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
-        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+
+      if(isOverkill){
+        npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      } else {
+        npRefund += baseNPGained;
+      }
     }
 
     // update hp
@@ -1711,17 +1734,30 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
     damage = damage3 * npHitDist[i];
 
     if(!ignoreEnemy3){
+      let isOverkill = false;
       if(hp3 - damage < 0){
-        overkillModifier = 1.5;
+        overkillModifier = 1.500;
+        isOverkill = true;
       }
       else{
-        overkillModifier = 1;
+        overkillModifier = 1.000;
       }
-      refund3 += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
-        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+
+      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+        enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod);
+
+      if(isOverkill){
+        refund3 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      } else {
+        refund3 += baseNPGained;
+      }
       console.log("refund3: " + refund3);
-      npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) ))) *
-        enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+
+      if(isOverkill){
+        npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      } else {
+        npRefund += baseNPGained;
+      }
     }
 
     // update hp
