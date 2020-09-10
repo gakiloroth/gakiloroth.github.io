@@ -331,7 +331,7 @@ document.getElementById('addQuest').onclick = function(){
 
 function updateNPTime(){
   $('#npTotalTimeDisplay').empty().html('<b>Total NP Time  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="These are rough estimates and are at 2x speed -  estimates and are at 2x speed - use as a general guide. Hopefully I\'ll find a more accurate way of measuring NP times in the future."></img> : '
-  + questNPTotalTime + 's &nbsp;&nbsp;</b><button type="button" id="resetTotalNPTime"' + 'class="btn btn-outline-danger btn-sm">Reset</button></p>');
+  + questNPTotalTime.toFixed(2) + 's &nbsp;&nbsp;</b><button type="button" id="resetTotalNPTime"' + 'class="btn btn-outline-danger btn-sm">Reset</button></p>');
   attachNPTimeReset();
 }
 
@@ -1573,9 +1573,9 @@ function calculateDamage(waveNumber){
   }
 
   // return average low and high damage dealt
-  return [Math.round(0.9 * (damageDealt[0] - flatAttack) + flatAttack), Math.round(damageDealt[0]), Math.round(1.1 * (damageDealt[0] - flatAttack) + flatAttack),
-    Math.round(0.9 * (damageDealt[1] - flatAttack) + flatAttack), Math.round(damageDealt[1]), Math.round(1.1 * (damageDealt[1] - flatAttack) + flatAttack),
-    Math.round(0.9 * (damageDealt[2] - flatAttack) + flatAttack), Math.round(damageDealt[2]), Math.round(1.1 * (damageDealt[2] - flatAttack) + flatAttack),
+  return [Math.round(0.9 * (damageDealt[0] - flatAttack) + flatAttack), Math.round(damageDealt[0]), Math.round(1.099 * (damageDealt[0] - flatAttack) + flatAttack),
+    Math.round(0.9 * (damageDealt[1] - flatAttack) + flatAttack), Math.round(damageDealt[1]), Math.round(1.099 * (damageDealt[1] - flatAttack) + flatAttack),
+    Math.round(0.9 * (damageDealt[2] - flatAttack) + flatAttack), Math.round(damageDealt[2]), Math.round(1.099 * (damageDealt[2] - flatAttack) + flatAttack),
     cardBuffs, npGainBuff];
 }
 
@@ -1655,6 +1655,7 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
   cardMod = (Number(cardMod) + Number(cardBuff));
 
   let damage = 0;
+  let refund1 = 0, refund2 = 0, refund3 = 0;
   for(let i = 0; i < npHits; i++){
     damage = damage1 * npHitDist[i];
 
@@ -1672,12 +1673,12 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod1: " + enemyServerMod1 +
         " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
       console.log("damage1: " + damage);
-      console.log("refund1: " + ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
-        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier));
+      refund1 += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+        enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+      console.log("refund1: " + refund1);
 
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
         enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
-
     }
 
     // update hp
@@ -1695,6 +1696,9 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
       else{
         overkillModifier = 1;
       }
+      refund2 += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
+        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+      console.log("refund2: " + refund2);
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
         enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
@@ -1713,6 +1717,9 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
       else{
         overkillModifier = 1;
       }
+      refund3 += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) )))*
+        enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
+      console.log("refund3: " + refund3);
       npRefund += ((npChargeOff * (firstCardBonus + (cardNpValue * (1 + Number(cardMod) ))) *
         enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod) * overkillModifier);
     }
