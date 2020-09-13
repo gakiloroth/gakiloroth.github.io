@@ -9,10 +9,10 @@ Updates may change some how of the backend are done, and if calculations don't w
 
 # How to Use
 ## Servants Manager Tab
-Enter all the information a servant would have (passives are now loaded in for you) and the effects / attack boost from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 4, to test in the battle simulator.
+Enter all the information a servant would have (passives are now loaded in for you) and the effects / attack boost from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 20, to test in the battle simulator.
 
 ## Quests Manager Tab
-Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. You can also toggle common nodes to see and search for common nodes to the enemy data of into the quest editor.
+Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. You can also click the "Toggle Common Nodes) to see and search for common nodes by either the node name or material you are looking for, and then click "Load Node" to automatically fill the enemy data of that node into the quest editor.
 
 **Tip**: If you're not sure what an enemy's attribute might be, make your attacking servant and the enemy's attribute the same, which will set the attribute damage modifier to 1.
 
@@ -33,7 +33,7 @@ Click the "Prev" and "Next" buttons to test on other waves.
 With this simulator you will be able to save a servant's stats (with CE), and quest nodes (3 waves of enemies).
 Then, you can choose several servants, one quest, and test NP damage and NP refund.
 
-Work in Progress:
+Possible Future Functions:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
 - Collapse card buff/debuffs into one option
 - Add ability to def. debuff/ card debuff specific enemies
