@@ -81,3 +81,10 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
  overflow-y: scroll !important;
  max-height: 300px !important;
 }
+body .gist .gist-data {
+  background: #303030 !important;
+  color: #fff !important;
+}
+body .gist .gist-meta {
+    display: none;
+}
