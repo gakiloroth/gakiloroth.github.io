@@ -9,7 +9,7 @@ Updates may change some how of the backend are done, and if calculations don't w
 
 # How to Use
 ## Servants Manager Tab
-Enter all the information a servant would have (passives are now loaded in for you) and the effects / attack boost from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. You can then select servants to put into your "party" up to 20, to test in the battle simulator.
+Enter all the information a servant would have (passives are now loaded in for you) and the effects / attack boost from the CE you want. The CE field can be anything you want, so you can name it the CE you used, or any other info to remember what this servant is supposed to have. Further buffs can be added on the battle simulator tab. Do note that servant NP upgrades are assumed completed and up to date with JP - you may have to manually adjust the NP Damage % accordingly if on NA / the servant has not done their NP Upgrade. You can then select servants to put into your "party" up to 20, to test in the battle simulator.
 
 ## Quests Manager Tab
 Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. You can also click the "Toggle Common Nodes) to see and search for common nodes by either the node name or material you are looking for, and then click "Load Node" to automatically fill the enemy data of that node into the quest editor.
