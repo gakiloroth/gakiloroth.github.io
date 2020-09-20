@@ -1375,6 +1375,9 @@ function deleteAllQuests(){
 
 // reset battle forms
 function resetBattleForm(waveNumber){
+  let waveOffset = 3 * (waveNumber - 1);
+
+  // clear all enemy / servant form
   $('#NPDamageUpQuest' + waveNumber).val(0);
   $('#NPGainUpPercentageQuest' + waveNumber).val(0);
   $('#AttackUpPercentageQuest' + waveNumber).val(0);
@@ -1388,6 +1391,16 @@ function resetBattleForm(waveNumber){
   $('#QuickDebuffPercentageQuest' + waveNumber).val(0);
   $('#NPSpecialAttackQuest' + waveNumber).val(0);
   $('#DefenseDebuffPercentageQuest' + waveNumber).val(0);
+
+  // clear enemy specific form
+  for(let i = 0; i <= 3; i++){
+    $('#NPSpecialAttackQuest' + waveNumber + 'Enemy' + (i + waveOffset)).val(0);
+    $('#PowerModQuest' + waveNumber + 'Enemy' + (i + waveOffset)).val(0);
+    $('#DefenseDebuffPercentageQuest' + waveNumber + 'Enemy' + (i + waveOffset)).val(0);
+    $('#BusterDebuffPercentageQuest' + waveNumber + 'Enemy' + (i + waveOffset)).val(0);
+    $('#ArtsDebuffPercentageQuest' + waveNumber + 'Enemy' + (i + waveOffset)).val(0);
+    $('#QuickDebuffPercentageQuest' + waveNumber + 'Enemy' + (i + waveOffset)).val(0);
+  }
 }
 
 // reset servant form
