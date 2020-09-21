@@ -35,5 +35,4 @@ Then, you can choose several servants, one quest, and test NP damage and NP refu
 
 Possible Future Functions:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
-- Collapse card buff/debuffs into one option
-- Add ability to def. debuff/ card debuff specific enemies
+- Collapse card buff/debuffs into one option (one card mod instead of buster/arts/quick)
