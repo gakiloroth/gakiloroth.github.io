@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v1.50</title>
+    <title>FGO 3T Simulator v1.51</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v1.50
+        <h1 class="title">FGO 3T Simulator v1.51
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -57,6 +57,7 @@
                 </button>
               </div>
               <div class="modal-body">
+                9/20/2020 1.51: Allow for enemy specific defense debuffs / card debuffs.<br>
                 9/16/2020 1.50: Minor README / text updates.<br>
                 9/14/2020 1.49: Interlude Set 14<br>
                 9/13/2020 1.48: Added "How to Use" tab which is essentially the GitHub README, but more visible. Updated all NA servants to have more accurate NP Times. NOTE:
@@ -2190,10 +2191,10 @@
                 <div class="col-md-4">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="ArtsDebuffPercentageQuest1Enemy1">Arts Def. Debuff (Enemy 1)&nbsp;
+                      <label class="input-group-text" for="ArtsDebuffPercentageQuest2Enemy4">Arts Def. Debuff (Enemy 4)&nbsp;
                         <img src="images/buffs/artsresistdown.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest1Enemy1" value="0" min="0" step="any" required>
+                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest2Enemy4" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2206,10 +2207,10 @@
                 <div class="col-md-4">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="ArtsDebuffPercentageQuest1Enemy2">Arts Def. Debuff (Enemy 2)&nbsp;
+                      <label class="input-group-text" for="ArtsDebuffPercentageQuest2Enemy5">Arts Def. Debuff (Enemy 5)&nbsp;
                         <img src="images/buffs/artsresistdown.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest1Enemy2" value="0" min="0" step="any" required>
+                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest2Enemy5" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2222,10 +2223,10 @@
                 <div class="col-md-4">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="ArtsDebuffPercentageQuest1Enemy3">Arts Def. Debuff (Enemy 3)&nbsp;
+                      <label class="input-group-text" for="ArtsDebuffPercentageQuest2Enemy6">Arts Def. Debuff (Enemy 6)&nbsp;
                         <img src="images/buffs/artsresistdown.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest1Enemy3" value="0" min="0" step="any" required>
+                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest2Enemy6" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2240,10 +2241,10 @@
                 <div class="col-md-4">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="QuickDebuffPercentageQuest1Enemy1">Quick Def. Debuff (Enemy 1)&nbsp;
+                      <label class="input-group-text" for="QuickDebuffPercentageQuest2Enemy4">Quick Def. Debuff (Enemy 4)&nbsp;
                         <img src="images/buffs/quickresistdown.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest1Enemy1" value="0" min="0" step="any" required>
+                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest2Enemy4" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2256,10 +2257,10 @@
                 <div class="col-md-4">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="QuickDebuffPercentageQuest1Enemy2">Quick Def. Debuff (Enemy 2)&nbsp;
+                      <label class="input-group-text" for="QuickDebuffPercentageQuest2Enemy5">Quick Def. Debuff (Enemy 5)&nbsp;
                         <img src="images/buffs/quickresistdown.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest1Enemy2" value="0" min="0" step="any" required>
+                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest2Enemy5" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2272,10 +2273,10 @@
                 <div class="col-md-4">
                   <div class="input-group">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="QuickDebuffPercentageQuest1Enemy3">Quick Def. Debuff (Enemy 3)&nbsp;
+                      <label class="input-group-text" for="QuickDebuffPercentageQuest2Enemy6">Quick Def. Debuff (Enemy 6)&nbsp;
                         <img src="images/buffs/quickresistdown.png" height="23"></img></label>
                     </div>
-                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest1Enemy3" value="0" min="0" step="any" required>
+                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest2Enemy6" value="0" min="0" step="any" required>
                     <div class="input-group-append">
                       <label class="input-group-text" for="percent">%</label>
                     </div>
@@ -2683,6 +2684,206 @@
                   </div>
                 </div>
               </div>
+
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="DefenseDebuffPercentageQuest3Enemy7">Def. Debuff (Enemy 7)&nbsp;
+                        <img src="images/buffs/defensedown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="DefenseDebuffPercentageQuest3Enemy7" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="DefenseDebuffPercentageQuest3Enemy8">Def. Debuff (Enemy 8)&nbsp;
+                        <img src="images/buffs/defensedown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="DefenseDebuffPercentageQuest3Enemy8" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="DefenseDebuffPercentageQuest3Enemy9">Def. Debuff (Enemy 9)&nbsp;
+                        <img src="images/buffs/defensedown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="DefenseDebuffPercentageQuest3Enemy9" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="BusterDebuffPercentageQuest3Enemy7">Buster Def. Debuff (Enemy 7)&nbsp;
+                        <img src="images/buffs/busterresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="BusterDebuffPercentageQuest3Enemy7" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Buster Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="BusterDebuffPercentageQuest3Enemy8">Buster Def. Debuff (Enemy 8)&nbsp;
+                        <img src="images/buffs/busterresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="BusterDebuffPercentageQuest3Enemy8" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Buster Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="BusterDebuffPercentageQuest3Enemy9">Buster Def. Debuff (Enemy 9)&nbsp;
+                        <img src="images/buffs/busterresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="BusterDebuffPercentageQuest3Enemy9" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Buster Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="ArtsDebuffPercentageQuest3Enemy7">Arts Def. Debuff (Enemy 7)&nbsp;
+                        <img src="images/buffs/artsresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest3Enemy7" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Arts Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="ArtsDebuffPercentageQuest3Enemy8">Arts Def. Debuff (Enemy 8)&nbsp;
+                        <img src="images/buffs/artsresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest3Enemy8" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Arts Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="ArtsDebuffPercentageQuest3Enemy9">Arts Def. Debuff (Enemy 9)&nbsp;
+                        <img src="images/buffs/artsresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="ArtsDebuffPercentageQuest3Enemy9" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Arts Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="QuickDebuffPercentageQuest3Enemy7">Quick Def. Debuff (Enemy 7)&nbsp;
+                        <img src="images/buffs/quickresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest3Enemy7" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Quick Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="QuickDebuffPercentageQuest3Enemy8">Quick Def. Debuff (Enemy 8)&nbsp;
+                        <img src="images/buffs/quickresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest3Enemy8" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Quick Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="QuickDebuffPercentageQuest3Enemy9">Quick Def. Debuff (Enemy 9)&nbsp;
+                        <img src="images/buffs/quickresistdown.png" height="23"></img></label>
+                    </div>
+                    <input type="number" class="form-control" id="QuickDebuffPercentageQuest3Enemy9" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid Quick Defense Debuff value required.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </form>
 
@@ -2742,7 +2943,8 @@
     </div>--->
     </div>
     <div class="container tab-pane" id="nav-how-to-use" role="tabpanel" aria-labelledby="nav-how-to-use-tab">
-      <script src="https://gist.github.com/gakiloroth/83c901dc2a5bf767cd873ccda406b042.js"></script>
+      <div id="READMEGist">
+      </div>
     </div>
   </div>
 </div>
@@ -2770,7 +2972,6 @@
     <script src="js/servant-list.js" type="text/javascript"></script>
     <script src="js/mystic-codes.js" type="text/javascript"></script>
     <script src="js/nodes.js" type="text/javascript"></script>
-
     <script src="js/main.js" type="text/javascript"></script>
   </body>
 </html>

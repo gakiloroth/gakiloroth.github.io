@@ -47,6 +47,7 @@ $(document).ready(function() {
   updateServantToggles();
   updateQuestPartyToggles();
   updateQuestToggles();
+  loadGist(document.getElementById("READMEGist"),"gakiloroth/83c901dc2a5bf767cd873ccda406b042");
   startup = false;
 });
 
@@ -64,6 +65,21 @@ function checkVersionAndClearStorage(){
     localStorage.setItem("version", version);
     location.reload();
   }
+}
+
+// avoid using document.write in gist embed
+function loadGist(element, gistId) {
+    var callbackName = "gist_callback";
+    window[callbackName] = function (gistData) {
+        delete window[callbackName];
+        var html = '<link rel="stylesheet" href="' + (gistData.stylesheet) + '"></link>';
+        html += gistData.div;
+        element.innerHTML = html;
+        script.parentNode.removeChild(script);
+    };
+    var script = document.createElement("script");
+    script.setAttribute("src", "https://gist.github.com/" + gistId + ".json?callback=" + callbackName);
+    document.body.appendChild(script);
 }
 
 // prevent enter from submitting form
@@ -377,11 +393,12 @@ document.getElementById('submitBattleForm1').onclick = async function(){
     $('#questEnemy3HPLeft').empty().html('HP Left: ' + (questEnemyHP[6] - result[6]) + ' / '
       + (questEnemyHP[7] - result[7]) + ' / ' + (questEnemyHP[8] - result[8]));
 
-    // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp
+    // calculate np refund - pass in hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp,
+    // enemySpecificCardDebuffs, np hit counts, np hit dist
     let currNPHits = savedServants[servant].nphits
     let currNPHitDist = await fetchNPRefund(currNPHits);
     let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], curr.enemy1npgainmod, curr.enemy2npgainmod, curr.enemy3npgainmod,
-     result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist)
+     result[0], result[3], result[6], result[9], result[10], result[11], currNPHits, currNPHitDist)
 
     questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
     $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
@@ -457,7 +474,7 @@ document.getElementById('submitBattleForm2').onclick = async function(){
     let currNPHits = savedServants[servant].nphits
     let currNPHitDist = await fetchNPRefund(currNPHits);
     let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
-     result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist);
+     result[0], result[3], result[6], result[9], result[10], result[11], currNPHits, currNPHitDist);
 
     questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
     if(typeof questRefunds[0] === "undefined"){
@@ -539,7 +556,7 @@ document.getElementById('submitBattleForm3').onclick = async function(){
     let currNPHits = savedServants[servant].nphits
     let currNPHitDist = await fetchNPRefund(currNPHits);
     let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
-     result[0], result[3], result[6], result[9], result[10], currNPHits, currNPHitDist);
+     result[0], result[3], result[6], result[9], result[10], result[11], currNPHits, currNPHitDist);
 
     questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
     if(typeof questRefunds[1] === "undefined"){
@@ -1463,10 +1480,17 @@ function calculateDamage(waveNumber){
   var currQuest = savedQuests[quest];
   var questClass = new Array(3);
   var questAttr = new Array(3);
+  var cardBuffs = "";
+  var enemyCardDebuffs = new Array(3);
+  var waveOffset = ((waveNumber - 1) * 3) + 1; // 1,4,7
+
+  // enemy specific mods
   var questNpSp = new Array(3);
   var questPower = new Array(3);
-  var cardBuffs = "";
-  var waveOffset = ((waveNumber - 1) * 3) + 1; // 1,4,7
+  var questDefDebuff = new Array(3);
+  var questBusterDebuff = new Array(3);
+  var questArtsDebuff = new Array(3);
+  var questQuickDebuff = new Array(3);
 
   // retrieve servant values
   var servantClass = getClassValue(currServant.class);
@@ -1494,8 +1518,12 @@ function calculateDamage(waveNumber){
 
   // load in enemy specific mods
   for(var i = 0; i < 3; i++){
-    questNpSp[i] =  parseFloat($('#NPSpecialAttackQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
-    questPower[i] =  parseFloat($('#PowerModQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+    questNpSp[i] = parseFloat($('#NPSpecialAttackQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+    questPower[i] = parseFloat($('#PowerModQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+    questDefDebuff[i] = parseFloat($('#DefenseDebuffPercentageQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+    questBusterDebuff[i] = parseFloat($('#BusterDebuffPercentageQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+    questArtsDebuff[i] = parseFloat($('#ArtsDebuffPercentageQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
+    questQuickDebuff[i] = parseFloat($('#QuickDebuffPercentageQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
   }
 
   if(debug){
@@ -1546,9 +1574,21 @@ function calculateDamage(waveNumber){
 
   var damageDealt = new Array(3);
   for(var i = 0; i < 3; i++){
+    // get correct card mods
+    if(currServant.nptype.localeCompare("Buster") == 0){
+      questCardDebuff = questBusterDebuff[i];
+    }
+    else if(currServant.nptype.localeCompare("Arts") == 0){
+      questCardDebuff = questArtsDebuff[i];
+    }
+    else if(currServant.nptype.localeCompare("Quick") == 0){
+      questCardDebuff = questQuickDebuff[i];
+    }
+
+    // get avg damage dealt
     damageDealt[i] = atk * np * npCardType * classAdvantage[i] * servantClassMultiplier * 0.23 *
-                (1 + attackUp + defenseDebuffs) * (1 + cardBuffs + cardDebuffs) * (1 + npBuffs + (powerBuff + questPower[i])) *
-                (1 + (npSpBuffs + questNpSp[i])) * attrAdvantage[i] + flatAttack;
+                (1 + attackUp + defenseDebuffs + questDefDebuff[i]) * (1 + cardBuffs + cardDebuffs + questCardDebuff) *
+                (1 + npBuffs + (powerBuff + questPower[i])) * (1 + (npSpBuffs + questNpSp[i])) * attrAdvantage[i] + flatAttack;
   }
 
   if(debug){
@@ -1569,12 +1609,15 @@ function calculateDamage(waveNumber){
   // add card resist down to cardbuffs for np refund calculations
   if(currServant.nptype.localeCompare("Buster") == 0){
     cardBuffs += busterDefenseDebuffs;
+    enemyCardDebuffs = questBusterDebuff;
   }
   else if(currServant.nptype.localeCompare("Arts") == 0){
     cardBuffs += artsDefenseDebuffs;
+    enemyCardDebuffs = questArtsDebuff;
   }
   else if(currServant.nptype.localeCompare("Quick") == 0){
     cardBuffs += quickDefenseDebuffs;
+    enemyCardDebuffs = questQuickDebuff;
   }
 
   // if non damaging np, return 0
@@ -1586,10 +1629,10 @@ function calculateDamage(waveNumber){
   }
 
   // return average low and high damage dealt
-  return [Math.round(0.9 * (damageDealt[0] - flatAttack) + flatAttack), Math.round(damageDealt[0]), Math.round(1.099 * (damageDealt[0] - flatAttack) + flatAttack),
-    Math.round(0.9 * (damageDealt[1] - flatAttack) + flatAttack), Math.round(damageDealt[1]), Math.round(1.099 * (damageDealt[1] - flatAttack) + flatAttack),
-    Math.round(0.9 * (damageDealt[2] - flatAttack) + flatAttack), Math.round(damageDealt[2]), Math.round(1.099 * (damageDealt[2] - flatAttack) + flatAttack),
-    cardBuffs, npGainBuff];
+  return [Math.floor(0.9 * (damageDealt[0] - flatAttack) + flatAttack), Math.floor(damageDealt[0]), Math.floor(1.099 * (damageDealt[0] - flatAttack) + flatAttack),
+    Math.floor(0.9 * (damageDealt[1] - flatAttack) + flatAttack), Math.floor(damageDealt[1]), Math.floor(1.099 * (damageDealt[1] - flatAttack) + flatAttack),
+    Math.floor(0.9 * (damageDealt[2] - flatAttack) + flatAttack), Math.floor(damageDealt[2]), Math.floor(1.099 * (damageDealt[2] - flatAttack) + flatAttack),
+    cardBuffs, npGainBuff, enemyCardDebuffs];
 }
 
 // np refund calcluation
@@ -1616,7 +1659,7 @@ async function fetchNPRefund(npHits){
   return currNPHitDist;
 }
 
-function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp, npHits, npHitDist){
+function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damage1, damage2, damage3, cardBuff, npGainUp, enemySpecificCardDebuff, npHits, npHitDist){
   // if enemies start at 0 health, ignore them for np regen calculations
   var ignoreEnemy1 = false;
   var ignoreEnemy2 = false;
@@ -1682,26 +1725,18 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
       else{
         overkillModifier = 1.000;
       }
-      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) + Number(enemySpecificCardDebuff[0]))))*
         enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod);
 
       console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
       console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
-        " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemyServerMod1: " + enemyServerMod1 +
+        " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemySpecificCardDebuff: " + Number(enemySpecificCardDebuff[0]) + " enemyServerMod1: " + enemyServerMod1 +
         " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
       console.log("damage1: " + damage);
-      if(isOverkill){
-        refund1 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      } else {
-        refund1 += baseNPGained;
-      }
-      console.log("refund1: " + refund1);
 
-      if(isOverkill){
-        npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      } else {
-        npRefund += baseNPGained;
-      }
+      refund1 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      console.log("refund1: " + refund1);
+      npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
     }
 
     // update hp
@@ -1722,21 +1757,12 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         overkillModifier = 1.000;
       }
 
-      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) + Number(enemySpecificCardDebuff[1]))))*
         enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod);
 
-      if(isOverkill){
-        refund2 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      } else {
-        refund2 += baseNPGained;
-      }
+      refund2 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
       console.log("refund2: " + refund2);
-
-      if(isOverkill){
-        npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      } else {
-        npRefund += baseNPGained;
-      }
+      npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
     }
 
     // update hp
@@ -1756,21 +1782,12 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         overkillModifier = 1.000;
       }
 
-      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) )))*
+      let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod)  + Number(enemySpecificCardDebuff[2]))))*
         enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod);
 
-      if(isOverkill){
-        refund3 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      } else {
-        refund3 += baseNPGained;
-      }
+      refund3 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
       console.log("refund3: " + refund3);
-
-      if(isOverkill){
-        npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      } else {
-        npRefund += baseNPGained;
-      }
+      npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
     }
 
     // update hp
