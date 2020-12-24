@@ -7,7 +7,7 @@ var servantID = 1;
 var servantNPType = "";
 var servantNPGain = "";
 var servantNPHits = "";
-var ceID = 1;
+var ceID = 0;
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
 var party = JSON.parse(localStorage.getItem("party") || "[]");
@@ -256,19 +256,87 @@ $('#ceLevel').on('change', function(){
   // get current ce data from ceID
   var currCELvl = $('#ceLevel').val();
   var currCE = CEList[ceID - 1];
-  
+
   $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>: '  + currCELvl + ' |');
   $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> ' + currCE.atkGrowth[currCELvl - 1]);
 });
 
 // add CE effects and stats to form
 document.getElementById('addCraftEssence').onclick = function(){
+  // get curr ce data
+  var currCE = CEList[ceID - 1];
+  var ceNonMLB = currCE.nonMLB;
+  var ceMLB = currCE.MLB;
+  var ceLevel = $('#ceLevel').val();
 
+  // store current field values
+  var currNPGainUpPercentage = $('#NPGainUpPercentage').val();
+  var currNPDamageUp = $('#NPDamageUp').val();
+  var currBusterUpPercentage = $('#BusterUpPercentage').val();
+  var currQuickUpPercentage = $('#QuickUpPercentage').val();
+  var currArtsUpPercentage = $('#ArtsUpPercentage').val();
+  var currFlatAttackUp = $('#FlatAttackUp').val();
+  var servantTotalAttack = $('#attack').val();
+
+  // add attack from total attack
+  $('#attack').val(Number(servantTotalAttack) + Number(currCE.atkGrowth[Number(ceLevel) - 1]));
+
+  if($("#ceMLB").is(':checked')){
+    // add MLB CE effects
+    $('#NPGainUpPercentage').val(Number(currNPGainUpPercentage) + Number(ceMLB.npGainUpPercentage));
+    $('#NPDamageUp').val(Number(currNPDamageUp) + Number(ceMLB.npDamageUp));
+    $('#BusterUpPercentage').val(Number(currBusterUpPercentage) + Number(ceMLB.busterUpPercentage));
+    $('#QuickUpPercentage').val(Number(currQuickUpPercentage) + Number(ceMLB.quickUpPercentage));
+    $('#ArtsUpPercentage').val(Number(currArtsUpPercentage) + Number(ceMLB.artsUpPercentage));
+    $('#FlatAttackUp').val(Number(currFlatAttackUp) + Number(ceMLB.flatAttackUp));
+  } else {
+    // add non MLB CE effects
+    $('#NPGainUpPercentage').val(Number(currNPGainUpPercentage) + Number(ceNonMLB.npGainUpPercentage));
+    $('#NPDamageUp').val(Number(currNPDamageUp) + Number(ceNonMLB.npDamageUp));
+    $('#BusterUpPercentage').val(Number(currBusterUpPercentage) + Number(ceNonMLB.busterUpPercentage));
+    $('#QuickUpPercentage').val(Number(currQuickUpPercentage) + Number(ceNonMLB.quickUpPercentage));
+    $('#ArtsUpPercentage').val(Number(currArtsUpPercentage) + Number(ceNonMLB.artsUpPercentage));
+    $('#FlatAttackUp').val(Number(currFlatAttackUp) + Number(ceNonMLB.flatAttackUp));
+  }
 };
 
 // remove CE effects and stats from form
 document.getElementById('removeCraftEssence').onclick = function(){
+  // get curr ce data
+  var currCE = CEList[ceID - 1];
+  var ceNonMLB = currCE.nonMLB;
+  var ceMLB = currCE.MLB;
+  var ceLevel = $('#ceLevel').val();
 
+  // store current field values
+  var currNPGainUpPercentage = $('#NPGainUpPercentage').val();
+  var currNPDamageUp = $('#NPDamageUp').val();
+  var currBusterUpPercentage = $('#BusterUpPercentage').val();
+  var currQuickUpPercentage = $('#QuickUpPercentage').val();
+  var currArtsUpPercentage = $('#ArtsUpPercentage').val();
+  var currFlatAttackUp = $('#FlatAttackUp').val();
+  var servantTotalAttack = $('#attack').val();
+
+  // remove attack from total attack
+  $('#attack').val(Number(servantTotalAttack) - Number(currCE.atkGrowth[Number(ceLevel) - 1]));
+
+  if($("#ceMLB").is(':checked')){
+    // add MLB CE effects
+    $('#NPGainUpPercentage').val(Number(currNPGainUpPercentage) - Number(ceMLB.npGainUpPercentage));
+    $('#NPDamageUp').val(Number(currNPDamageUp) - Number(ceMLB.npDamageUp));
+    $('#BusterUpPercentage').val(Number(currBusterUpPercentage) - Number(ceMLB.busterUpPercentage));
+    $('#QuickUpPercentage').val(Number(currQuickUpPercentage) - Number(ceMLB.quickUpPercentage));
+    $('#ArtsUpPercentage').val(Number(currArtsUpPercentage) - Number(ceMLB.artsUpPercentage));
+    $('#FlatAttackUp').val(Number(currFlatAttackUp) - Number(ceMLB.flatAttackUp));
+  } else {
+    // add non MLB CE effects
+    $('#NPGainUpPercentage').val(Number(currNPGainUpPercentage) - Number(ceNonMLB.npGainUpPercentage));
+    $('#NPDamageUp').val(Number(currNPDamageUp) - Number(ceNonMLB.npDamageUp));
+    $('#BusterUpPercentage').val(Number(currBusterUpPercentage) - Number(ceNonMLB.busterUpPercentage));
+    $('#QuickUpPercentage').val(Number(currQuickUpPercentage) - Number(ceNonMLB.quickUpPercentage));
+    $('#ArtsUpPercentage').val(Number(currArtsUpPercentage) - Number(ceNonMLB.artsUpPercentage));
+    $('#FlatAttackUp').val(Number(currFlatAttackUp) - Number(ceNonMLB.flatAttackUp));
+  }
 };
 
 // reset servant form
@@ -649,8 +717,8 @@ function updateSavedServantsDisplay(){
       quickstring = ' Quick Up: ' + curr.quickup + '%';
     }
 
-    $('#savedServants1').append($('<li class="list-group-item"><b>' + curr.name + '</b> | Nickname: ' +
-     curr.nickname + ' | Power Mod: ' + curr.powermod + '% | NP Gain Up: ' + curr.npgainup + '%<br>' + 'NP Level: ' +
+    $('#savedServants1').append($('<li class="list-group-item">ID: ' + curr.id + " <b>" + curr.name + '</b> | Nickname: ' +
+     curr.nickname + ' | Craft Essence: ' + curr.craftessence +  ' | Power Mod: ' + curr.powermod + '% | NP Gain Up: ' + curr.npgainup + '%<br>' + 'NP Level: ' +
      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
      ' | Attr. : ' + curr.attribute + '<br> ' + busterstring + artsstring + quickstring +
      '<span class="float-right"><button type="button" id=' + "useServant" + i +
@@ -661,11 +729,10 @@ function updateSavedServantsDisplay(){
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
 
-     $('#savedServants2').append($('<li class="list-group-item"><b>' + curr.name + '</b> | Nickname: ' +
-      curr.nickname + ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
+     $('#savedServants2').append($('<li class="list-group-item">ID: ' + curr.id + " <b>" + curr.name + '</b> | Nickname: ' +
+      curr.nickname + ' | Craft Essence: ' + curr.craftessence +  ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
       curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
-      ' | Attr. : ' + curr.attribute + '<br> Buster Up: ' + curr.busterup + ' | Arts Up: ' + curr.artsup +
-      ' | Quick Up: ' + curr.quickup + '</li>'));
+      ' | Attr. : ' + curr.attribute + " | " +  busterstring + artsstring + quickstring +'</li>'));
 
     // link up delete button
     document.getElementById("deleteServant" + i).addEventListener("click", function(){
@@ -785,6 +852,28 @@ function updateSavedServantsDisplay(){
       $('#NPDamageUp').val(savedServants[i].npdamageup);
       servantNPGain = savedServants[i].npgain;
       loadNPPercentages(servantID);
+
+      // load current CE id
+      ceID = savedServants[i].craftessenceid;
+      var servantCE = CEList[ceID];
+
+      // load CE fields
+      $('#ceNameDisplay').empty().html('<b>CE Name:</b> ' + savedServants[i].craftessence + ' |');
+      $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>:' +  savedServants[i].craftessencelevel + ' |');
+      $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> ' + savedServants[i].craftessenceatk);
+
+      $('#ceLevel').empty();
+      for(var j = 1; j <= servantCE.maxLvl; j++){
+        $('#ceLevel').append($('<option></option>').val(j).html(j));
+      }
+      $('#ceLevel').val(savedServants[i].craftessencelevel);
+
+      if(savedServants[i].craftessencemlb == 1){
+        $('#ceMLB').prop('checked', true);
+      }
+
+      // enable use CE button
+      $('#addCraftEssence').prop('disabled', false);
 
       // load np type button
       var servantNPType = savedServants[i].nptype;
@@ -1025,8 +1114,8 @@ function initializeBattleParty(){
   for(let i = 0; i < party.length; i++){
     let curr = savedServants[party[i]];
 
-    $('#battlePartyDisplay').append($('<li class="list-group-item"><b>' + curr.name + '</b> | Nickname: ' +
-     curr.nickname +
+    $('#battlePartyDisplay').append($('<li class="list-group-item">ID:' + curr.id + ' <b>' + curr.name + '</b>' +
+     ' | CE: ' + curr.craftessence + ' | NP Lvl: ' + curr.nplevel + ' | Nickname: ' + curr.nickname +
      '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
      ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
      ' autocomplete="false">Select</button></span>' + '</li>'));
@@ -1091,7 +1180,8 @@ function initializeCommonNodes(){
 function initializeCraftEssences(){
   for(let i = 0; i < CEList.length; i++){
     let currCE = CEList[i];
-    $('#ceList').append('<li class="list-group-item">' + "ID: " + currCE.id + " | " + currCE.name + " | Rarity: " + currCE.rarity
+    $('#ceList').append('<li class="list-group-item">' + "ID: " + currCE.id + " | " + '<img src=\"' + currCE.imgURL + '\" width=\"40\" height=\"40\"> '
+    + currCE.name + " | Rarity: " + currCE.rarity
     + '<span class="float-right"><button type="button" id=loadCE' + currCE.id + ' class="btn btn-outline-success btn-sm">Load CE</button></span></li></span>');
 
     // hook up button
@@ -1107,6 +1197,9 @@ function initializeCraftEssences(){
 
       // save the current CE id
       ceID = currCE.id;
+
+      // enable use ce buttons
+      $('#addCraftEssence').prop('disabled', false);
 
       // enable and fill in CE level selector
       $('#ceLevel').empty();
@@ -1261,9 +1354,6 @@ function addServant(){
     Array.prototype.filter.call(forms, function(form) {
       form.classList.remove('was-validated');
     });
-
-    // testing updating without needing reload
-    //location.reload();
   }
 }
 
@@ -1289,11 +1379,31 @@ function saveServant(){
   localStorage.setItem("party", JSON.stringify(party));
   localStorage.setItem("servant", JSON.stringify(servant));
 
+  var ceName;
+  var ceMLB;
+  var ceLevel;
+  var ceAtk;
+
+  //if no CE is chosen
+  if(ceID == 0){
+    ceName = "N/A";
+    ceMLB = 0;
+    ceLevel = 0;
+    ceAtk = 0;
+  } else {
+    ceName = CEList[ceID-1].name;
+    ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
+    ceLevel = Number($('#ceLevel').val());
+    ceAtk = CEList[ceID-1].atkGrowth[ceLevel];
+  }
+
   savedServants.unshift({"id": servantID,"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
-    "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val()});
+    "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val(),
+    "craftessence":ceName,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB,
+    "craftessenceatk": ceAtk});
 
   console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
@@ -1319,11 +1429,17 @@ function saveEditedServant(index){
   });
 
   if(valid){
+    var ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
+    var currCE = CEList[ceID - 1];
+    var ceLevel = Number($('#ceLevel').val());
+
     savedServants[index]=({"id": servantID, "name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
       "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
       "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
       "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
-      "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val()});
+      "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val(),
+      "craftessence":currCE.name,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB,
+      "craftessenceatk": currCE.atkGrowth[ceLevel]});
 
     // reset form validation display
     Array.prototype.filter.call(forms, function(form) {
@@ -1502,6 +1618,13 @@ function resetServant() {
   $('#addServant').attr('disabled', true);
   $('#inputClass').val(0);
   $('#inputNickname').val("");
+  $('#addCraftEssence').prop('disabled', true);
+  $('#ceMLB').prop('checked', false);
+  $('#ceLevel').empty().append($('<option></option>').html("Choose a CE first."));
+  $('#ceNameDisplay').empty().html('<b>CE Name:</b> N/A |');
+  $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>: N/A |');
+  $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> N/A');
+  ceID = 0;
 }
 
 // reset quest form

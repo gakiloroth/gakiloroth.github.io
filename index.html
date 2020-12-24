@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v1.60</title>
+    <title>FGO 3T Simulator v1.70</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v1.60
+        <h1 class="title">FGO 3T Simulator v1.70
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -57,6 +57,7 @@
                 </button>
               </div>
               <div class="modal-body">
+                12/24/2020 1.70: Load craft essence effects and attack values, minor text QoL updates<br>
                 12/16/2020 1.60: JP 2020 Xmas servants<br>
                 12/14/2020 1.59: Old Man Li, Astrea strengthen<br>
                 12/11/2020 1.58: Servant 299<br>
@@ -100,10 +101,10 @@
       <div class="container tab-pane show active" id="nav-servant" role="tabpanel" aria-labelledby="nav-servant-tab">
         <div class="text-left">
           <p>
-             Please enter all stats the servant would have, including their CE stats. Relevant passive values are loaded in automatically
-             (flat attack, card effectiveness up, etc.)
+             Please enter servant stats you would like to alter after selecting a class and servant. Relevant passive values are loaded in automatically (flat attack, card effectiveness up, etc.)
+             and you can load Craft Essence data with the "Choose Craft Essence" and other CE related buttons, or you can add those values manually.<br>
              Do note that servant NP upgrades are assumed completed and up to date with JP - you may have to manually adjust the NP Damage % accordingly if on NA or if the servant has not done their NP upgrade.<br>
-             Hover over the <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="I tell more detailed information about entry fields!"></img> for more details about certain fields, and use the <a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">README</a> if you want further details.
+             <b>Hover</b> over the <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="I tell more detailed information about entry fields!"></img> for more details about certain fields, and use the <a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">README</a> if you want further details.
           </p>
         </div>
 
@@ -428,14 +429,14 @@
         </div>
 
         <div class="col-md-2 mt-4">
-          <button type="submit" id="addCraftEssence" class="btn btn-outline-success btn-md btn-block" disabled>Use CE
+          <button type="button" id="addCraftEssence" class="btn btn-outline-success btn-md btn-block" disabled>Use CE
             <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Adds the current CE's attack stat and relevant stats (attack, NP gain up, etc.) from current form.
             <b>IMPORTANT:</b> Power mod effects such as Origin Bullet's &quot;Increases damage against Caster class enemies by 35%.&quot; are not autoloaded and will need
             to be manually input either for the servant or in the Battle Simulator tab."></img></button>
         </div>
 
         <div class="col-md-2 mt-4">
-          <button type="submit" id="removeCraftEssence" class="btn btn-outline-danger btn-md btn-block">Remove CE
+          <button type="button" id="removeCraftEssence" class="btn btn-outline-danger btn-md btn-block">Remove CE
             <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Remove current CE's attack and other relevant stats (attack, NP gain up, etc.) from current form.
             You will need to remove CE stats before swapping to a different CE if you wish to."></img></button>
         </div>
