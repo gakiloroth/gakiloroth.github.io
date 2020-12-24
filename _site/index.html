@@ -102,7 +102,7 @@
           <p>
              Please enter all stats the servant would have, including their CE stats. Relevant passive values are loaded in automatically
              (flat attack, card effectiveness up, etc.)
-             Do note that servant NP upgrades are assumed completed and up to date with JP - you may have to manually adjust the NP Damage % accordingly if on NA / the servant has not done their NP upgrade.<br>
+             Do note that servant NP upgrades are assumed completed and up to date with JP - you may have to manually adjust the NP Damage % accordingly if on NA or if the servant has not done their NP upgrade.<br>
              Hover over the <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="I tell more detailed information about entry fields!"></img> for more details about certain fields, and use the <a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">README</a> if you want further details.
           </p>
         </div>
@@ -375,14 +375,90 @@
       </div>
 
       <div class="row">
-
         <div class="col-md-6 mt-4">
           <div class="form-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="inputCE">Craft Essence &nbsp;
-                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Track which CE you used to fill data with, or any other identifying name."></img>
+                <label class="input-group-text" for="inputNickname">Nickname &nbsp;
+                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Nickname this servant to keep track of any details you want."></img>
                 </label>
-              <input type="text" class="form-control" id="inputCE" placeholder="Enter Craft Essence">
+              <input type="text" class="form-control" id="inputNickname" placeholder="Enter Nickname">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mt-4">
+          <span style="font-size:20px;" id="ceNameDisplay"> <b>CE Name:</b> N/A | </span>
+          <span style="font-size:20px;" id="ceLvlDisplay"> <b>CE Lvl</b>: N/A | </span>
+          <span style="font-size:20px;" id="ceAttackDisplay"> <b>CE Attack:</b> N/A </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2 mt-4">
+          <div class="form-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="inputCE">Craft Essence &nbsp;
+                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Choose a craft essence to load relevant stats (attack, NP gain up, etc.). <br>
+                    <b>IMPORTANT:</b> Power mod effects such as Origin Bullet's &quot;Increases damage against Caster class enemies by 35%.&quot; are not autoloaded and will need
+                    to be manually input either for the servant or in the Battle Simulator tab."></img>
+                </label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mt-4">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="ceLevel">CE Level</label>
+            </div>
+            <select class="custom-select" id="ceLevel">
+              <option value="" selected="true" disabled>Choose a CE first.</option>
+            </select>
+            <div class="invalid-feedback">
+              Please select a craft essence.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-2 mt-4">
+          <div class="custom-control custom-checkbox custom-control-inline">
+            <input type="checkbox" class="custom-control-input" id="ceMLB">
+            <label class="custom-control-label" for="ceMLB">MLB</label>
+          </div>
+        </div>
+
+        <div class="col-md-2 mt-4">
+          <button type="submit" id="addCraftEssence" class="btn btn-outline-success btn-md btn-block" disabled>Use CE
+            <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Adds the current CE's attack stat and relevant stats (attack, NP gain up, etc.) from current form.
+            <b>IMPORTANT:</b> Power mod effects such as Origin Bullet's &quot;Increases damage against Caster class enemies by 35%.&quot; are not autoloaded and will need
+            to be manually input either for the servant or in the Battle Simulator tab."></img></button>
+        </div>
+
+        <div class="col-md-2 mt-4">
+          <button type="submit" id="removeCraftEssence" class="btn btn-outline-danger btn-md btn-block">Remove CE
+            <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Remove current CE's attack and other relevant stats (attack, NP gain up, etc.) from current form.
+            You will need to remove CE stats before swapping to a different CE if you wish to."></img></button>
+        </div>
+
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 mt-4">
+          <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseCEList" aria-expanded="false" aria-controls="collapseCEList">
+             Choose Craft Essence
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 mt-4">
+          <div class="collapse" id="collapseCEList">
+            <div class="container">
+              <input class="form-control" id="ceListSearch" type="text" placeholder="Search by Craft Essence name">
+              <br>
+                <ul class="list-group" id="ceList">
+               </ul>
             </div>
           </div>
         </div>
@@ -1063,7 +1139,7 @@
 
     <div class="collapse" id="collapseCommonNodes">
       <div class="container">
-        <input class="form-control" id="listSearch" type="text" placeholder="Search for node (by mat name or node name)">
+        <input class="form-control" id="nodeListSearch" type="text" placeholder="Search for node (by mat name or node name)">
         <br>
           <ul class="list-group" id="commonNodesList">
          </ul>

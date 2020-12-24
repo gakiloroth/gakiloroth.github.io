@@ -7,6 +7,7 @@ var servantID = 1;
 var servantNPType = "";
 var servantNPGain = "";
 var servantNPHits = "";
+var ceID = 1;
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
 var party = JSON.parse(localStorage.getItem("party") || "[]");
@@ -21,7 +22,7 @@ var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
 var debug = false;
-var version = "1.20";
+var version = "1.70";
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -42,6 +43,7 @@ $(document).ready(function() {
   initializeBattleSim();
   initializeBattleParty();
   initializeCommonNodes();
+  initializeCraftEssences();
   updateSavedServantsDisplay();
   updateSavedQuestsDisplay();
   updateServantToggles();
@@ -54,7 +56,7 @@ $(document).ready(function() {
 function checkVersionAndClearStorage(){
   let localVersion = localStorage.getItem("version") || "";
   if(localVersion.localeCompare(version) !== 0){
-    console.log("New version detected - clearing stored informaation.")
+    console.log("New version detected - clearing stored information.")
     localStorage.removeItem("savedServants");
     localStorage.removeItem("savedQuests");
     localStorage.removeItem("party");
@@ -249,6 +251,25 @@ for(let i = 1; i <= QUEST_ENEMY_COUNT; i++){
   });
 }
 
+// on CE level change
+$('#ceLevel').on('change', function(){
+  // get current ce data from ceID
+  var currCELvl = $('#ceLevel').val();
+  var currCE = CEList[ceID - 1];
+  
+  $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>: '  + currCELvl + ' |');
+  $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> ' + currCE.atkGrowth[currCELvl - 1]);
+});
+
+// add CE effects and stats to form
+document.getElementById('addCraftEssence').onclick = function(){
+
+};
+
+// remove CE effects and stats from form
+document.getElementById('removeCraftEssence').onclick = function(){
+
+};
 
 // reset servant form
 document.getElementById('resetServantForm').onclick = function(){
@@ -275,9 +296,19 @@ document.getElementById('resetQuestForm').onclick = function(){
 
 // filter common nodes list
 $(document).ready(function(){
-  $("#listSearch").on("keyup", function() {
+  $("#nodeListSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#commonNodesList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+// filter craft essences list
+$(document).ready(function(){
+  $("#ceListSearch").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#ceList li").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
@@ -618,8 +649,8 @@ function updateSavedServantsDisplay(){
       quickstring = ' Quick Up: ' + curr.quickup + '%';
     }
 
-    $('#savedServants1').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-     curr.craftessence + ' | Power Mod: ' + curr.powermod + '% | NP Gain Up: ' + curr.npgainup + '%<br>' + 'NP Level: ' +
+    $('#savedServants1').append($('<li class="list-group-item"><b>' + curr.name + '</b> | Nickname: ' +
+     curr.nickname + ' | Power Mod: ' + curr.powermod + '% | NP Gain Up: ' + curr.npgainup + '%<br>' + 'NP Level: ' +
      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
      ' | Attr. : ' + curr.attribute + '<br> ' + busterstring + artsstring + quickstring +
      '<span class="float-right"><button type="button" id=' + "useServant" + i +
@@ -630,8 +661,8 @@ function updateSavedServantsDisplay(){
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
 
-     $('#savedServants2').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-      curr.craftessence + ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
+     $('#savedServants2').append($('<li class="list-group-item"><b>' + curr.name + '</b> | Nickname: ' +
+      curr.nickname + ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
       curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
       ' | Attr. : ' + curr.attribute + '<br> Buster Up: ' + curr.busterup + ' | Arts Up: ' + curr.artsup +
       ' | Quick Up: ' + curr.quickup + '</li>'));
@@ -764,7 +795,7 @@ function updateSavedServantsDisplay(){
       servantNPHits = savedServants[i].nphits;
       $('#PowerMod').val(savedServants[i].powermod);
       $('#inputAttribute').val(savedServants[i].attribute);
-      $('#inputCE').val(savedServants[i].craftessence);
+      $('#inputNickname').val(savedServants[i].nickname);
       $('#NPDamageUp').val(savedServants[i].npdamageup);
 
       // change add servant to save servant
@@ -994,8 +1025,8 @@ function initializeBattleParty(){
   for(let i = 0; i < party.length; i++){
     let curr = savedServants[party[i]];
 
-    $('#battlePartyDisplay').append($('<li class="list-group-item"><b>' + curr.name + '</b> | CE: ' +
-     curr.craftessence +
+    $('#battlePartyDisplay').append($('<li class="list-group-item"><b>' + curr.name + '</b> | Nickname: ' +
+     curr.nickname +
      '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
      ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
      ' autocomplete="false">Select</button></span>' + '</li>'));
@@ -1052,6 +1083,36 @@ function initializeCommonNodes(){
         $('#enemy'+ j +'Attribute').val(currNode['enemy'+ j +'Attribute']);
       }
 
+    });
+  }
+}
+
+// initialize craft essences
+function initializeCraftEssences(){
+  for(let i = 0; i < CEList.length; i++){
+    let currCE = CEList[i];
+    $('#ceList').append('<li class="list-group-item">' + "ID: " + currCE.id + " | " + currCE.name + " | Rarity: " + currCE.rarity
+    + '<span class="float-right"><button type="button" id=loadCE' + currCE.id + ' class="btn btn-outline-success btn-sm">Load CE</button></span></li></span>');
+
+    // hook up button
+    document.getElementById("loadCE" + currCE.id).addEventListener("click", function(){
+      if(debug){
+        alert("load CE " + currCE.id);
+      }
+
+      // load CE data - but don't add into form yet
+      $('#ceNameDisplay').empty().html('<b>CE Name:</b> ' + currCE.name + ' |');
+      $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>: 1 |');
+      $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> ' + currCE.atkGrowth[0]);
+
+      // save the current CE id
+      ceID = currCE.id;
+
+      // enable and fill in CE level selector
+      $('#ceLevel').empty();
+      for(var i = 1; i <= currCE.maxLvl; i++){
+        $('#ceLevel').append($('<option></option>').val(i).html(i));
+      }
     });
   }
 }
@@ -1232,7 +1293,7 @@ function saveServant(){
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
-    "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
+    "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val()});
 
   console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
@@ -1262,7 +1323,7 @@ function saveEditedServant(index){
       "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
       "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
       "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
-      "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"craftessence": $('#inputCE').val()});
+      "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val()});
 
     // reset form validation display
     Array.prototype.filter.call(forms, function(form) {
@@ -1440,7 +1501,7 @@ function resetServant() {
   $('#FlatAttackUp').val(0);
   $('#addServant').attr('disabled', true);
   $('#inputClass').val(0);
-  $('#inputCE').val("");
+  $('#inputNickname').val("");
 }
 
 // reset quest form

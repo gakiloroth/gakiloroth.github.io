@@ -5,10 +5,10 @@
   font-size: 20px;
 }
 .tooltip .tooltiptext {
-  width: 120px;
+  width: 250px;
   bottom: 100%;
   left: 50%;
-  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+  margin-left: -125px; /* Use half of the width (120/2 = 60), to center the tooltip */
 }
 /* remove pesky arrow controls for number inputs */
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
@@ -77,6 +77,11 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   display:inline-block;
 }
 #collapseCommonNodes
+{
+ overflow-y: scroll !important;
+ max-height: 300px !important;
+}
+#collapseCEList
 {
  overflow-y: scroll !important;
  max-height: 300px !important;
