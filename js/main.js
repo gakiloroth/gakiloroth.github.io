@@ -22,7 +22,7 @@ var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
 var debug = false;
-var version = "1.71";
+var version = "1.72";
 
 // actions to do when the page is loaded
 $(document).ready(function() {
