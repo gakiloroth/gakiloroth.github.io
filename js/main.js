@@ -215,9 +215,8 @@ $('#inputServant').on('change', function(){
 
       // on change updates
       $('#maxGrailed').on('change', function(){
+        let nonBaseAttack = 0;
         if ($(this).is(':checked')) {
-          var nonBaseAttack = 0;
-
           if($('#maxFou').is(':checked')){
             nonBaseAttack += 1000;
           }
@@ -228,8 +227,6 @@ $('#inputServant').on('change', function(){
           $('#attack').val( Number(attk[2]) + nonBaseAttack);
         }
         else {
-          var nonBaseAttack = 0;
-
           if($('#maxFou').is(':checked')){
             nonBaseAttack += 1000;
           }
@@ -914,7 +911,7 @@ function updateSavedServantsDisplay(){
       // load current CE id, if CE was chosen (id 0 if not)
       ceID = savedServants[i].craftessenceid;
       if(ceID != 0){
-        let servantCE = CEList[ceID];
+        let servantCE = CEList[ceID - 1];
 
         // load CE fields
         $('#ceNameDisplay').empty().html('<b>CE Name:</b> ' + savedServants[i].craftessence + ' |');
@@ -1464,7 +1461,7 @@ function saveServant(){
     ceName = CEList[ceID-1].name;
     ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
     ceLevel = Number($('#ceLevel').val());
-    ceAtk = CEList[ceID-1].atkGrowth[ceLevel];
+    ceAtk = CEList[ceID-1].atkGrowth[ceLevel-1];
   }
 
   savedServants.unshift({"id": servantID,"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
@@ -1517,7 +1514,7 @@ function saveEditedServant(index){
       ceName = CEList[ceID-1].name;
       ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
       ceLevel = Number($('#ceLevel').val());
-      ceAtk = CEList[ceID-1].atkGrowth[ceLevel];
+      ceAtk = CEList[ceID-1].atkGrowth[ceLevel-1];
     }
 
     savedServants[index]=({"id": servantID, "name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),

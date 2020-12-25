@@ -9,7 +9,7 @@ Updates may change some how of the backend are done, and if calculations don't w
 
 # How to Use
 ## Servants Manager Tab
-Enter all the information a servant would have after selecting a class and servant (passives are now loaded in for you). The "Max Grailed" and "Fou" related checkboxes will set the servant's attack - if you have a specific servant attack value (ie. fou'd to not max), you can just manually enter the attack. If you wish to add a Craft Essence's attack and effects you can use the dropdown by clicking "Choose Craft Essence". Once you load a craft essence, you can choose the level of the CE and if it is MLB. Then, you can click "Use CE" to add the **attack** and other relevant effects(attack, NP gain up, etc.) to the servant creation form.
+Enter all the information a servant would have after selecting a class and servant (passives are now loaded in for you). The "Max Grailed" and "Fou" related checkboxes will set the servant's attack to those values **without** CE attack - if you have a specific servant attack value (ie. fou'd to not max), you can just manually enter the attack. If you wish to add a Craft Essence's attack and effects you can use the dropdown by clicking "Choose Craft Essence". Once you load a craft essence, you can choose the level of the CE and if it is MLB. Then, you can click "Use CE" to add the **attack** and other relevant effects(attack, NP gain up, etc.) to the servant creation form.
 
 **IMPORTANT:** Power mod effects such as Origin Bullet's "Increases damage against Caster class enemies by 35%." are not autoloaded and will need to be manually input either for the servant or in the Battle Simulator tab. The "Remove CE" removes all the currently selected CE's effects and attack from the servant form. Be careful not to  use "Remove CE" after changing the CE values from what they were when you clicked "Use CE". The removal button uses whatever CE data is currently selected by the user.
 
@@ -42,4 +42,3 @@ Then, you can choose several servants, one quest, and test NP damage and NP refu
 
 Possible Future Functions:
 - Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
-- Collapse card buff/debuffs into one option (one card mod instead of buster/arts/quick)
