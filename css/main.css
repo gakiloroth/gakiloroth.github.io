@@ -73,18 +73,21 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 #nextWave{
   float: right;
-
   display:inline-block;
 }
-#collapseCommonNodes
-{
+.list{
  overflow-y: scroll !important;
  max-height: 300px !important;
 }
-#collapseCEList
-{
- overflow-y: scroll !important;
- max-height: 300px !important;
+.collapse {
+  overflow-y: hidden;
+}
+.searchbar{
+    position: sticky;   /* The magic */
+    position: -webkit-sticky;
+    z-index: 1;         /* Ensure it stays on top of other player divs */
+    top: 0px;           /* Where it should stick to */
+    overflow-y: hidden;
 }
 body .gist .gist-data {
   background: #303030 !important;

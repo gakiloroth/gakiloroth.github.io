@@ -928,11 +928,13 @@ function updateSavedServantsDisplay(){
           $('#ceMLB').prop('checked', true);
         }
 
-        // enable use CE button
+        // enable add and remove ce button
         $('#addCraftEssence').prop('disabled', false);
+        $('#removeCraftEssence').prop('disabled', false);
       } else{
         //reset CE fields
         $('#addCraftEssence').prop('disabled', true);
+        $('#removeCraftEssence').prop('disabled', true);
         $('#ceLevel').empty().append($('<option>Choose a CE first.</option>'));
         $('#ceNameDisplay').empty().html('<b>CE Name:</b>  N/A | ');
         $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>: N/A | ');
@@ -1262,8 +1264,9 @@ function initializeCraftEssences(){
       // save the current CE id
       ceID = currCE.id;
 
-      // enable use ce buttons
+      // enable add and remove ce stat buttons
       $('#addCraftEssence').prop('disabled', false);
+      $('#removeCraftEssence').prop('disabled', false);
 
       // enable and fill in CE level selector
       $('#ceLevel').empty();
@@ -1704,6 +1707,7 @@ function resetServant() {
   $('#inputClass').val(0);
   $('#inputNickname').val("");
   $('#addCraftEssence').prop('disabled', true);
+  $('#removeCraftEssence').prop('disabled', true);
   $('#ceMLB').prop('checked', false);
   $('#ceLevel').empty().append($('<option></option>').html("Choose a CE first."));
   $('#ceNameDisplay').empty().html('<b>CE Name:</b> N/A |');

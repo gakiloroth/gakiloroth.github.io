@@ -104,7 +104,7 @@
         <div class="text-left">
           <p style="font-size:14px">
              Select a servant to load attack and passive values. Use the checkboxes to change the attack match the servant's max grailed or max fou/gold fou'd value.
-             Then, you can load Craft Essence data with the "Choose Craft Essence" and "Use CE", or you can add those values manually.<br>
+             Then, you can load Craft Essence data with the "Choose Craft Essence" and "Add CE Stats", or you can add those values manually.<br>
              Servant NP upgrades are assumed and up to date with JP - you may have to manually adjust the NP Damage % accordingly if on NA or if the servant has not done their NP upgrade.<br>
              <b>Hover</b> over the <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="I tell more detailed information about entry fields!"></img> for more details about certain fields, and use the <a href="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/README.md">README</a> if you want further details.
           </p>
@@ -423,22 +423,22 @@
           </div>
         </div>
 
-        <div class="col-md-2 mt-4">
+        <div class="col-md-1 mt-4">
           <div class="custom-control custom-checkbox custom-control-inline">
             <input type="checkbox" class="custom-control-input" id="ceMLB">
             <label class="custom-control-label" for="ceMLB">MLB</label>
           </div>
         </div>
 
-        <div class="col-md-2 mt-4">
-          <button type="button" id="addCraftEssence" class="btn btn-outline-success btn-md btn-block" disabled>Use CE
+        <div class="col-md-3 mt-4">
+          <button type="button" id="addCraftEssence" class="btn btn-outline-success btn-md btn-block" disabled>Add CE Stats
             <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Adds the current CE's attack stat and relevant stats (attack, NP gain up, etc.) from current form.
             <b>IMPORTANT:</b> Power mod effects such as Origin Bullet's &quot;Increases damage against Caster class enemies by 35%.&quot; are not autoloaded and will need
             to be manually input either for the servant or in the Battle Simulator tab."></img></button>
         </div>
 
-        <div class="col-md-2 mt-4">
-          <button type="button" id="removeCraftEssence" class="btn btn-outline-danger btn-md btn-block">Remove CE
+        <div class="col-md-3 mt-4">
+          <button type="button" id="removeCraftEssence" class="btn btn-outline-danger btn-md btn-block" disabled>Remove CE Stats
             <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Remove current CE's attack and other relevant stats (attack, NP gain up, etc.) from current form.
             You will need to remove CE stats before swapping to a different CE if you wish to."></img></button>
         </div>
@@ -458,10 +458,13 @@
         <div class="col-md-12 mt-4">
           <div class="collapse" id="collapseCEList">
             <div class="container">
-              <input class="form-control" id="ceListSearch" type="text" placeholder="Search by Craft Essence name">
-              <br>
-                <ul class="list-group" id="ceList">
-               </ul>
+              <div class="searchbar">
+                <input class="form-control sticky" id="ceListSearch" type="text" placeholder="Search by Craft Essence name">
+                <br>
+              </div>
+              <div class="list">
+                <ul class="list-group" id="ceList"></ul>
+              </div>
             </div>
           </div>
         </div>
@@ -1142,10 +1145,13 @@
 
     <div class="collapse" id="collapseCommonNodes">
       <div class="container">
-        <input class="form-control" id="nodeListSearch" type="text" placeholder="Search for node (by mat name or node name)">
-        <br>
-          <ul class="list-group" id="commonNodesList">
-         </ul>
+        <div class="searchbar">
+          <input class="form-control sticky" id="nodeListSearch" type="text" placeholder="Search for node (by mat name or node name)">
+          <br>
+        </div>
+        <div class="list">
+          <ul class="list-group" id="commonNodesList"></ul>
+        </div>
       </div>
     </div>
 
