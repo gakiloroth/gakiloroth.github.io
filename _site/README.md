@@ -1,4 +1,4 @@
-# FGO 3T Simulator   <img src="https://github.com/gakiloroth/gakiloroth.github.io/blob/master/images/padoru_vector_by_manaalchemist.png" width="48">
+# FGO 3T Simulator   <img src="https://gakiloroth.github.io/images/gacha.png" width="48">
 
 This is a small personal project I'm working on to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/).
 
@@ -9,7 +9,9 @@ Updates may change some how of the backend are done, and if calculations don't w
 
 # How to Use
 ## Servants Manager Tab
-Enter all the information a servant would have after selecting a class and servant (passives are now loaded in for you). If you wish to add a Craft Essence's attack and effects you can use the dropdown by clicking "Choose Craft Essence". Once you load a craft essence, you can choose the level of the CE and if it is MLB. Then, you can click "Use CE" to add the attack and other relevant effects(attack, NP gain up, etc.) to the servant creation form. **IMPORTANT:** Power mod effects such as Origin Bullet's "Increases damage against Caster class enemies by 35%." are not autoloaded and will need to be manually input either for the servant or in the Battle Simulator tab. The "Remove CE" removes all the currently selected CE's effects and attack from the servant form. Be careful not to  use "Remove CE" after changing the CE values from what they were when you clicked "Use CE". The removal button uses whatever CE data is currently selected by the user.
+Enter all the information a servant would have after selecting a class and servant (passives are now loaded in for you). The "Max Grailed" and "Fou" related checkboxes will set the servant's attack - if you have a specific servant attack value (ie. fou'd to not max), you can just manually enter the attack. If you wish to add a Craft Essence's attack and effects you can use the dropdown by clicking "Choose Craft Essence". Once you load a craft essence, you can choose the level of the CE and if it is MLB. Then, you can click "Use CE" to add the **attack** and other relevant effects(attack, NP gain up, etc.) to the servant creation form.
+
+**IMPORTANT:** Power mod effects such as Origin Bullet's "Increases damage against Caster class enemies by 35%." are not autoloaded and will need to be manually input either for the servant or in the Battle Simulator tab. The "Remove CE" removes all the currently selected CE's effects and attack from the servant form. Be careful not to  use "Remove CE" after changing the CE values from what they were when you clicked "Use CE". The removal button uses whatever CE data is currently selected by the user.
 
 The nickname field can be anything you want- enter any info to help you keep track. Further buffs can be added on the battle simulator tab. Do note that servant NP upgrades are assumed completed and up to date with JP - you may have to manually adjust the NP Damage % accordingly if on NA / the servant has not done their NP Upgrade. You can then select servants to put into your "party" up to 20, to test in the battle simulator.
 

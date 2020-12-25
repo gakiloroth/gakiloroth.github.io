@@ -22,7 +22,7 @@ var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
 var debug = false;
-var version = "1.70";
+var version = "1.71";
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -43,12 +43,12 @@ $(document).ready(function() {
   initializeBattleSim();
   initializeBattleParty();
   initializeCommonNodes();
-  initializeCraftEssences();
   updateSavedServantsDisplay();
   updateSavedQuestsDisplay();
   updateServantToggles();
   updateQuestPartyToggles();
   updateQuestToggles();
+  initializeCraftEssences();
   loadGist(document.getElementById("READMEGist"),"gakiloroth/83c901dc2a5bf767cd873ccda406b042");
   startup = false;
 });
@@ -216,16 +216,28 @@ $('#inputServant').on('change', function(){
       // on change updates
       $('#maxGrailed').on('change', function(){
         if ($(this).is(':checked')) {
-          $('#maxGoldFou').prop('checked', false);
-          $('#maxGoldFou').prop('disabled', true);
-          $('#maxFou').prop('checked', false);
-          $('#attack').val( Number(attk[2]) );
+          var nonBaseAttack = 0;
+
+          if($('#maxFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          // add another 1000 for total 2000 if maxGoldFou is also checked
+          if($('#maxGoldFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          $('#attack').val( Number(attk[2]) + nonBaseAttack);
         }
         else {
-          $('#maxGoldFou').prop('checked', false);
-          $('#maxGoldFou').prop('disabled', true);
-          $('#maxFou').prop('checked', false);
-          $('#attack').val( Number(attk[1]) );
+          var nonBaseAttack = 0;
+
+          if($('#maxFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          // add another 1000 for total 2000 if maxGoldFou is also checked
+          if($('#maxGoldFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          $('#attack').val( Number(attk[1]) + nonBaseAttack);
         }
       });
 
@@ -812,7 +824,7 @@ function updateSavedServantsDisplay(){
       }
 
       // set all buttons to non active
-      for(var j = 0; j < savedServants.length; j++){
+      for(let j = 0; j < savedServants.length; j++){
         $('#editServant' + j ).removeClass('active');
       }
       editServantMode = true;
@@ -852,31 +864,86 @@ function updateSavedServantsDisplay(){
       $('#NPDamageUp').val(savedServants[i].npdamageup);
       servantNPGain = savedServants[i].npgain;
       loadNPPercentages(servantID);
+      $('#maxGrailed').prop('disabled', false);
+      $('#maxFou').prop('disabled', false);
+      if(savedServants[i].maxgrailed == 1){
+        $('#maxGrailed').prop('checked', true);
+      }
+      if(savedServants[i].maxfou == 1){
+        $('#maxFou').prop('checked', true);
 
-      // load current CE id
+        // if fou is chosen, enable gold fou button
+        $('#maxGoldFou').prop('disabled', false);
+      } else{ // disable max gold fou button - can be enabled if swapping between editing servants
+        $('#maxGoldFou').prop('disabled', true);
+        $('#maxGoldFou').prop('checked', false);
+      }
+      if(savedServants[i].maxgoldfou == 1){
+        $('#maxGoldFou').prop('checked', true);
+      }
+
+      // on change updates for max grailed - servant specific so needs to be loaded
+      let attk = servantList[savedServants[i].id - 1].attack.split(',');
+      $('#maxGrailed').on('change', function(){
+        if ($(this).is(':checked')) {
+          let nonBaseAttack = 0;
+
+          if($('#maxFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          // add another 1000 for total 2000 if maxGoldFou is also checked
+          if($('#maxGoldFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          $('#attack').val( Number(attk[2]) + nonBaseAttack);
+        }
+        else {
+          let nonBaseAttack = 0;
+
+          if($('#maxFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          // add another 1000 for total 2000 if maxGoldFou is also checked
+          if($('#maxGoldFou').is(':checked')){
+            nonBaseAttack += 1000;
+          }
+          $('#attack').val( Number(attk[1]) + nonBaseAttack);
+        }
+      });
+
+      // load current CE id, if CE was chosen (id 0 if not)
       ceID = savedServants[i].craftessenceid;
-      var servantCE = CEList[ceID];
+      if(ceID != 0){
+        let servantCE = CEList[ceID];
 
-      // load CE fields
-      $('#ceNameDisplay').empty().html('<b>CE Name:</b> ' + savedServants[i].craftessence + ' |');
-      $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>:' +  savedServants[i].craftessencelevel + ' |');
-      $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> ' + savedServants[i].craftessenceatk);
+        // load CE fields
+        $('#ceNameDisplay').empty().html('<b>CE Name:</b> ' + savedServants[i].craftessence + ' |');
+        $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>:' +  savedServants[i].craftessencelevel + ' |');
+        $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> ' + savedServants[i].craftessenceatk);
 
-      $('#ceLevel').empty();
-      for(var j = 1; j <= servantCE.maxLvl; j++){
-        $('#ceLevel').append($('<option></option>').val(j).html(j));
+        $('#ceLevel').empty();
+        for(let j = 1; j <= servantCE.maxLvl; j++){
+          $('#ceLevel').append($('<option></option>').val(j).html(j));
+        }
+        $('#ceLevel').val(savedServants[i].craftessencelevel);
+
+        if(savedServants[i].craftessencemlb == 1){
+          $('#ceMLB').prop('checked', true);
+        }
+
+        // enable use CE button
+        $('#addCraftEssence').prop('disabled', false);
+      } else{
+        //reset CE fields
+        $('#addCraftEssence').prop('disabled', true);
+        $('#ceLevel').empty().append($('<option>Choose a CE first.</option>'));
+        $('#ceNameDisplay').empty().html('<b>CE Name:</b>  N/A | ');
+        $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>: N/A | ');
+        $('#ceAttackDisplay').empty().html('<b>CE Attack:</b>  N/A ');
       }
-      $('#ceLevel').val(savedServants[i].craftessencelevel);
-
-      if(savedServants[i].craftessencemlb == 1){
-        $('#ceMLB').prop('checked', true);
-      }
-
-      // enable use CE button
-      $('#addCraftEssence').prop('disabled', false);
 
       // load np type button
-      var servantNPType = savedServants[i].nptype;
+      let servantNPType = savedServants[i].nptype;
       $('#' + servantNPType).prop('checked',true).click();
 
       // load fields
@@ -992,7 +1059,7 @@ function updateSavedQuestsDisplay(){
       }
 
       // set all buttons to non active
-      for(var j = 0; j < savedQuests.length; j++){
+      for(let j = 0; j < savedQuests.length; j++){
         $('#editQuest' + j ).removeClass('active');
       }
       editQuestMode = true;
@@ -1180,7 +1247,7 @@ function initializeCommonNodes(){
 function initializeCraftEssences(){
   for(let i = 0; i < CEList.length; i++){
     let currCE = CEList[i];
-    $('#ceList').append('<li class="list-group-item">' + "ID: " + currCE.id + " | " + '<img src=\"' + currCE.imgURL + '\" width=\"40\" height=\"40\"> '
+    $('#ceList').append('<li class="list-group-item" loading="lazy">' + "ID: " + currCE.id + " | " + '<img src=\"' + currCE.imgURL + '\" width=\"40\" height=\"40\"> '
     + currCE.name + " | Rarity: " + currCE.rarity
     + '<span class="float-right"><button type="button" id=loadCE' + currCE.id + ' class="btn btn-outline-success btn-sm">Load CE</button></span></li></span>');
 
@@ -1203,7 +1270,7 @@ function initializeCraftEssences(){
 
       // enable and fill in CE level selector
       $('#ceLevel').empty();
-      for(var i = 1; i <= currCE.maxLvl; i++){
+      for(let i = 1; i <= currCE.maxLvl; i++){
         $('#ceLevel').append($('<option></option>').val(i).html(i));
       }
     });
@@ -1379,10 +1446,13 @@ function saveServant(){
   localStorage.setItem("party", JSON.stringify(party));
   localStorage.setItem("servant", JSON.stringify(servant));
 
-  var ceName;
-  var ceMLB;
-  var ceLevel;
-  var ceAtk;
+  let ceName;
+  let ceMLB;
+  let ceLevel;
+  let ceAtk;
+  let maxGrailed = $("#maxGrailed").is(':checked') ? 1 : 0;
+  let maxFou = $("#maxFou").is(':checked') ? 1 : 0;
+  let maxGoldFou = $("#maxGoldFou").is(':checked') ? 1 : 0;
 
   //if no CE is chosen
   if(ceID == 0){
@@ -1402,8 +1472,8 @@ function saveServant(){
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
     "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val(),
-    "craftessence":ceName,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB,
-    "craftessenceatk": ceAtk});
+    "maxgrailed":maxGrailed,"maxfou":maxFou,"maxgoldfou": maxGoldFou,
+    "craftessence":ceName,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB, "craftessenceatk": ceAtk});
 
   console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
@@ -1429,17 +1499,34 @@ function saveEditedServant(index){
   });
 
   if(valid){
-    var ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
-    var currCE = CEList[ceID - 1];
-    var ceLevel = Number($('#ceLevel').val());
+    let ceName;
+    let ceMLB;
+    let ceLevel;
+    let ceAtk;
+    let maxGrailed = $("#maxGrailed").is(':checked') ? 1 : 0;
+    let maxFou = $("#maxFou").is(':checked') ? 1 : 0;
+    let maxGoldFou = $("#maxGoldFou").is(':checked') ? 1 : 0;
+
+    //if no CE is chosen
+    if(ceID == 0){
+      ceName = "N/A";
+      ceMLB = 0;
+      ceLevel = 0;
+      ceAtk = 0;
+    } else {
+      ceName = CEList[ceID-1].name;
+      ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
+      ceLevel = Number($('#ceLevel').val());
+      ceAtk = CEList[ceID-1].atkGrowth[ceLevel];
+    }
 
     savedServants[index]=({"id": servantID, "name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
       "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
       "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
       "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
       "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val(),
-      "craftessence":currCE.name,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB,
-      "craftessenceatk": currCE.atkGrowth[ceLevel]});
+      "maxgrailed":maxGrailed,"maxfou":maxFou,"maxgoldfou": maxGoldFou,
+      "craftessence":ceName,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB,"craftessenceatk":ceAtk});
 
     // reset form validation display
     Array.prototype.filter.call(forms, function(form) {
@@ -1603,6 +1690,7 @@ function resetServant() {
   $('#maxGrailed').prop('disabled', true);
   $('#maxGrailed').prop('checked', false);
   $('#maxFou').prop('checked', false);
+  $('#maxFou').prop('disabled', true);
   $('#maxGoldFou').prop('checked', false);
   $('#maxGoldFou').prop('disabled', true);
   $('#inputNPLevel').val(1);
@@ -1701,7 +1789,7 @@ function calculateDamage(waveNumber){
   var npGainBuff = parseFloat($('#NPGainUpPercentageQuest' + waveNumber).val()/100) || 0
 
   // load in enemy specific mods
-  for(var i = 0; i < 3; i++){
+  for(let i = 0; i < 3; i++){
     questNpSp[i] = parseFloat($('#NPSpecialAttackQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
     questPower[i] = parseFloat($('#PowerModQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
     questDefDebuff[i] = parseFloat($('#DefenseDebuffPercentageQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
@@ -1731,7 +1819,7 @@ function calculateDamage(waveNumber){
   }
 
   // enemy value calculations
-  for(var i = waveOffset; i <= 2 + waveOffset; i++){
+  for(let i = waveOffset; i <= 2 + waveOffset; i++){
     questClass[i-waveOffset] = getClassValue(currQuest['enemy' + i + 'class']);
     questAttr[i-waveOffset] = getAttrValue(currQuest['enemy' + i + 'attribute']);
   }
@@ -1746,7 +1834,7 @@ function calculateDamage(waveNumber){
   // interactive calculations
   var classAdvantage = new Array(3);
   var attrAdvantage = new Array(3);
-  for(var i = 0; i < 3; i++){
+  for(let i = 0; i < 3; i++){
     classAdvantage[i] = ClassAdv[servantClass][questClass[i]];
     attrAdvantage[i] = AttrAdv[servantAttr][questAttr[i]];
   }
@@ -1757,7 +1845,7 @@ function calculateDamage(waveNumber){
   }
 
   var damageDealt = new Array(3);
-  for(var i = 0; i < 3; i++){
+  for(let i = 0; i < 3; i++){
     // get correct card mods
     if(currServant.nptype.localeCompare("Buster") == 0){
       questCardDebuff = questBusterDebuff[i];
@@ -2115,7 +2203,7 @@ function cardDmg(input){
 }
 
 function getServantID(name){
-  for(var i = 0; i < servantList.length; i++){
+  for(let i = 0; i < servantList.length; i++){
     if(servantList[i].name.localeCompare(name) === 0){
       return servantList[i].id;
     }
