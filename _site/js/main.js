@@ -11,8 +11,8 @@ var ceID = 0;
 var savedServants = JSON.parse(localStorage.getItem("savedServants") || "[]");
 var savedQuests = JSON.parse(localStorage.getItem("savedQuests") || "[]");
 var party = JSON.parse(localStorage.getItem("party") || "[]");
-var servant = JSON.parse(localStorage.getItem("servant") || "[]");
-var quest = JSON.parse(localStorage.getItem("quest") || "[]");
+var servant = JSON.parse(localStorage.getItem("servant") || '""');
+var quest = JSON.parse(localStorage.getItem("quest") || '""');
 var questEnemyHP = [];
 var questRefunds = [];
 var questNPTotalTime = 0;
@@ -43,6 +43,7 @@ $(document).ready(function() {
   initializeBattleSim();
   initializeBattleParty();
   initializeCommonNodes();
+  initializeSkills();
   updateSavedServantsDisplay();
   updateSavedQuestsDisplay();
   updateServantToggles();
@@ -389,6 +390,18 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+});
+
+// filter skills list
+$(document).ready(function(){
+  for(let wave = 1; wave <= 3; wave++){
+    $("#skillListSearch" + wave).on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#skillList" + wave + " li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  }
 });
 
 // delete all party members
@@ -1242,6 +1255,43 @@ function initializeCommonNodes(){
   }
 }
 
+// initialize skills
+function initializeSkills(){
+  for(let wave = 1; wave <= 3; wave++){
+    for(let i = 0; i < ServantSkillList.length; i++){
+      let currSkill = ServantSkillList[i];
+      $('#skillList' + wave).append('<li class="list-group-item" loading="lazy">' + currSkill.name + ' <img src=\"' + currSkill.imgURL + '\" width=\"40\" height=\"40\"> '
+      + '<span class="float-right"><button type="button" id=addSkillEffects' + currSkill.id + 'Wave' + wave
+      +' class="btn btn-outline-success btn-sm">Add Skill Effects</button></span></li></span>');
+
+      // hook up button
+      document.getElementById("addSkillEffects" + currSkill.id + 'Wave' + wave).addEventListener("click", function(){
+        if(debug){
+          alert("adding skill effect id:" + currSkill.id);
+        }
+
+        // add skill effects to current wave form
+        $('#NPDamageUpQuest' + wave).val( Number($('#NPDamageUpQuest' + wave).val()) + currSkill.npbuff);
+        $('#NPGainUpPercentageQuest' + wave).val( Number($('#NPGainUpPercentageQuest' + wave).val()) + currSkill.npgainup);
+        $('#AttackUpPercentageQuest' + wave).val( Number($('#AttackUpPercentageQuest' + wave).val()) + currSkill.attackup);
+        $('#FlatAttackUpQuest' + wave).val( Number($('#FlatAttackUpQuest' + wave).val()) + currSkill.flatattackup);
+        $('#BusterUpPercentageQuest' + wave).val( Number($('#BusterUpPercentageQuest' + wave).val()) + currSkill.busterup);
+        $('#ArtsUpPercentageQuest' + wave).val( Number($('#ArtsUpPercentageQuest' + wave).val()) + currSkill.artsup);
+        $('#QuickUpPercentageQuest' + wave).val( Number($('#QuickUpPercentageQuest' + wave).val()) + currSkill.quickup);
+        $('#BusterDebuffPercentageQuest' + wave).val( Number($('#BusterDebuffPercentageQuest' + wave).val()) + currSkill.busterdefensedebuff);
+        $('#ArtsDebuffPercentageQuest' + wave).val( Number($('#ArtsDebuffPercentageQuest' + wave).val()) + currSkill.artsdefensedebuff);
+        $('#QuickDebuffPercentageQuest' + wave).val( Number($('#QuickDebuffPercentageQuest' + wave).val()) + currSkill.quickdefensedebuff);
+        $('#DefenseDebuffPercentageQuest' + wave).val( Number($('#DefenseDebuffPercentageQuest' + wave).val()) + currSkill.defensedebuff);
+
+
+        // not used atm
+        //$('#NPSpecialAttackQuest' + wave).val( Number($('#NPSpecialAttackQuest' + wave).val()) + currSkill.npspattack);
+        //$('#PowerModQuest' + wave).val( Number($('#PowerModQuest' + wave).val()) + currSkill.powermod);
+      });
+    }
+  }
+}
+
 // initialize craft essences
 function initializeCraftEssences(){
   for(let i = 0; i < CEList.length; i++){
@@ -1279,6 +1329,11 @@ function initializeCraftEssences(){
 
 // reset battle sim wave
 function resetBattleSim(wavenumber){
+  // exit if no quest has been selected
+  if(quest === ""){
+    return;
+  }
+
   // reset wave's hp remaining
   let currQuest = savedQuests[quest];
 

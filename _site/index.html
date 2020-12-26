@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v1.73</title>
+    <title>FGO 3T Simulator v1.74</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v1.73
+        <h1 class="title">FGO 3T Simulator v1.74
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -57,6 +57,7 @@
                 </button>
               </div>
               <div class="modal-body">
+                12/25/2020 1.74: Add common support skills to the Battle Simulator tab<br>
                 12/25/2020 1.73: Text changes, make search bar sticky on ce/node lists<br>
                 12/25/2020 1.72: Bug fix CE data saving incorrectly on servants<br>
                 12/25/2020 1.71: Minor QoL changes to how Grail/Fou/Max Fou checkboxes work<br>
@@ -1466,7 +1467,7 @@
             </div>
           </div>
 
-          <div class="row mt-4">
+          <div class="row mt-2">
             <div class="col-md-4">
               <p>
                 <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific1" aria-expanded="false" aria-controls="collapseEnemySpecific1">
@@ -1477,7 +1478,7 @@
           </div>
 
           <div class="collapse" id="collapseEnemySpecific1">
-            <p class="text-muted text-small mt-3">
+            <p class="text-muted text-small mt-1">
               Further effects that affect specific enemies.
             </p>
 
@@ -1784,6 +1785,29 @@
               </div>
             </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-3 mt-2">
+              <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills1" aria-expanded="false" aria-controls="collapseSkills1">
+                Show Support Skills
+                <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mt-2">
+              <div class="collapse" id="collapseSkills1">
+                <div class="searchbar">
+                  <input class="form-control sticky" id="skillListSearch1" type="text" placeholder="Search by servant name">
+                  <br>
+                </div>
+                <div class="list">
+                  <ul class="list-group" id="skillList1"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
 
           <div class="row justify-content-md-center">
@@ -2065,7 +2089,7 @@
               </div>
             </div>
 
-            <div class="row mt-4">
+            <div class="row mt-2">
               <div class="col-md-4">
                 <p>
                   <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific2" aria-expanded="false" aria-controls="collapseEnemySpecific2">
@@ -2076,7 +2100,7 @@
             </div>
 
             <div class="collapse" id="collapseEnemySpecific2">
-              <p class="text-muted text-small mt-3">
+              <p class="text-muted text-small mt-1">
                 Further effects that affect specific enemies.
               </p>
               <div class="row mt-2">
@@ -2382,6 +2406,29 @@
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-3 mt-2">
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills2" aria-expanded="false" aria-controls="collapseSkills2">
+                  Show Support Skills
+                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 mt-2">
+                <div class="collapse" id="collapseSkills2">
+                  <div class="searchbar">
+                    <input class="form-control sticky" id="skillListSearch2" type="text" placeholder="Search by servant name">
+                    <br>
+                  </div>
+                  <div class="list">
+                    <ul class="list-group" id="skillList2"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </form>
 
           <div class="row justify-content-md-center">
@@ -2663,7 +2710,7 @@
               </div>
             </div>
 
-            <div class="row mt-4">
+            <div class="row mt-2">
               <div class="col-md-4">
                 <p>
                   <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific3" aria-expanded="false" aria-controls="collapseEnemySpecific3">
@@ -2674,7 +2721,7 @@
             </div>
 
             <div class="collapse" id="collapseEnemySpecific3">
-              <p class="text-muted text-small mt-3">
+              <p class="text-muted text-small mt-1">
                 Further effects that affect specific enemies.
               </p>
               <div class="row mt-2">
@@ -2980,6 +3027,29 @@
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-3 mt-2">
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills3" aria-expanded="false" aria-controls="collapseSkills3">
+                  Show Support Skills
+                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
+                </button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 mt-2">
+                <div class="collapse" id="collapseSkills3">
+                  <div class="searchbar">
+                    <input class="form-control sticky" id="skillListSearch3" type="text" placeholder="Search by servant name">
+                    <br>
+                  </div>
+                  <div class="list">
+                    <ul class="list-group" id="skillList3"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </form>
 
           <div class="row justify-content-md-center">
@@ -3012,30 +3082,11 @@
         </div>
     </div>
 
-    <!-- buff button dropdown -->
-    <!---<div class="container mt-2">
-      <div class="row justify-content-md-center">
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-         Link with href
-       </a>
-       <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-         Button with data-target
-       </button>
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-          </div>
-        </div>
-      </div>
-    </div>--->
-
     <div class="row justify-content-md-center">
       <div class="col-md-10 mt-4" id="battlePartyDisplay">
       </div>
     </div>
 
-    <!---<div class="container mt-5" id="test">
-    </div>--->
     </div>
     <div class="container tab-pane" id="nav-how-to-use" role="tabpanel" aria-labelledby="nav-how-to-use-tab">
       <div id="READMEGist">

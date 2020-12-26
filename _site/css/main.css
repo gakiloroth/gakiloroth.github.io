@@ -81,6 +81,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 }
 .collapse {
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 .searchbar{
     position: sticky;   /* The magic */

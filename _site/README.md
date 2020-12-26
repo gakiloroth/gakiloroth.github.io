@@ -28,9 +28,9 @@ The "NP Gain Mod" entries are **usually** the default that gets put in when you 
 ## Battle Simulator Tab
 Once you have servants selected (in your party) and a quest selected, you can then test NP damage and NP refund in the battle simulator tab. Select one of the servants from your party from the bottom of the screen, apply further buffs you might use on that wave, and then click "Calculate NP Damage" to see NP damage and NP refund. The NP Total Timer counter at the top counts the NP time every time you calculate NP damage - but keep in mind this is a rough estimate and I hope to put more accurate data in the future if possible.
 
-There is also now the ability to mark additional modifiers for specific enemies (for situations such as Sieg, Mordred, Frankenstein Def. Debuff, etc.). Click on the "Toggle Enemy Specific Display" button to show these buttons.
-
 Remember Passive Skill effects and effects that "activate first" before NP(or things like Arash OC NP Damage)!
+
+You can then mark additional modifiers for specific enemies (for situations such as Sieg, Mordred, Frankenstein Def. Debuff, etc.). Click on the "Toggle Enemy Specific Display" button to show these buttons. Common support skills are available to be added to the form through the "Show Support Skills" button.                           
 
 Click the "Prev" and "Next" buttons to test on other waves.
 
