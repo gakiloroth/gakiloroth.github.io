@@ -19,7 +19,7 @@ The nickname field can be anything you want- enter any info to help you keep tra
 By clicking "Edit" on one of your servants you can edit that servant. It will not save if you click edit again or reload the page. An important thing to remember is that if you want to change the CE you should **remove the CE's effects with "Remove CE"** first.
 
 ## Quests Manager Tab
-Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. You can also click the "Toggle Common Nodes) to see and search for common nodes by either the node name or material you are looking for, and then click "Load Node" to automatically fill the enemy data of that node into the quest editor.
+Enter all the HP values, classes, and attributes of all the enemies you want in the node. If you wish for an enemy to NOT be counted into NP refund calculations (ie. it is a 1-2 enemy node), simply set the enemy HP to 0. You can also click the "Toggle Common Nodes" to see and search for common nodes by either the node name or material you are looking for, and then click "Load Node" to automatically fill the enemy data of that node into the quest editor.
 
 **Tip**: If you're not sure what an enemy's attribute might be, make your attacking servant and the enemy's attribute the same, which will set the attribute damage modifier to 1.
 
