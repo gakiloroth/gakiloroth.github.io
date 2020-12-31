@@ -38,7 +38,9 @@ $(document).ready(function() {
       $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
   }
 
-  console.log("servant: " + servant);
+  if(debug){
+    console.log("servant: " + servant);
+  }
 
   initializeBattleSim();
   initializeBattleParty();
@@ -164,15 +166,21 @@ $('#inputServant').on('change', function(){
       $('#inputAttribute').val(servantList[i].attribute);
       switch(servantList[i].deck[6]){
         case "Q":
-          console.log(servantList[i].deck[6]);
+          if(debug){
+            console.log(servantList[i].deck[6]);
+          }
           servantNPType = "Quick";
           break;
         case 'A':
-          console.log(servantList[i].deck[6]);
+          if(debug){
+            console.log(servantList[i].deck[6]);
+          }
           servantNPType = "Arts";
           break;
         case "B":
-          console.log(servantList[i].deck[6]);
+          if(debug){
+            console.log(servantList[i].deck[6]);
+          }
           servantNPType = "Buster";
           break;
       }
@@ -245,7 +253,9 @@ $('#inputServant').on('change', function(){
 
       $('#NPType').on('change', function(){
         servantNPType = $('#NPType').val();
-        console.log(servantNPType);
+        if(debug){
+          console.log(servantNPType);
+        }
       });
 
     }
@@ -256,7 +266,9 @@ $('#inputServant').on('change', function(){
 for(let i = 1; i <= QUEST_ENEMY_COUNT; i++){
   $('#enemy'+ i + 'Class').on('change', function(){
     let enemyclass = getClassValue($('#enemy'+ i + 'Class').val());
-    console.log("enemy" + i + "class: " + enemyclass);
+    if(debug){
+      console.log("enemy" + i + "class: " + enemyclass);
+    }
     $('#enemy' + i + 'NPGainMod').val(EnemyServerMod[enemyclass]);
   });
 }
@@ -727,9 +739,13 @@ function updateSavedServantsDisplay(){
     let busterstring = "";
     let artsstring = "";
     let quickstring = "";
-    console.log("busterup: " + curr.busterup);
+    if(debug){
+      console.log("busterup: " + curr.busterup);
+    }
     if(parseFloat(curr.busterup) !== 0){
-      console.log("busterup isnt 0");
+      if(debug){
+        console.log("busterup isnt 0");
+      }
       busterstring = 'Buster Up: ' + curr.busterup + '%';
     }
     if(parseFloat(curr.artsup) !== 0){
@@ -1122,13 +1138,17 @@ function updateQuestPartyToggles(){
 // initialize battle sim
 function initializeBattleSim(){
   if(savedQuests.length === 0 || savedServants.length === 0 || quest.length === 0 || quest === ""){
-    console.log("savedquestlength: " + savedQuests.length + " savedservantlength: " + savedServants.length +
+    if(debug){
+      console.log("savedquestlength: " + savedQuests.length + " savedservantlength: " + savedServants.length +
       " quest: " + quest);
+    }
     return;
   }
 
   // initialize quest related data
-  console.log("quest: " + quest + " " + JSON.stringify(savedServants));
+  if(debug){
+    console.log("quest: " + quest + " " + JSON.stringify(savedServants));
+  }
   let currQuest = savedQuests[quest];
   $('#questNameDisplay').empty().html('<b>Current Quest: </b>' + currQuest.name);
 
@@ -1171,11 +1191,15 @@ function initializeBattleSim(){
   }
 
   // initialize servant related data
-  console.log("servant: " + servant + " " + JSON.stringify(servant));
-  console.log("party: " + party.length + " " + JSON.stringify(party));
+  if(debug){
+    console.log("servant: " + servant + " " + JSON.stringify(servant));
+    console.log("party: " + party.length + " " + JSON.stringify(party));
+  }
 
   if(party.length === 0 || typeof servant === "undefined"){
-    console.log("partylength: " + party.length + " servantlength: " + servant.length)
+    if(debug){
+      console.log("partylength: " + party.length + " servantlength: " + servant.length);
+    }
     return;
   }
 
@@ -1530,7 +1554,9 @@ function saveServant(){
     "maxgrailed":maxGrailed,"maxfou":maxFou,"maxgoldfou": maxGoldFou,
     "craftessence":ceName,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB, "craftessenceatk": ceAtk});
 
-  console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
+  if(debug){
+    console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
+  }
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
   return true;
 }
@@ -1995,15 +2021,21 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
   if(parseFloat(hp1) === 0 || parseFloat(hp1) <= 0){
     ignoreEnemy1 = true;
-    console.log("ignore enemy 1");
+    if(debug){
+      console.log("ignore enemy 1");
+    }
   }
   if(parseFloat(hp2) === 0 || parseFloat(hp2) <= 0){
     ignoreEnemy2 = true;
-    console.log("ignore enemy 2");
+    if(debug){
+      console.log("ignore enemy 2");
+    }
   }
   if(parseFloat(hp3) === 0 || parseFloat(hp3) <= 0){
     ignoreEnemy3 = true;
-    console.log("ignore enemy 3");
+    if(debug){
+      console.log("ignore enemy 3");
+    }
   }
 
   var enemyServerMod1 = enemyMod1; // changes based on enemy class and type
@@ -2019,9 +2051,11 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
   var npRefund = 0;
   var npHits = savedServants[servant].nphits // how many hits this np has
 
-  console.log("cardBuff: " + cardBuff + " servant np gain up: " + savedServants[servant].npgainup + " servantbasenpgain: " + savedServants[servant].npgain +
+  if(debug){
+    console.log("cardBuff: " + cardBuff + " servant np gain up: " + savedServants[servant].npgainup + " servantbasenpgain: " + savedServants[servant].npgain +
     " servant busterup: " + savedServants[servant].busterup + " servant arts up: " + savedServants[servant].artsup +
     " servant quickup: " + savedServants[servant].quickup);
+  }
 
   // set np card type and card buffs
   if(savedServants[servant].nptype.localeCompare("Buster") == 0){
@@ -2056,21 +2090,27 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
       let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) + Number(enemySpecificCardDebuff[0]))))*
         enemyServerMod1 * (1 + Number(npChargeRateMod)) * critMod);
 
-      console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
-      console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
-        " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemySpecificCardDebuff: " + Number(enemySpecificCardDebuff[0]) + " enemyServerMod1: " + enemyServerMod1 +
-        " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
-      console.log("damage1: " + damage);
+      if(debug){
+        console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
+        console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
+          " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemySpecificCardDebuff: " + Number(enemySpecificCardDebuff[0]) + " enemyServerMod1: " + enemyServerMod1 +
+          " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
+        console.log("damage1: " + damage);
+      }
 
       refund1 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      console.log("refund1: " + refund1);
+      if(debug){
+        console.log("refund1: " + refund1);
+      }
       npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
     }
 
     // update hp
     hp1 -= damage;
 
-    console.log(npRefund);
+    if(debug){
+      console.log(npRefund);
+    }
 
     damage = damage2 * npHitDist[i];
 
@@ -2089,14 +2129,18 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod);
 
       refund2 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      console.log("refund2: " + refund2);
+      if(debug){
+        console.log("refund2: " + refund2);
+      }
       npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
     }
 
     // update hp
     hp2 -= damage;
 
-    console.log(npRefund);
+    if(debug){
+      console.log(npRefund);
+    }
 
     damage = damage3 * npHitDist[i];
 
@@ -2114,14 +2158,18 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod);
 
       refund3 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
-      console.log("refund3: " + refund3);
+      if(debug){
+        console.log("refund3: " + refund3);
+      }
       npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
     }
 
     // update hp
     hp3 -= damage;
 
-    console.log(npRefund);
+    if(debug){
+      console.log(npRefund);
+    }
   }
 
   return npRefund;
@@ -2133,55 +2181,81 @@ function getClassValue(input){
   var classVal = 0;
 
   if(input.localeCompare("Saber") == 0){
-    console.log("saber");
+    if(debug){
+      console.log("saber");
+    }
     classVal = 0;
   }
   else if(input.localeCompare("Archer") == 0){
-    console.log("archer");
+    if(debug){
+      console.log("archer");
+    }
     classVal = 1;
   }
   else if(input.localeCompare("Lancer") == 0){
-    console.log("lancer");
+    if(debug){
+      console.log("lancer");
+    }
     classVal = 2;
   }
   else if(input.localeCompare("Rider") == 0){
-    console.log("rider");
+    if(debug){
+      console.log("rider");
+    }
     classVal = 3;
   }
   else if(input.localeCompare("Caster") == 0){
-    console.log("caster");
+    if(debug){
+      console.log("caster");
+    }
     classVal = 4;
   }
   else if(input.localeCompare("Assassin") == 0){
-    console.log("assassin");
+    if(debug){
+      console.log("assassin");
+    }
     classVal = 5;
   }
   else if(input.localeCompare("Berserker") == 0){
-    console.log("berserker");
+    if(debug){
+      console.log("berserker");
+    }
     classVal = 6;
   }
   else if(input.localeCompare("Ruler") == 0){
-    console.log("ruler");
+    if(debug){
+      console.log("ruler");
+    }
     classVal = 7;
   }
   else if(input.localeCompare("Avenger") == 0){
-    console.log("avenger");
+    if(debug){
+      console.log("avenger");
+    }
     classVal = 8;
   }
   else if(input.localeCompare("Moon Cancer") == 0){
-    console.log("moon cancer");
+    if(debug){
+      console.log("moon cancer");
+    }
     classVal = 9;
   }
   else if(input.localeCompare("Alter Ego") == 0){
-    console.log("alter ego");
+    if(debug){
+      console.log("alter ego");
+    }
     classVal = 10;
   }
   else if(input.localeCompare("Foreigner") == 0){
-    console.log("foreigner");
+    if(debug){
+      console.log("foreigner");
+    }
     classVal = 11;
   }
   else if(input.localeCompare("Shielder") == 0){
-    console.log("shielder");
+    if(debug){
+      console.log("shielder");
+    }
     classVal = 12;
   }
 
@@ -2193,23 +2267,33 @@ function getAttrValue(input){
   var attrVal = 0;
 
   if(input.localeCompare("Man") == 0){
-    console.log("man");
+    if(debug){
+      console.log("man");
+    }
     attrVal = 0;
   }
   else if(input.localeCompare("Sky") == 0){
-    console.log("sky");
+    if(debug){
+      console.log("sky");
+    }
     attrVal = 1;
   }
   else if(input.localeCompare("Earth") == 0){
-    console.log("earth");
+    if(debug){
+      console.log("earth");
+    }
     attrVal = 2;
   }
   else if(input.localeCompare("Star") == 0){
-    console.log("star");
+    if(debug){
+      console.log("star");
+    }
     attrVal = 3;
   }
   else if(input.localeCompare("Beast") == 0){
-    console.log("beast");
+    if(debug){
+      console.log("beast");
+    }
     attrVal = 4;
   }
 
@@ -2220,20 +2304,27 @@ function classMultiplier(input){
   var classVal = 1;
 
   if (input.localeCompare("Archer") == 0){
-    console.log("archer");
+    if(debug){
+      console.log("archer");
+    }
     classVal = 0.95;
   }
   else if (input.localeCompare("Lancer") == 0 ){
-    console.log("lancer");
+    if(debug){
+      console.log("lancer");
+    }
     classVal = 1.05;
   }
   else if (input.localeCompare("Caster") == 0 || input.localeCompare("Assassin") == 0 ){
-    console.log("caster or assassin");
+    if(debug){
+      console.log("caster or assassin");
+    }
     classVal = 0.9;
   }
-  else if (input.localeCompare("Berserker") == 0 || input.localeCompare("Ruler") == 0 ||
-  input.localeCompare("Avenger") == 0){
-    console.log("berserker or ruler or avenger");
+  else if (input.localeCompare("Berserker") == 0 || input.localeCompare("Ruler") == 0 || input.localeCompare("Avenger") == 0){
+    if(debug){
+      console.log("berserker or ruler or avenger");
+    }
     classVal = 1.1;
   }
   return classVal;
@@ -2243,15 +2334,21 @@ function cardDmg(input){
   var cardVal = 1;
 
   if (input.localeCompare("Buster") == 0){
-    console.log("np type buster");
+    if(debug){
+      console.log("np type buster");
+    }
     cardVal = 1.5;
   }
   else if (input.localeCompare("Arts") == 0){
-    console.log("np type arts");
+    if(debug){
+      console.log("np type arts");
+    }
     cardVal = 1.0;
   }
   else if (input.localeCompare("Quick") == 0){
-    console.log("np type quick");
+    if(debug){
+      console.log("np type quick");
+    }
     cardVal = 0.8;
   }
 
