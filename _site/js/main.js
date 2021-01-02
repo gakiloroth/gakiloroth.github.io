@@ -1291,7 +1291,7 @@ function initializeSkills(){
       // hook up button
       document.getElementById("addSkillEffects" + currSkill.id + 'Wave' + wave).addEventListener("click", function(){
         if(debug){
-          alert("adding skill effect id:" + currSkill.id);
+          console.log("adding skill effect id:" + currSkill.id);
         }
 
         // add skill effects to current wave form
@@ -2098,11 +2098,12 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         console.log("damage1: " + damage);
       }
 
-      refund1 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      let debugRefund1NoRound = baseNPGained * overkillModifier;
+      refund1 += overkillModifier * Math.floor(baseNPGained * 100) / 100;
       if(debug){
-        console.log("refund1: " + refund1);
+        console.log("refund1: " + refund1 + " no rounding refund1:" + debugRefund1NoRound);
       }
-      npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      npRefund += overkillModifier  * Math.floor(baseNPGained * 100) / 100;
     }
 
     // update hp
@@ -2128,11 +2129,11 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
       let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod) + Number(enemySpecificCardDebuff[1]))))*
         enemyServerMod2 * (1 + Number(npChargeRateMod)) * critMod);
 
-      refund2 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      refund2 += overkillModifier * Math.floor(baseNPGained * 100) / 100;
       if(debug){
         console.log("refund2: " + refund2);
       }
-      npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      npRefund += overkillModifier * Math.floor(baseNPGained * 100) / 100;
     }
 
     // update hp
@@ -2157,11 +2158,11 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
       let baseNPGained = (npChargeOff * (firstCardBonus + (cardNpValue * ( 1 + Number(cardMod)  + Number(enemySpecificCardDebuff[2]))))*
         enemyServerMod3 * (1 + Number(npChargeRateMod)) * critMod);
 
-      refund3 += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      refund3 += overkillModifier * Math.floor(baseNPGained * 100) / 100;
       if(debug){
         console.log("refund3: " + refund3);
       }
-      npRefund += Math.floor(baseNPGained * overkillModifier * 100) / 100;
+      npRefund += overkillModifier * Math.floor(baseNPGained * 100) / 100;
     }
 
     // update hp
