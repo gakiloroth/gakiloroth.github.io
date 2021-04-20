@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v1.83</title>
+    <title>FGO 3T Simulator v1.84</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v1.83
+        <h1 class="title">FGO 3T Simulator v1.84
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -57,6 +57,7 @@
                 </button>
               </div>
               <div class="modal-body">
+                4/19/2021 1.93: Added Servant/Quest code importing/exporting feature<br>
                 4/18/2021 1.83: 13th Strengthening: Yan Qing<br>
                 4/15/2021 1.82: 13th Strengthening: Rama<br>
                 4/14/2021 1.81: 13th Strengthening: Vlad III Zerker<br>
@@ -493,6 +494,42 @@
           </div>
           <div class="col-md-3 mt-5">
             <button type="submit" id="addServant" class="btn btn-outline-success btn-md btn-block" disabled>Add Servant</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 mt-3">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#accessServantDataModal">
+              Import/Export Servant Data
+            </button>
+
+            <div class="modal fade" id="accessServantDataModal" tabindex="-1" role="dialog" aria-labelledby="accessServantDataLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="accessServantDataLabel">Import/Export Servant Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Copy this code to share, OR paste in a code and "Save" to import their servant data.
+                  </div>
+
+                  <form>
+                    <div class="col-md-12">
+                      <label for="servantDataCode">Servant Data Code</label>
+                      <input type="textarea" class="form-control" id="servantDataCode" placeholder="">
+                    </div>
+                  </form>
+
+                  <div class="modal-footer mt-4">
+                    <button type="submit" class="btn btn-success" onclick="saveServantCode();">Save</button>
+                    <button type="button" class="btn btn-primary" onclick="copyServantCode();">Copy Code</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </form>
@@ -1175,6 +1212,43 @@
       </div>
       <div class="col-md-4 mt-5">
         <button type="submit" id="addQuest" class="btn btn-outline-success btn-md btn-block">Add Quest</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mt-3">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#accessQuestDataModal">
+          Import/Export Quest Data
+        </button>
+
+        <div class="modal fade" id="accessQuestDataModal" tabindex="-1" role="dialog" aria-labelledby="accessQuestDataLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="accessQuestDataLabel">Import/Export Quest Data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Copy this code to share, OR paste in a code and "Save" to import their quest data.
+              </div>
+
+              <form>
+                <div class="col-md-12">
+                  <label for="questDataCode">Quest Data Code</label>
+                  <input type="textarea" class="form-control" id="questDataCode" placeholder="">
+                </div>
+              </form>
+
+              <div class="modal-footer mt-4">
+                <button type="submit" class="btn btn-success" onclick="saveQuestCode();">Save</button>
+                <button type="button" class="btn btn-primary" onclick="copyQuestCode();">Copy Code</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

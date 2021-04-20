@@ -51,6 +51,8 @@ $(document).ready(function() {
   updateServantToggles();
   updateQuestPartyToggles();
   updateQuestToggles();
+  loadServantCode();
+  loadQuestCode();
   initializeCraftEssences();
   loadGist(document.getElementById("READMEGist"),"gakiloroth/83c901dc2a5bf767cd873ccda406b042");
   startup = false;
@@ -85,6 +87,80 @@ function loadGist(element, gistId) {
     var script = document.createElement("script");
     script.setAttribute("src", "https://gist.github.com/" + gistId + ".json?callback=" + callbackName);
     document.body.appendChild(script);
+}
+
+function encryptLocalStorage(exportingData){
+  return btoa(exportingData);
+}
+
+function decryptLocalStorage(importingData) {
+  return atob(importingData);
+}
+
+function copyQuestCode() {
+  /* Get the text field */
+  var copyText = document.getElementById("questDataCode");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  alert("Copied to clipboard!");
+}
+
+function loadQuestCode(){
+  var questData = localStorage.getItem("savedQuests");
+  $('#questDataCode').val(encryptLocalStorage(questData));
+}
+
+function saveQuestCode(){
+  var questData = $('#questDataCode').val();
+
+  try{
+      questData = decryptLocalStorage(questData);
+  } catch (e) {
+    alert(e);
+    return;
+  }
+
+  localStorage.setItem("savedQuests", questData);
+  location.reload();
+}
+
+function copyServantCode() {
+  /* Get the text field */
+  var copyText = document.getElementById("servantDataCode");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  alert("Copied to clipboard!");
+}
+
+function loadServantCode(){
+  var servantData = localStorage.getItem("savedServants");
+  $('#servantDataCode').val(encryptLocalStorage(servantData));
+}
+
+function saveServantCode(){
+  var servantData = $('#servantDataCode').val();
+
+  try{
+    servantData = decryptLocalStorage(servantData);
+  } catch (e) {
+    alert(e);
+    return;
+  }
+
+  localStorage.setItem("savedServants", servantData);
+  location.reload();
 }
 
 // prevent enter from submitting form
@@ -1558,6 +1634,7 @@ function saveServant(){
     console.log(servantName + " " + $('input[name=cardoptions]:checked').val());
   }
   localStorage.setItem("savedServants", JSON.stringify(savedServants));
+  loadServantCode();
   return true;
 }
 
@@ -1715,6 +1792,7 @@ function saveQuest(){
     "enemy9hp": $('#enemy9HP').val(),"enemy9class": $('#enemy9Class').val(),"enemy9attribute": $('#enemy9Attribute').val(),"enemy9npgainmod": $('#enemy9NPGainMod').val()
   });
   localStorage.setItem("savedQuests", JSON.stringify(savedQuests));
+  loadQuestCode();
   return true;
 }
 
