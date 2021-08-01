@@ -1,11 +1,11 @@
 # FGO 3T Simulator   <img src="https://gakiloroth.github.io/images/gacha.png" width="48">
 
-This is a small personal project I'm working on to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/).
+This is a small personal project I made to learn how to do some basic web dev. It's inspired by matekakunai's [FGO Damage Calculator](https://maketakunai.github.io/).
 
 If there are any bugs PLEASE leave an issue [here](https://github.com/gakiloroth/gakiloroth.github.io/issues) and I will try to fix it when time permits.
 
 # Important
-Updates may change some how of the backend are done, and if calculations don't work or some things are broken, please try testing in an incognito window(will have no cached data). If it works there, you may have to empty your cache or manually empty your party, delete all servants, and delete all quests.
+Updates may change some how of the backend is done, and if calculations don't work or some things are broken, please try testing in an incognito window (will have no cached data). If it works there, you may have to empty your cache or manually empty your party, delete all servants, and delete all quests.
 
 # How to Use
 ## Servants Manager Tab
@@ -47,4 +47,4 @@ With this simulator you will be able to save a servant's stats (with CE), and qu
 Then, you can choose several servants, one quest, and test NP damage and NP refund.
 
 Possible Future Functions:
-- Buttons to add popular buffs (Waver, Umu Bride, etc.) on the battle simulator page
+- None planned at the moment (more nodes added to node selection, but looking for easier ways to parse node data, Atlas Academy API doesn't have the data yet)
