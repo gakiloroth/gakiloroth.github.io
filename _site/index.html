@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v1.98</title>
+    <title>FGO 3T Simulator v2.01</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v1.98
+        <h1 class="title">FGO 3T Simulator v2.01
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -57,6 +57,8 @@
                 </button>
               </div>
               <div class="modal-body">
+                8/7/2021: v2.01: Use level select instead of grails<br>
+                8/7/2021: v2.00: Support lvl 120 servants, 6th Anniversary strengthens<br>
                 8/1/2021: v1.98: 6th Anniversary<br>
                 7/14/2021 v1.97: LB6 Part 2<br>
                 6/11/2021 v1.96: LB6 Part 1<br>
@@ -233,14 +235,11 @@
           </div>
 
           <div class="col-md-3 mt-4">
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="maxGrailed" disabled>
-              <label class="custom-control-label" for="maxGrailed">Lv. 100</label>
-            </div>
-
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="maxTokenGrailed" disabled>
-              <label class="custom-control-label" for="maxTokenGrailed">Lv. 120</label>
+            <div class="form-group form-inline">
+              <label for="selectLevel">Level&nbsp;&nbsp;</label>
+              <select class="custom-select" id="selectLevel" disabled>
+                <option selected>Choose level</option>
+              </select>
             </div>
 
             <div class="custom-control custom-checkbox custom-control-inline">

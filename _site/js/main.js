@@ -22,7 +22,7 @@ var editServant = -1;
 var editQuestMode = false;
 var editQuest = -1;
 var debug = false;
-var version = "1.72";
+var version = "2.00";
 
 // actions to do when the page is loaded
 $(document).ready(function() {
@@ -181,10 +181,8 @@ $(function () {
 // filter out a list of servants based on class
 $("#inputClass").change(function(){ loadServantOptions();});
 function loadServantOptions(){
-  $('#maxGrailed').prop('disabled', true);
-  $('#maxGrailed').prop('checked', false);
-  $('#maxTokenGrailed').prop('disabled', true);
-  $('#maxTokenGrailed').prop('checked', false);
+  $('#selectLevel').prop('disabled', true);
+  $('#selectLevel').val('Select level');
   $('#maxFou').prop('checked', false);
   $('#inputNPLevel').val(1);
   $('#hasNPupgrade').hide();
@@ -225,8 +223,7 @@ $('#maxGoldFou').on('change', function(){
 
 // selecting a servant
 $('#inputServant').on('change', function(){
-  $('#maxGrailed').prop('disabled', false);
-  $('#maxTokenGrailed').prop('disabled', false);
+  $('#selectLevel').prop('disabled',false);
   $('#maxGoldFou').prop('checked', false);
   $('#maxGoldFou').prop('disabled', true);
   $('#maxFou').prop('checked', false);
@@ -264,7 +261,20 @@ $('#inputServant').on('change', function(){
           break;
       }
 
-      let attk = servantList[i].attack.split(',');
+      // load level select with valid levels
+      let select = '';
+      for(let j = 1; j <= servantList[i].attack.length; j++){
+        select += '<option val=' + j + '>' + j + '</option>';
+      }
+      $('#selectLevel').html(select);
+      $('#attack').val(servantList[i].attack[0]);
+
+      $('#selectLevel').on('change', function(){
+          $('#attack').val(servantList[i].attack[$('#selectLevel').val()-1])
+          $('#maxFou').prop('checked', false);
+          $('#maxGoldFou').prop('checked', false);
+          $('#maxGoldFou').prop('disabled', true);
+        })
 
       // set np related stats
       let npmulti = [0,0,0,0,0];
@@ -284,15 +294,6 @@ $('#inputServant').on('change', function(){
           $('#hasNPupgrade').show();
         }
 
-      if ($('#maxTokenGrailed').is(':checked')){
-        $('#attack').val( Number( attk[3]) );
-      }
-      else if ($('#maxGrailed').is(':checked')){
-        $('#attack').val( Number( attk[2]) );
-      }
-      else{
-        $('#attack').val( Number( attk[1]) );
-      }
 
       // load passive values
       $('#NPGainUpPercentage').val(Number(servantList[i].npGainUpPercentage));
@@ -305,63 +306,6 @@ $('#inputServant').on('change', function(){
       $('#' + servantNPType).prop("checked", true).click();
 
       // on change updates
-      $('#maxTokenGrailed').on('change', function(){
-        let nonBaseAttack = 0;
-        if ($(this).is(':checked')) {
-          $('#maxGrailed').prop('checked', true);
-          if($('#maxFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          // add another 1000 for total 2000 if maxGoldFou is also checked
-          if($('#maxGoldFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          $('#attack').val( Number(attk[3]) + nonBaseAttack);
-        }
-        else {
-          if($('#maxFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          // add another 1000 for total 2000 if maxGoldFou is also checked
-          if($('#maxGoldFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          if($('#maxGrailed').is(':checked')){
-            $('#attack').val( Number(attk[2]) + nonBaseAttack);
-          } else{
-            $('#attack').val( Number(attk[1]) + nonBaseAttack);
-          }
-        }
-      });
-
-      $('#maxGrailed').on('change', function(){
-        if($('#maxTokenGrailed').is(':checked')){
-          // do nothing if lvl 120 is checked
-          return;
-        }
-        let nonBaseAttack = 0;
-        if ($(this).is(':checked')) {
-          if($('#maxFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          // add another 1000 for total 2000 if maxGoldFou is also checked
-          if($('#maxGoldFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          $('#attack').val( Number(attk[2]) + nonBaseAttack);
-        }
-        else {
-          if($('#maxFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          // add another 1000 for total 2000 if maxGoldFou is also checked
-          if($('#maxGoldFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          $('#attack').val( Number(attk[1]) + nonBaseAttack);
-        }
-      });
-
       $('#inputNPLevel').on('change', function(){
         $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
       });
@@ -870,7 +814,7 @@ function updateSavedServantsDisplay(){
       quickstring = ' Quick Up: ' + curr.quickup + '%';
     }
 
-    $('#savedServants1').append($('<li class="list-group-item">ID: ' + curr.id + " <b>" + curr.name + '</b> | Nickname: ' +
+    $('#savedServants1').append($('<li class="list-group-item">ID: ' + curr.id + " <b>" + curr.name + '</b>' + ' | Level: ' + curr.level + ' | Nickname: ' +
      curr.nickname + ' | Craft Essence: ' + curr.craftessence +  ' | Power Mod: ' + curr.powermod + '% | NP Gain Up: ' + curr.npgainup + '%<br>' + 'NP Level: ' +
      curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
      ' | Attr. : ' + curr.attribute + '<br> ' + busterstring + artsstring + quickstring +
@@ -882,7 +826,7 @@ function updateSavedServantsDisplay(){
      ' class="btn btn-outline-danger btn-sm">Delete</button></span>' + '</li>'));
 
 
-     $('#savedServants2').append($('<li class="list-group-item">ID: ' + curr.id + " <b>" + curr.name + '</b> | Nickname: ' +
+     $('#savedServants2').append($('<li class="list-group-item">ID: ' + curr.id + " <b>" + curr.name + ' | Level: ' + curr.level + '</b> | Nickname: ' +
       curr.nickname + ' | Craft Essence: ' + curr.craftessence +  ' | Power Mod: ' + curr.powermod + '%<br>' + 'NP Level: ' +
       curr.nplevel + ' | Attack: ' + curr.attack + ' | NP Buff: ' + curr.npdamageup + '%' +
       ' | Attr. : ' + curr.attribute + " | " +  busterstring + artsstring + quickstring +'</li>'));
@@ -982,8 +926,6 @@ function updateSavedServantsDisplay(){
       $('#inputServant').val(servantID);
       $('#inputServant').on('change', function(){
         loadNPPercentages($('#inputServant').val());
-        $('#maxGrailed').prop('disabled', false);
-        $('#maxGrailed').prop('checked', false);
         $('#maxFou').prop('checked', false);
         $('#inputNPLevel').val(1);
         $('#hasNPupgrade').hide();
@@ -992,6 +934,21 @@ function updateSavedServantsDisplay(){
             $('#hasNPupgrade').show();
           }
       });
+
+      // load level select with valid levels
+      let select = '';
+      for(let j = 1; j <= servantList[servantID - 1].attack.length; j++){
+        select += '<option val=' + j + '>' + j + '</option>';
+      }
+      $('#selectLevel').html(select);
+      $('#attack').val(servantList[servantID].attack[0]);
+
+      $('#selectLevel').on('change', function(){
+         $('#attack').val(servantList[servantID - 1].attack[$('#selectLevel').val()-1])
+         $('#maxFou').prop('checked', false);
+         $('#maxGoldFou').prop('checked', false);
+         $('#maxGoldFou').prop('disabled', true);
+       })
 
       // load fields
       $('#attack').val(savedServants[i].attack);
@@ -1003,13 +960,12 @@ function updateSavedServantsDisplay(){
       $('#AttackUpPercentage').val(savedServants[i].attackup);
       $('#FlatAttackUp').val(savedServants[i].flatattackup);
       $('#NPDamageUp').val(savedServants[i].npdamageup);
+      $('#selectLevel').val(savedServants[i].level - 1);
       servantNPGain = savedServants[i].npgain;
       loadNPPercentages(servantID);
-      $('#maxGrailed').prop('disabled', false);
+      $('#selectLevel').prop('disabled',false);
       $('#maxFou').prop('disabled', false);
-      if(savedServants[i].maxgrailed == 1){
-        $('#maxGrailed').prop('checked', true);
-      }
+
       if(savedServants[i].maxfou == 1){
         $('#maxFou').prop('checked', true);
 
@@ -1023,34 +979,7 @@ function updateSavedServantsDisplay(){
         $('#maxGoldFou').prop('checked', true);
       }
 
-      // on change updates for max grailed - servant specific so needs to be loaded
-      let attk = servantList[savedServants[i].id - 1].attack.split(',');
-      $('#maxGrailed').on('change', function(){
-        if ($(this).is(':checked')) {
-          let nonBaseAttack = 0;
-
-          if($('#maxFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          // add another 1000 for total 2000 if maxGoldFou is also checked
-          if($('#maxGoldFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          $('#attack').val( Number(attk[2]) + nonBaseAttack);
-        }
-        else {
-          let nonBaseAttack = 0;
-
-          if($('#maxFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          // add another 1000 for total 2000 if maxGoldFou is also checked
-          if($('#maxGoldFou').is(':checked')){
-            nonBaseAttack += 1000;
-          }
-          $('#attack').val( Number(attk[1]) + nonBaseAttack);
-        }
-      });
+      $('#selectLevel').val(savedServants[i].level);
 
       // load current CE id, if CE was chosen (id 0 if not)
       ceID = savedServants[i].craftessenceid;
@@ -1333,7 +1262,7 @@ function initializeBattleParty(){
     let curr = savedServants[party[i]];
 
     $('#battlePartyDisplay').append($('<li class="list-group-item">ID:' + curr.id + ' <b>' + curr.name + '</b>' +
-     ' | CE: ' + curr.craftessence + ' | NP Lvl: ' + curr.nplevel + ' | Nickname: ' + curr.nickname +
+     ' | Level: ' + curr.level + ' | CE: ' + curr.craftessence + ' | NP Lvl: ' + curr.nplevel + ' | Nickname: ' + curr.nickname +
      '<span class="float-right"><button type="button" id=' + "battlePartySelect" + i +
      ' class="btn btn-outline-success btn-sm" data-toggle="button" aria-pressed="false"' +
      ' autocomplete="false">Select</button></span>' + '</li>'));
@@ -1644,8 +1573,7 @@ function saveServant(){
   let ceMLB;
   let ceLevel;
   let ceAtk;
-  let maxGrailed = $("#maxGrailed").is(':checked') ? 1 : 0;
-  let maxTokenGrailed = $("#maxTokenGrailed").is(':checked') ? 1 : 0;
+  let level = $("#selectLevel").val();
   let maxFou = $("#maxFou").is(':checked') ? 1 : 0;
   let maxGoldFou = $("#maxGoldFou").is(':checked') ? 1 : 0;
 
@@ -1667,7 +1595,7 @@ function saveServant(){
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
     "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val(),
-    "maxgrailed":maxGrailed,"maxtokengrailed":maxTokenGrailed,"maxfou":maxFou,"maxgoldfou": maxGoldFou,
+    "level":level,"maxfou":maxFou,"maxgoldfou": maxGoldFou,
     "craftessence":ceName,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB, "craftessenceatk": ceAtk});
 
   if(debug){
@@ -1701,8 +1629,7 @@ function saveEditedServant(index){
     let ceMLB;
     let ceLevel;
     let ceAtk;
-    let maxGrailed = $("#maxGrailed").is(':checked') ? 1 : 0;
-    let maxTokenGrailed = $("#maxTokenGrailed").is(':checked') ? 1 : 0;
+    let level = $("#selectLevel").val();
     let maxFou = $("#maxFou").is(':checked') ? 1 : 0;
     let maxGoldFou = $("#maxGoldFou").is(':checked') ? 1 : 0;
 
@@ -1724,7 +1651,7 @@ function saveEditedServant(index){
       "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
       "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
       "nphits": servantNPHits,"powermod": $('#PowerMod').val(),"attribute": $('#inputAttribute').val(),"nickname": $('#inputNickname').val(),
-      "maxgrailed":maxGrailed,"maxtokengrailed":maxTokenGrailed,"maxfou":maxFou,"maxgoldfou": maxGoldFou,
+      "level":level,"maxfou":maxFou,"maxgoldfou": maxGoldFou,
       "craftessence":ceName,"craftessencelevel": ceLevel,"craftessenceid": ceID,"craftessencemlb":ceMLB,"craftessenceatk":ceAtk});
 
     // reset form validation display
@@ -1887,10 +1814,8 @@ function resetBattleForm(waveNumber){
 // reset servant form
 function resetServant() {
   $('#hasNPupgrade').hide();
-  $('#maxGrailed').prop('disabled', true);
-  $('#maxGrailed').prop('checked', false);
-  $('#maxTokenGrailed').prop('disabled', true);
-  $('#maxTokenGrailed').prop('checked', false);
+  $('#selectLevel').prop('disabled', true);
+  $('#selectLevel').val('Select level');
   $('#maxFou').prop('checked', false);
   $('#maxFou').prop('disabled', true);
   $('#maxGoldFou').prop('checked', false);

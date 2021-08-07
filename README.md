@@ -47,4 +47,4 @@ With this simulator you will be able to save a servant's stats (with CE), and qu
 Then, you can choose several servants, one quest, and test NP damage and NP refund.
 
 Possible Future Functions:
-- Level selector ie. 1-120 for each servant (not sure how wanted/needed this is)
+- More node data (depends on data availability from Atlas Academy API)
