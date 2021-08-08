@@ -1845,33 +1845,12 @@ function resetServant() {
 
 // reset quest form
 function resetQuest() {
-  $('#enemy1HP').val(0);
-  $('#enemy1Class').val("Saber");
-  $('#enemy1Attribute').val("Man");
-  $('#enemy2HP').val(0);
-  $('#enemy2Class').val("Saber");
-  $('#enemy2Attribute').val("Man");
-  $('#enemy3HP').val(0);
-  $('#enemy3Class').val("Saber");
-  $('#enemy3Attribute').val("Man");
-  $('#enemy4HP').val(0);
-  $('#enemy4Class').val("Saber");
-  $('#enemy4Attribute').val("Man");
-  $('#enemy5HP').val(0);
-  $('#enemy5Class').val("Saber");
-  $('#enemy5Attribute').val("Man");
-  $('#enemy6HP').val(0);
-  $('#enemy6Class').val("Saber");
-  $('#enemy6Attribute').val("Man");
-  $('#enemy7HP').val(0);
-  $('#enemy7Class').val("Saber");
-  $('#enemy7Attribute').val("Man");
-  $('#enemy8HP').val(0);
-  $('#enemy8Class').val("Saber");
-  $('#enemy8Attribute').val("Man");
-  $('#enemy9HP').val(0);
-  $('#enemy9Class').val("Saber");
-  $('#enemy9Attribute').val("Man");
+  for(let i = 1; i <= 9; i++) {
+    $('#enemy' + i + 'HP').val(0);
+    $('#enemy' + i + 'Class').val("Saber");
+    $('#enemy' + i + 'Attribute').val("Man");
+    $('#enemy' + i + 'NPGainMod').val(1);
+  }
   $('#QuestName').val("Quest Name");
 }
 
