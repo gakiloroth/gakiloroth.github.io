@@ -5,7 +5,8 @@ This is a small personal project I made to learn how to do some basic web dev. I
 If there are any bugs PLEASE leave an issue [here](https://github.com/gakiloroth/gakiloroth.github.io/issues) and I will try to fix it when time permits.
 
 # Important
-Updates may change some how of the backend is done, and if calculations don't work or some things are broken, please try testing in an incognito window (will have no cached data). If it works there, you may have to empty your cache or manually empty your party, delete all servants, and delete all quests.
+**Sometimes updates will change how I save things and if so, it will usually require me to clear caches. To be safe, saving quest/servant codes may be useful, even if they won't load fully correctly they may stil be used to recreate your quests/servants again.**
+Updates may change some how of the backend saving of data is done, and if calculations don't work or some things are broken, please try testing in an incognito window (will have no cached data). If it works there, you may have to empty your cache or manually empty your party, delete all servants, and delete all quests.
 
 # How to Use
 ## Servants Manager Tab
