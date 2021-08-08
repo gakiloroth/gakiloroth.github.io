@@ -1,6 +1,6 @@
 ---
 name: Common Node Addition
-about: Describe this issue template's purpose here.
+about: Request the addition of a node to the "Common Nodes" list
 title: "[NODES] Node name/Usage/Etc."
 labels: enhancement
 assignees: gakiloroth
