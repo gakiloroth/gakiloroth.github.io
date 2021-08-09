@@ -1,2 +1,5 @@
 
 .idea/vcs.xml
+*.xml
+*.iml
+*.gitignore
