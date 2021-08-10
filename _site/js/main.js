@@ -90,11 +90,11 @@ function loadGist(element, gistId) {
 }
 
 function encryptLocalStorage(exportingData){
-  return btoa(exportingData);
+  return btoa(unescape(encodeURIComponent(exportingData)));
 }
 
 function decryptLocalStorage(importingData) {
-  return atob(importingData);
+  return decodeURIComponent(escape(atob(importingData)));
 }
 
 function copyQuestCode() {
