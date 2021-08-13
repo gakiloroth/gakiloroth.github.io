@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/darktheme.css">
     <link rel="stylesheet" href="css/main.css">
-    <title>FGO 3T Simulator v2.05</title>
+    <title>FGO 3T Simulator v2.06</title>
   </head>
 
   <!--- car is a baka -->
@@ -36,7 +36,7 @@
 
     <div class="container">
       <div class="py-5 text-center">
-        <h1 class="title">FGO 3T Simulator v2.05
+        <h1 class="title">FGO 3T Simulator v2.06
               <img src="images/gacha.png" alt="Gacha is bad civ" height="35">
         </h1>
 
@@ -57,6 +57,7 @@
                 </button>
               </div>
               <div class="modal-body">
+                8/13/2021: v2.06: Added "Buff Effectiveness" window<br>
                 8/11/2021: v2.05: Servant 316<br>
                 8/10/2021: v2.04: Fixed UTF-8 encoding for export, added JP Mat nodes<br>
                 8/9/2021: v2.03: Added a bunch of lotto nodes to "Common Nodes" list<br>
@@ -1578,11 +1579,52 @@
           <div class="row mt-2">
             <div class="col-md-4">
               <p>
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseBuffEffectivenessUp1" aria-expanded="false" aria-controls="collapseBuffEffectivenessUp1">
+                   Toggle Buff Effectiveness Up Display
+                </button>
+              </p>
+            </div>
+
+            <div class="col-md-4">
+              <p>
                 <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific1" aria-expanded="false" aria-controls="collapseEnemySpecific1">
                    Toggle Enemy Specific Display
                 </button>
               </p>
             </div>
+
+            <div class="col-md-4">
+              <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills1" aria-expanded="false" aria-controls="collapseSkills1">
+                Show Support Skills
+                <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
+              </button>
+            </div>
+          </div>
+
+          <div class="collapse" id="collapseBuffEffectivenessUp1">
+            <p class="text-muted text-small">
+              Effects that buff the effectiveness of other buffs.
+            </p>
+
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <label class="input-group-text" for="NPDamageUpEffectivenessQuest1">NP Buff Effectiveness
+                  </div>
+                  <input type="number" class="form-control" id="NPDamageUpEffectivenessQuest1" value="0" min="0" step="any" required>
+                  <div class="input-group-append">
+                    <label class="input-group-text" for="percent">%</label>
+                  </div>
+                  <div class="invalid-feedback">
+                    Valid NP Damage Up Effectiveness value required.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
           </div>
 
           <div class="collapse" id="collapseEnemySpecific1">
@@ -1895,15 +1937,6 @@
           </div>
 
           <div class="row">
-            <div class="col-md-3 mt-2">
-              <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills1" aria-expanded="false" aria-controls="collapseSkills1">
-                Show Support Skills
-                <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
-              </button>
-            </div>
-          </div>
-
-          <div class="row">
             <div class="col-md-12 mt-2">
               <div class="collapse" id="collapseSkills1">
                 <div class="searchbar">
@@ -2200,11 +2233,52 @@
             <div class="row mt-2">
               <div class="col-md-4">
                 <p>
+                  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseBuffEffectivenessUp2" aria-expanded="false" aria-controls="collapseBuffEffectivenessUp2">
+                     Toggle Buff Effectiveness Up Display
+                  </button>
+                </p>
+              </div>
+
+              <div class="col-md-4">
+                <p>
                   <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific2" aria-expanded="false" aria-controls="collapseEnemySpecific2">
                      Toggle Enemy Specific Display
                   </button>
                 </p>
               </div>
+
+              <div class="col-md-4">
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills2" aria-expanded="false" aria-controls="collapseSkills2">
+                  Show Support Skills
+                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
+                </button>
+              </div>
+            </div>
+
+            <div class="collapse" id="collapseBuffEffectivenessUp2">
+              <p class="text-muted text-small">
+                Effects that buff the effectiveness of other buffs.
+              </p>
+
+              <div class="row">
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPDamageUpEffectivenessQuest2">NP Buff Effectiveness
+                    </div>
+                    <input type="number" class="form-control" id="NPDamageUpEffectivenessQuest2" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid NP Damage Up Effectiveness value required.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
             <div class="collapse" id="collapseEnemySpecific2">
@@ -2516,15 +2590,6 @@
             </div>
 
             <div class="row">
-              <div class="col-md-3 mt-2">
-                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills2" aria-expanded="false" aria-controls="collapseSkills2">
-                  Show Support Skills
-                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
-                </button>
-              </div>
-            </div>
-
-            <div class="row">
               <div class="col-md-12 mt-2">
                 <div class="collapse" id="collapseSkills2">
                   <div class="searchbar">
@@ -2821,11 +2886,52 @@
             <div class="row mt-2">
               <div class="col-md-4">
                 <p>
+                  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseBuffEffectivenessUp3" aria-expanded="false" aria-controls="collapseBuffEffectivenessUp3">
+                     Toggle Buff Effectiveness Up Display
+                  </button>
+                </p>
+              </div>
+
+              <div class="col-md-4">
+                <p>
                   <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseEnemySpecific3" aria-expanded="false" aria-controls="collapseEnemySpecific3">
                      Toggle Enemy Specific Display
                   </button>
                 </p>
               </div>
+
+              <div class="col-md-4">
+                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills3" aria-expanded="false" aria-controls="collapseSkills3">
+                  Show Support Skills
+                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
+                </button>
+              </div>
+            </div>
+
+            <div class="collapse" id="collapseBuffEffectivenessUp3">
+              <p class="text-muted text-small">
+                Effects that buff the effectiveness of other buffs.
+              </p>
+
+              <div class="row">
+
+                <div class="col-md-4">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text" for="NPDamageUpEffectivenessQuest3">NP Buff Effectiveness
+                    </div>
+                    <input type="number" class="form-control" id="NPDamageUpEffectivenessQuest3" value="0" min="0" step="any" required>
+                    <div class="input-group-append">
+                      <label class="input-group-text" for="percent">%</label>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid NP Damage Up Effectiveness value required.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
             <div class="collapse" id="collapseEnemySpecific3">
@@ -3133,15 +3239,6 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-3 mt-2">
-                <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseSkills3" aria-expanded="false" aria-controls="collapseSkills3">
-                  Show Support Skills
-                  <img src="images/light-alert.png" width="20" data-toggle="tooltip" data-html="true" title="Skills are assumed level 10 and strengthened if available in JP. Enemy specific power mods are NOT automatically entered."></img></label>
-                </button>
               </div>
             </div>
 

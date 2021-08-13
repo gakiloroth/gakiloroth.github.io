@@ -1895,6 +1895,9 @@ function calculateDamage(waveNumber){
   var powerBuff = parseFloat(currServant.powermod)/100 + $('#PowerModQuest' + waveNumber).val()/100 || 0;
   var npGainBuff = parseFloat($('#NPGainUpPercentageQuest' + waveNumber).val()/100) || 0
 
+  // load in buff effectiveness mods
+  var npBuffsEffectiveness = parseFloat($('#NPDamageUpEffectivenessQuest' + waveNumber).val())/100 || 0;
+
   // load in enemy specific mods
   for(let i = 0; i < 3; i++){
     questNpSp[i] = parseFloat($('#NPSpecialAttackQuest' + waveNumber + 'Enemy' + (i+waveOffset)).val())/100 || 0;
@@ -1909,7 +1912,8 @@ function calculateDamage(waveNumber){
     console.log("busterup: " + busterUp + " artsup: " + artsUp + " quickup: " + quickUp + " npbuffs: " + npBuffs +
        " attackup: " + attackUp + " flatattackup: " + flatAttack + " busterdefensedebuff: " + busterDefenseDebuffs +
        " artsdefensedebuff: " + artsDefenseDebuffs + " quickdefensedebuff: " + quickDefenseDebuffs + " powerbuff: " +
-        powerBuff + " defensedebuff:" + defenseDebuffs + " npSpBuffs: " + npSpBuffs + " npGainBuff: " + npGainBuff);
+        powerBuff + " defensedebuff:" + defenseDebuffs + " npSpBuffs: " + npSpBuffs + " npGainBuff: " + npGainBuff +
+       " npBuffsEffectiveness:" + npBuffsEffectiveness);
     }
 
   if(currServant.nptype.localeCompare("Buster") == 0){
@@ -1967,7 +1971,7 @@ function calculateDamage(waveNumber){
     // get avg damage dealt
     damageDealt[i] = atk * np * npCardType * classAdvantage[i] * servantClassMultiplier * 0.23 *
                 (1 + attackUp + defenseDebuffs + questDefDebuff[i]) * (1 + cardBuffs + cardDebuffs + questCardDebuff) *
-                (1 + npBuffs + (powerBuff + questPower[i])) * (1 + (npSpBuffs + questNpSp[i])) * attrAdvantage[i] + flatAttack;
+                (1 + (npBuffs * (1 + npBuffsEffectiveness)) + (powerBuff + questPower[i])) * (1 + (npSpBuffs + questNpSp[i])) * attrAdvantage[i] + flatAttack;
   }
 
   if(debug){

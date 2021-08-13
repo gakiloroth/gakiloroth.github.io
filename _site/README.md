@@ -38,7 +38,7 @@ Once you have servants selected (in your party) and a quest selected, you can th
 
 Remember Passive Skill effects and effects that "activate first" before NP(or things like Arash OC NP Damage)!
 
-You can then mark additional modifiers for specific enemies (for situations such as Sieg, Mordred, Frankenstein Def. Debuff, etc.). Click on the "Toggle Enemy Specific Display" button to show these buttons. Common support skills are available to be added to the form through the "Show Support Skills" button.                           
+You can then mark additional modifiers for specific enemies (for situations such as Sieg, Mordred, Frankenstein Def. Debuff, etc.). Click on the "Toggle Enemy Specific Display" button to show these buttons. Common support skills are available to be added to the form through the "Show Support Skills" button, and "Toggle Buff Effectiveness Up Display" is used for effects such as Oberon's S3.                   
 
 Click the "Prev" and "Next" buttons to test on other waves.
 
