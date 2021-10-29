@@ -63,7 +63,7 @@ const Nodes = [
 {"id":27, "name":"Forbidden Page: Shinjuku 2-chome (Shinjuku) {<a href= \"https://fategrandorder.fandom.com/wiki/Free_Quests:_Shinjuku#Shinjuku_2-chome\" target=\"_blank\">wiki</a>}",
 "enemy1HP":16462 , "enemy1Class":"Caster", "enemy1Attribute":"Sky", "enemy2HP":19972 , "enemy2Class":"Caster", "enemy2Attribute":"Sky", "enemy3HP":19972 , "enemy3Class":"Caster", "enemy3Attribute":"Sky",
 "enemy4HP":25847 , "enemy4Class":"Caster", "enemy4Attribute":"Sky", "enemy5HP":25847 , "enemy5Class":"Caster", "enemy5Attribute":"Sky", "enemy6HP":36680 , "enemy6Class":"Caster", "enemy6Attribute":"Sky",
-"enemy7HP":262183 , "enemy7Class":"Lancer", "enemy7Attribute":"Earth", "enemy8HP":0 , "enemy8Class":"Saber", "enemy8Attribute":"Man", "enemy9HP":0 , "enemy9Class":"Saber", "enemy9Attribute":"Man"},
+"enemy7HP":262183 , "enemy7Class":"Archer", "enemy7Attribute":"Earth", "enemy8HP":0 , "enemy8Class":"Saber", "enemy8Attribute":"Man", "enemy9HP":0 , "enemy9Class":"Saber", "enemy9Attribute":"Man"},
 {"id":28, "name":"Homunculus Baby: Whateley Residence (Salem) {<a href= \"https://fategrandorder.fandom.com/wiki/Free_Quests:_Salem#Whateley_House\" target=\"_blank\">wiki</a>}",
 "enemy1HP":10986 , "enemy1Class":"Lancer", "enemy1Attribute":"Sky", "enemy2HP":10986 , "enemy2Class":"Lancer", "enemy2Attribute":"Sky", "enemy3HP":11505 , "enemy3Class":"Lancer", "enemy3Attribute":"Sky",
 "enemy4HP":20913 , "enemy4Class":"Lancer", "enemy4Attribute":"Sky", "enemy5HP":20913 , "enemy5Class":"Lancer", "enemy5Attribute":"Sky", "enemy6HP":24749 , "enemy6Class":"Lancer", "enemy6Attribute":"Sky",
