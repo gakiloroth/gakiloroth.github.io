@@ -1147,7 +1147,7 @@ function updateSavedQuestsDisplay(){
         $('#enemy' + i + 'HP').val(curr['enemy' + i + 'hp']);
         $('#enemy' + i + 'Class').val(curr['enemy' + i + 'class']);
         $('#enemy' + i + 'Attribute').val(curr['enemy' + i + 'attribute']);
-        $('#enemy' + i + 'NPGainMod').val(EnemyServerMod[getClassValue(curr['enemy' + i + 'class'])]);
+        $('#enemy' + i + 'NPGainMod').val(curr['enemy' + i + 'npgainmod']);
       }
 
       //change add servant to save servant
