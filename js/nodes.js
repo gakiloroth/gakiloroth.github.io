@@ -307,5 +307,9 @@ const Nodes = [
 {"id":88, "name": "Evil Bone: Skeleton Hunt Quest (Hunting Quest Part VI) *Assumes Radiant Dawn Hand* {<a href= \"https://fategrandorder.fandom.com/wiki/Hunting_Quests_Part_VI#\" target=\"_blank\">wiki</a>}",
 "enemy1HP": 35779,"enemy1Class": "Lancer","enemy1Attribute": "Man","enemy2HP": 35257,"enemy2Class": "Lancer","enemy2Attribute": "Man","enemy3HP": 35779,"enemy3Class": "Lancer","enemy3Attribute": "Man",
 "enemy4HP": 49922,"enemy4Class": "Lancer","enemy4Attribute": "Man","enemy5HP": 51363,"enemy5Class": "Lancer","enemy5Attribute": "Man","enemy6HP": 49922,"enemy6Class": "Lancer","enemy6Attribute": "Man",
-"enemy7HP": 91654,"enemy7Class": "Lancer","enemy7Attribute": "Sky","enemy8HP": 194005,"enemy8Class": "Lancer","enemy8Attribute": "Man","enemy9HP": 66604,"enemy9Class": "Lancer","enemy9Attribute": "Man"}
+"enemy7HP": 91654,"enemy7Class": "Lancer","enemy7Attribute": "Sky","enemy8HP": 194005,"enemy8Class": "Lancer","enemy8Attribute": "Man","enemy9HP": 66604,"enemy9Class": "Lancer","enemy9Attribute": "Man"},
+{"id":89,"name": "QP Daily (Extreme) {<a href= \"https://fategrandorder.fandom.com/wiki/Daily_Event_Quests:_Chaldea_Gate#Into_the_Treasure_Vault\" target=\"_blank\">wiki</a>}",
+"enemy1HP": 23755,"enemy1Class": "Caster","enemy1Attribute": "Sky","enemy2HP": 24483,"enemy2Class": "Caster","enemy2Attribute": "Sky","enemy3HP": 23027,"enemy3Class": "Caster","enemy3Attribute": "Sky",
+"enemy4HP": 30252,"enemy4Class": "Caster","enemy4Attribute": "Sky","enemy5HP": 31999,"enemy5Class": "Caster","enemy5Attribute": "Sky","enemy6HP": 31125,"enemy6Class": "Caster","enemy6Attribute": "Sky",
+"enemy7HP": 0,"enemy7Class": "Saber","enemy7Attribute": "Man","enemy8HP": 132932,"enemy8Class": "Caster","enemy8Attribute": "Sky","enemy9HP": 0,"enemy9Class": "Saber","enemy9Attribute": "Man"}
 ]
