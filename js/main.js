@@ -2123,14 +2123,14 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
         console.log("np refund calc loop: " + i + " enemy1 hp: " + hp1 + " nphits: " + npHits);
         console.log("npchargeoff: " + npChargeOff + " firstCardBonus: " + firstCardBonus +
           " cardNpValue: " + cardNpValue + " cardMod: " + cardMod + " enemySpecificCardDebuff: " + Number(enemySpecificCardDebuff[0]) + " enemyServerMod1: " + enemyServerMod1 +
-          " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod : " + overkillModifier);
+          " npChargeRateMod: " + Number(npChargeRateMod) + " critmod: " + critMod + " overkill mod: " + overkillModifier);
         console.log("damage1: " + damage);
       }
 
       let debugRefund1NoRound = baseNPGained * overkillModifier;
       refund1 += overkillModifier * Math.floor(baseNPGained * 100) / 100;
       if(debug){
-        console.log("refund1: " + refund1 + " no rounding refund1:" + debugRefund1NoRound);
+        console.log("refund1: " + refund1 + " no rounding refund1: " + debugRefund1NoRound);
       }
       npRefund += overkillModifier  * Math.floor(baseNPGained * 100) / 100;
     }
