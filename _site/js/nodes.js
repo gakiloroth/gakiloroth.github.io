@@ -243,7 +243,7 @@ const Nodes = [
 {"id":72, "name": "ScathachFest 2020 Rotation 2 90 Ticket node {<a href= \"https://fategrandorder.fandom.com/wiki/Dance_Tournament_in_the_Land_of_Shadows#Free_Quests\" target=\"_blank\">wiki</a>}",
 "enemy1HP": 10596,"enemy1Class": "Lancer","enemy1Attribute": "Man","enemy2HP": 15219,"enemy2Class": "Lancer","enemy2Attribute": "Man","enemy3HP": 10786,"enemy3Class": "Lancer","enemy3Attribute": "Man",
 "enemy4HP": 16752,"enemy4Class": "Lancer","enemy4Attribute": "Man","enemy5HP": 21132,"enemy5Class": "Lancer","enemy5Attribute": "Man","enemy6HP": 81886,"enemy6Class": "Lancer","enemy6Attribute": "Earth",
-"enemy7HP": 160509,"enemy7Class": "Lancer","enemy7Attribute": "Sky","enemy8HP": 69091,"enemy8Class": "Lancer","enemy8Attribute": "Man","enemy9HP": 647140,"enemy9Class": "Lancer","enemy9Attribute": "Man"},
+"enemy7HP": 160509,"enemy7Class": "Lancer","enemy7Attribute": "Sky","enemy8HP": 69091,"enemy8Class": "Lancer","enemy8Attribute": "Man","enemy9HP": 64714,"enemy9Class": "Lancer","enemy9Attribute": "Man"},
 {"id":73, "name": "ScathachFest 2020 Rotation 1 90 Ticket node {<a href= \"https://fategrandorder.fandom.com/wiki/Dance_Tournament_in_the_Land_of_Shadows#Free_Quests\" target=\"_blank\">wiki</a>}",
 "enemy1HP": 19884,"enemy1Class": "Lancer","enemy1Attribute": "Earth","enemy2HP": 13448,"enemy2Class": "Lancer","enemy2Attribute": "Man","enemy3HP": 13226,"enemy3Class": "Lancer","enemy3Attribute": "Man",
 "enemy4HP": 80962,"enemy4Class": "Caster","enemy4Attribute": "Sky","enemy5HP": 35929,"enemy5Class": "Lancer","enemy5Attribute": "Earth","enemy6HP": 30312,"enemy6Class": "Lancer","enemy6Attribute": "Man",
