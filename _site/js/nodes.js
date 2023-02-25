@@ -311,5 +311,9 @@ const Nodes = [
 {"id":89,"name": "QP Daily (Extreme) {<a href= \"https://fategrandorder.fandom.com/wiki/Daily_Event_Quests:_Chaldea_Gate#Into_the_Treasure_Vault\" target=\"_blank\">wiki</a>}",
 "enemy1HP": 23755,"enemy1Class": "Caster","enemy1Attribute": "Sky","enemy2HP": 24483,"enemy2Class": "Caster","enemy2Attribute": "Sky","enemy3HP": 23027,"enemy3Class": "Caster","enemy3Attribute": "Sky",
 "enemy4HP": 30252,"enemy4Class": "Caster","enemy4Attribute": "Sky","enemy5HP": 31999,"enemy5Class": "Caster","enemy5Attribute": "Sky","enemy6HP": 31125,"enemy6Class": "Caster","enemy6Attribute": "Sky",
-"enemy7HP": 0,"enemy7Class": "Saber","enemy7Attribute": "Man","enemy8HP": 132932,"enemy8Class": "Caster","enemy8Attribute": "Sky","enemy9HP": 0,"enemy9Class": "Saber","enemy9Attribute": "Man"}
+"enemy7HP": 0,"enemy7Class": "Saber","enemy7Attribute": "Man","enemy8HP": 132932,"enemy8Class": "Caster","enemy8Attribute": "Sky","enemy9HP": 0,"enemy9Class": "Saber","enemy9Attribute": "Man"},
+{"id":90,"name":"Christmas 2021 90+ {<a href= \"https://apps.atlasacademy.io/db/JP/quest/94064409/1/\" target=\"_blank\">wiki</a>}",
+"enemy1HP": 40625,"enemy1Class": "Assassin","enemy1Attribute": "Sky","enemy2HP": 55844,"enemy2Class": "Assassin","enemy2Attribute": "Sky","enemy3HP": 39655,"enemy3Class": "Assassin","enemy3Attribute": "Sky",
+"enemy4HP": 158323,"enemy4Class": "Assassin","enemy4Attribute": "Earth","enemy5HP": 0,"enemy5Class": "Saber","enemy5Attribute": "Man","enemy6HP": 0,"enemy6Class": "Saber","enemy6Attribute": "Man",
+"enemy7HP": 212256,"enemy7Class": "Assassin","enemy7Attribute": "Earth","enemy8HP": 0,"enemy8Class": "Saber","enemy8Attribute": "Man","enemy9HP": 0,"enemy9Class": "Saber","enemy9Attribute": "Man"},
 ]
