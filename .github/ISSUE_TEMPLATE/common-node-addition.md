@@ -8,7 +8,7 @@ assignees: gakiloroth
 ---
 
 **Reason for adding**
-What this node is used for (what mats it drops, what event its for (lotto or otherwise), or any other reason this node will be commonly used)
+What this node is used for (what mats it drops, what event its for (lotto or otherwise), **or** any other reason this node will be commonly used)
 
 **Name of the node and Wiki / Atlas Academy Link**
 The name of the node you want to add and a link to wiki (https://fategrandorder.fandom.com/wiki/Fate/Grand_Order_Wikia) or Atlas Academy page (https://apps.atlasacademy.io/db/JP/wars). This is used for the name of the node in the search list, and makes it easier for me to parse the quest info.
