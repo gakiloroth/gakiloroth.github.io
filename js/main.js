@@ -2207,7 +2207,7 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
 // Saber = 0, Archer = 1, Lancer = 2, Rider = 3, Caster = 4, Assassin = 5, Berserker = 6,
 // Ruler = 7, Avenger = 8, Moon Cancer = 9, Alter Ego = 10, Foreigner = 11, Shielder = 12
-// Pretender = 13
+// Pretender = 13, Beast = 14
 function getClassValue(input){
   var classVal = 0;
 
@@ -2294,6 +2294,12 @@ function getClassValue(input){
       console.log("pretender");
     }
     classVal = 13;
+  }
+  else if(input.localeCompare("Beast") == 0){
+    if(debug){
+      console.log("beast");
+    }
+    classVal = 14;
   }
 
   return classVal;
