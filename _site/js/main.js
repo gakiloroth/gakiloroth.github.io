@@ -189,7 +189,7 @@ function loadServantOptions(){
   $('#inputServant').empty().append($('<option></option>').val('Select Servant').html('Select Servant'));
   var matchClass = $("#inputClass option:selected").text();
   servantList.filter(function(serv){
-    if(serv.class == matchClass){
+    if(serv.class.includes(matchClass) && !serv.class.includes("NonPlayable")){
       $("#inputServant").append($('<option></option').val(serv.id).html(`${serv.id}: ${serv.name}`));
     }
   });
@@ -477,9 +477,6 @@ $(document).ready(function(){
 
 // delete all party members
 document.getElementById('deleteAllPartyMembers').onclick = function(){
-  if(debug){
-    alert("deleteAllPartyMembers");
-  }
   party = [];
   localStorage.setItem("party", JSON.stringify(party));
 
@@ -492,9 +489,6 @@ document.getElementById('deleteAllPartyMembers').onclick = function(){
 
 // delete all saved servants
 document.getElementById('deleteAllServants').onclick = function(){
-  if(debug){
-    alert("deleteAllServants");
-  }
   event.preventDefault();
   event.stopPropagation();
 
@@ -834,7 +828,7 @@ function updateSavedServantsDisplay(){
     // link up delete button
     document.getElementById("deleteServant" + i).addEventListener("click", function(){
       if(debug){
-        alert("deleteservant" +  i);
+        console.log("deleteservant" +  i);
       }
 
       if(editServantMode){
@@ -856,7 +850,7 @@ function updateSavedServantsDisplay(){
     // link up servant select button
     document.getElementById("useServant" + i).addEventListener("click", function(){
       if(debug){
-        alert("useservant"+ i);
+        console.log("useservant"+ i);
       }
 
       // remove servant from party
@@ -899,7 +893,7 @@ function updateSavedServantsDisplay(){
     // link up edit servant button
     document.getElementById("editServant" + i).addEventListener("click", function(){
       if(debug){
-        alert("editservant"+ i);
+        console.log("editservant"+ i);
       }
 
       // if already editing this unit, stop editing
@@ -1072,7 +1066,7 @@ function updateSavedQuestsDisplay(){
     // link up delete button
     document.getElementById("deleteQuest" + i).addEventListener("click", function(){
       if(debug){
-        alert("deletequest " + i);
+        console.log("deletequest " + i);
       }
 
       if(editQuestMode){
@@ -1082,7 +1076,7 @@ function updateSavedQuestsDisplay(){
       if(quest !== "" && quest.length !== 0){
         alert("Please have no quest selected when deleting!");
         if(debug){
-          alert(JSON.stringify(quest));
+          console.log(JSON.stringify(quest));
         }
         return;
       }
@@ -1096,7 +1090,7 @@ function updateSavedQuestsDisplay(){
     // link up use button
     document.getElementById("useQuest" + i).addEventListener("click", function(){
       if(debug){
-        alert("usequest " + i);
+        console.log("usequest " + i);
       }
       if(quest === i){
         quest = "";
@@ -1108,7 +1102,7 @@ function updateSavedQuestsDisplay(){
       }
       else{
         if(debug){
-          alert("select quest ");
+          console.log("select quest ");
         }
         quest = i;
         localStorage.setItem("quest", JSON.stringify(quest));
@@ -1121,7 +1115,7 @@ function updateSavedQuestsDisplay(){
     // link up edit button
     document.getElementById("editQuest" + i).addEventListener("click", function(){
       if(debug){
-        alert("editquest"+ i);
+        console.log("editquest"+ i);
       }
 
       // if already editing this unit, stop editing
@@ -1270,7 +1264,7 @@ function initializeBattleParty(){
     // link up delete button
     document.getElementById("battlePartySelect" + i).addEventListener("click", function(){
       if(debug){
-        alert("battlepartyselect" + i);
+        console.log("battlepartyselect" + i);
       }
       if(servant === party[i]){
         // deselect
@@ -1304,7 +1298,7 @@ function initializeCommonNodes(){
     // hook up button
     document.getElementById("loadNode" + currNode.id).addEventListener("click", function(){
       if(debug){
-        alert("load node " + currNode.id);
+        console.log("load node " + currNode.id);
       }
 
       // fill in quest values
@@ -1371,7 +1365,7 @@ function initializeCraftEssences(){
     // hook up button
     document.getElementById("loadCE" + currCE.id).addEventListener("click", function(){
       if(debug){
-        alert("load CE " + currCE.id);
+        console.log("load CE " + currCE.id);
       }
 
       // load CE data - but don't add into form yet
@@ -1519,7 +1513,7 @@ function resetBattleSim(wavenumber){
 
 function addServant(){
   if(debug){
-    alert("addservant");
+    console.log("addservant");
   }
 
   let valid = true;
@@ -1590,7 +1584,8 @@ function saveServant(){
     ceAtk = CEList[ceID-1].atkGrowth[ceLevel-1];
   }
 
-  savedServants.unshift({"id": servantID,"name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+  // pull class from servant list due to different Beasts
+  savedServants.unshift({"id": servantID,"name": servantName,"class": servantList[servantID - 1].class,"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
@@ -1670,7 +1665,7 @@ function saveEditedServant(index){
 
 function addQuest(){
   if(debug){
-    alert("addquest");
+    console.log("addquest");
   }
   let valid = true;
   'use strict';
@@ -1872,6 +1867,9 @@ function calculateDamage(waveNumber){
   var questQuickDebuff = new Array(3);
 
   // retrieve servant values
+  if(debug){
+    console.log("retrieving attacking servant details");
+  }
   var servantClass = getClassValue(currServant.class);
   var servantAttr = getAttrValue(currServant.attribute);
   var atk = parseFloat(currServant.attack) || 0;
@@ -2207,7 +2205,7 @@ function calculateNPRefund(hp1, hp2, hp3, enemyMod1, enemyMod2, enemyMod3, damag
 
 // Saber = 0, Archer = 1, Lancer = 2, Rider = 3, Caster = 4, Assassin = 5, Berserker = 6,
 // Ruler = 7, Avenger = 8, Moon Cancer = 9, Alter Ego = 10, Foreigner = 11, Shielder = 12
-// Pretender = 13, Beast = 14
+// Pretender = 13, Beast1 = 14, Beast2 = 15
 function getClassValue(input){
   var classVal = 0;
 
@@ -2295,11 +2293,17 @@ function getClassValue(input){
     }
     classVal = 13;
   }
-  else if(input.localeCompare("Beast") == 0){
+  else if(input.localeCompare("Beast1") == 0){
     if(debug){
-      console.log("beast");
+      console.log("beast1");
     }
     classVal = 14;
+  }
+  else if(input.localeCompare("Beast2") == 0){
+    if(debug){
+      console.log("beast2");
+    }
+    classVal = 15;
   }
 
   return classVal;
@@ -2311,31 +2315,31 @@ function getAttrValue(input){
 
   if(input.localeCompare("Man") == 0){
     if(debug){
-      console.log("man");
+      console.log("man attr");
     }
     attrVal = 0;
   }
   else if(input.localeCompare("Sky") == 0){
     if(debug){
-      console.log("sky");
+      console.log("sky attr");
     }
     attrVal = 1;
   }
   else if(input.localeCompare("Earth") == 0){
     if(debug){
-      console.log("earth");
+      console.log("earth attr");
     }
     attrVal = 2;
   }
   else if(input.localeCompare("Star") == 0){
     if(debug){
-      console.log("star");
+      console.log("star attr");
     }
     attrVal = 3;
   }
   else if(input.localeCompare("Beast") == 0){
     if(debug){
-      console.log("beast");
+      console.log("beast attr");
     }
     attrVal = 4;
   }
