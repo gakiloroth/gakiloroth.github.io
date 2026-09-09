@@ -24,6 +24,10 @@ var editQuest = -1;
 var debug = false;
 var version = "2.00";
 
+// lookup maps
+var ceMap = new Map();
+var servantMap = new Map();
+
 // actions to do when the page is loaded
 $(document).ready(function() {
   // clear local storage if version update requires
@@ -54,6 +58,7 @@ $(document).ready(function() {
   loadServantCode();
   loadQuestCode();
   initializeCraftEssences();
+  initializeServants();
   loadGist(document.getElementById("READMEGist"),"gakiloroth/83c901dc2a5bf767cd873ccda406b042");
   startup = false;
 });
@@ -232,92 +237,90 @@ $('#inputServant').on('change', function(){
   $('#NPDamagePercent').val(0);
   $('#addServant').attr('disabled', false);
 
-  // find servant in list
-  for(let i = 0; i < servantList.length; i++){
-    if($('#inputServant').val() == servantList[i].id){
-      servantID = servantList[i].id;
-      servantName = servantList[i].name;
-      servantNPGain = servantList[i].npchargeatk;
-      servantNPHits = servantList[i].nphitcount;
-      $('#inputAttribute').val(servantList[i].attribute);
-      switch(servantList[i].deck[6]){
-        case "Q":
-          if(debug){
-            console.log(servantList[i].deck[6]);
-          }
-          servantNPType = "Quick";
-          break;
-        case 'A':
-          if(debug){
-            console.log(servantList[i].deck[6]);
-          }
-          servantNPType = "Arts";
-          break;
-        case "B":
-          if(debug){
-            console.log(servantList[i].deck[6]);
-          }
-          servantNPType = "Buster";
-          break;
-      }
-
-      // load level select with valid levels
-      let select = '';
-      for(let j = 1; j <= servantList[i].attack.length; j++){
-        select += '<option val=' + j + '>' + j + '</option>';
-      }
-      $('#selectLevel').html(select);
-      $('#attack').val(servantList[i].attack[0]);
-
-      $('#selectLevel').on('change', function(){
-          $('#attack').val(servantList[i].attack[$('#selectLevel').val()-1])
-          $('#maxFou').prop('checked', false);
-          $('#maxGoldFou').prop('checked', false);
-          $('#maxGoldFou').prop('disabled', true);
-        })
-
-      // set np related stats
-      let npmulti = [0,0,0,0,0];
-      if (servantList[i].npmultiplier){
-        npmulti = servantList[i].npmultiplier.split(',');
-      }
-
-      $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
-
-      let oc = [0,0,0,0,0];
-      oc = servantList[i].overcharge.split(',');
-
-      let npcharge = 0;
-
-      // update display with servant stats
-      if (servantList[i].npupgrade == 1) {
-          $('#hasNPupgrade').show();
-        }
-
-
-      // load passive values
-      $('#NPGainUpPercentage').val(Number(servantList[i].npGainUpPercentage));
-      $('#NPDamageUp').val(Number(servantList[i].npDamageUp));
-      $('#BusterUpPercentage').val(Number(servantList[i].busterUpPercentage));
-      $('#QuickUpPercentage').val(Number(servantList[i].quickUpPercentage));
-      $('#ArtsUpPercentage').val(Number(servantList[i].artsUpPercentage));
-      $('#FlatAttackUp').val(Number(servantList[i].flatAttackUp));
-
-      $('#' + servantNPType).prop("checked", true).click();
-
-      // on change updates
-      $('#inputNPLevel').on('change', function(){
-        $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
-      });
-
-      $('#NPType').on('change', function(){
-        servantNPType = $('#NPType').val();
+  // get servant
+  let selected = servantMap.get(Number($('#inputServant').val()));
+  if (selected) {
+    servantID = selected.id;
+    servantName = selected.name;
+    servantNPGain = selected.npchargeatk;
+    servantNPHits = selected.nphitcount;
+    $('#inputAttribute').val(selected.attribute);
+    switch(selected.deck[6]){
+      case "Q":
         if(debug){
-          console.log(servantNPType);
+          console.log(selected.deck[6]);
         }
-      });
-
+        servantNPType = "Quick";
+        break;
+      case 'A':
+        if(debug){
+          console.log(selected.deck[6]);
+        }
+        servantNPType = "Arts";
+        break;
+      case "B":
+        if(debug){
+          console.log(selected.deck[6]);
+        }
+        servantNPType = "Buster";
+        break;
     }
+
+    // load level select with valid levels
+    let select = '';
+    for(let j = 1; j <= selected.attack.length; j++){
+      select += '<option val=' + j + '>' + j + '</option>';
+    }
+    $('#selectLevel').html(select);
+    $('#attack').val(selected.attack[0]);
+
+    $('#selectLevel').on('change', function(){
+        $('#attack').val(selected.attack[$('#selectLevel').val()-1])
+        $('#maxFou').prop('checked', false);
+        $('#maxGoldFou').prop('checked', false);
+        $('#maxGoldFou').prop('disabled', true);
+      })
+
+    // set np related stats
+    let npmulti = [0,0,0,0,0];
+    if (selected.npmultiplier){
+      npmulti = selected.npmultiplier.split(',');
+    }
+
+    $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
+
+    let oc = [0,0,0,0,0];
+    oc = selected.overcharge.split(',');
+
+    let npcharge = 0;
+
+    // update display with servant stats
+    if (selected.npupgrade == 1) {
+        $('#hasNPupgrade').show();
+      }
+
+
+    // load passive values
+    $('#NPGainUpPercentage').val(Number(selected.npGainUpPercentage));
+    $('#NPDamageUp').val(Number(selected.npDamageUp));
+    $('#BusterUpPercentage').val(Number(selected.busterUpPercentage));
+    $('#QuickUpPercentage').val(Number(selected.quickUpPercentage));
+    $('#ArtsUpPercentage').val(Number(selected.artsUpPercentage));
+    $('#FlatAttackUp').val(Number(selected.flatAttackUp));
+
+    $('#' + servantNPType).prop("checked", true).click();
+
+    // on change updates
+    $('#inputNPLevel').on('change', function(){
+      $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
+    });
+
+    $('#NPType').on('change', function(){
+      servantNPType = $('#NPType').val();
+      if(debug){
+        console.log(servantNPType);
+      }
+    });
   }
 });
 
@@ -336,7 +339,7 @@ for(let i = 1; i <= QUEST_ENEMY_COUNT; i++){
 $('#ceLevel').on('change', function(){
   // get current ce data from ceID
   var currCELvl = $('#ceLevel').val();
-  var currCE = CEList[ceID - 1];
+  var currCE = ceMap.get(Number(ceID));
 
   $('#ceLvlDisplay').empty().html('<b>CE Lvl</b>: '  + currCELvl + ' |');
   $('#ceAttackDisplay').empty().html('<b>CE Attack:</b> ' + currCE.atkGrowth[currCELvl - 1]);
@@ -345,7 +348,7 @@ $('#ceLevel').on('change', function(){
 // add CE effects and stats to form
 document.getElementById('addCraftEssence').onclick = function(){
   // get curr ce data
-  var currCE = CEList[ceID - 1];
+  var currCE = ceMap.get(Number(ceID));
   var ceNonMLB = currCE.nonMLB;
   var ceMLB = currCE.MLB;
   var ceLevel = $('#ceLevel').val();
@@ -384,7 +387,7 @@ document.getElementById('addCraftEssence').onclick = function(){
 // remove CE effects and stats from form
 document.getElementById('removeCraftEssence').onclick = function(){
   // get curr ce data
-  var currCE = CEList[ceID - 1];
+  var currCE = ceMap.get(Number(ceID));
   var ceNonMLB = currCE.nonMLB;
   var ceMLB = currCE.MLB;
   var ceLevel = $('#ceLevel').val();
@@ -586,7 +589,7 @@ document.getElementById('submitBattleForm1').onclick = async function(){
     let refunded = calculateNPRefund(questEnemyHP[0], questEnemyHP[3], questEnemyHP[6], curr.enemy1npgainmod, curr.enemy2npgainmod, curr.enemy3npgainmod,
      result[0], result[3], result[6], result[9], result[10], result[11], currNPHits, currNPHitDist)
 
-    questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
+    questNPTotalTime += servantMap.get(Number(savedServants[servant].id)).nptime;
     $('#npRefundDisplay1').empty().html('<b>Wave 1: Min. NP Refunded: </b>' + refunded.toFixed(2) + '%');
     $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b>' + refunded.toFixed(2) + '%<b> | Min. NP Refunded: </b> N/A</b>');
     updateNPTime();
@@ -662,7 +665,7 @@ document.getElementById('submitBattleForm2').onclick = async function(){
     let refunded = calculateNPRefund(questEnemyHP[9], questEnemyHP[12], questEnemyHP[15], curr.enemy4npgainmod, curr.enemy5npgainmod, curr.enemy6npgainmod,
      result[0], result[3], result[6], result[9], result[10], result[11], currNPHits, currNPHitDist);
 
-    questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
+    questNPTotalTime += servantMap.get(Number(savedServants[servant].id)).nptime;
     if(typeof questRefunds[0] === "undefined"){
       $('#npRefundDisplay2').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
     }
@@ -744,7 +747,7 @@ document.getElementById('submitBattleForm3').onclick = async function(){
     let refunded = calculateNPRefund(questEnemyHP[18], questEnemyHP[21], questEnemyHP[24], curr.enemy7npgainmod, curr.enemy8npgainmod, curr.enemy9npgainmod,
      result[0], result[3], result[6], result[9], result[10], result[11], currNPHits, currNPHitDist);
 
-    questNPTotalTime += servantList[savedServants[servant].id - 1].nptime;
+    questNPTotalTime += servantMap.get(Number(savedServants[servant].id)).nptime;
     if(typeof questRefunds[1] === "undefined"){
       $('#npRefundDisplay3').empty().html('<b>Wave 2: Last NP Refund from last wave: </b> N/A<b> | Min. NP Refunded: </b>' + refunded.toFixed(2) + '% </b>')
     }
@@ -924,21 +927,21 @@ function updateSavedServantsDisplay(){
         $('#inputNPLevel').val(1);
         $('#hasNPupgrade').hide();
         // update display with servant stats
-        if (servantList[$('#inputServant').val() - 1].npupgrade == 1) {
+        if (servantMap.get(Number($('#inputServant').val())).npupgrade == 1) {
             $('#hasNPupgrade').show();
           }
       });
 
       // load level select with valid levels
       let select = '';
-      for(let j = 1; j <= servantList[servantID - 1].attack.length; j++){
+      for(let j = 1; j <= servantMap.get(Number(servantID)).attack.length; j++){
         select += '<option val=' + j + '>' + j + '</option>';
       }
       $('#selectLevel').html(select);
-      $('#attack').val(servantList[servantID].attack[0]);
+      $('#attack').val(servantMap.get(Number(servantID)).attack[0]);
 
       $('#selectLevel').on('change', function(){
-         $('#attack').val(servantList[servantID - 1].attack[$('#selectLevel').val()-1])
+         $('#attack').val(servantMap.get(Number(servantID)).attack[$('#selectLevel').val()-1])
          $('#maxFou').prop('checked', false);
          $('#maxGoldFou').prop('checked', false);
          $('#maxGoldFou').prop('disabled', true);
@@ -978,7 +981,7 @@ function updateSavedServantsDisplay(){
       // load current CE id, if CE was chosen (id 0 if not)
       ceID = savedServants[i].craftessenceid;
       if(ceID != 0){
-        let servantCE = CEList[ceID - 1];
+        let servantCE = ceMap.get(Number(ceID));
 
         // load CE fields
         $('#ceNameDisplay').empty().html('<b>CE Name:</b> ' + savedServants[i].craftessence + ' |');
@@ -1356,6 +1359,8 @@ function initializeSkills(){
 
 // initialize craft essences
 function initializeCraftEssences(){
+  ceMap = new Map(CEList.map(ce => [Number(ce.id), ce]));
+
   for(let i = 0; i < CEList.length; i++){
     let currCE = CEList[i];
     $('#ceList').append('<li class="list-group-item" loading="lazy">' + "ID: " + currCE.id + " | " + '<img src=\"' + currCE.imgURL + '\" width=\"40\" height=\"40\"> '
@@ -1387,6 +1392,10 @@ function initializeCraftEssences(){
       }
     });
   }
+}
+
+function initializeServants() {
+  servantMap = new Map(servantList.map(s => [Number(s.id), s]));
 }
 
 // reset battle sim wave
@@ -1578,14 +1587,14 @@ function saveServant(){
     ceLevel = 0;
     ceAtk = 0;
   } else {
-    ceName = CEList[ceID-1].name;
+    ceName = ceMap.get(Number(ceID)).name;
     ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
     ceLevel = Number($('#ceLevel').val());
-    ceAtk = CEList[ceID-1].atkGrowth[ceLevel-1];
+    ceAtk = ceMap.get(Number(ceID)).atkGrowth[ceLevel-1];
   }
 
   // pull class from servant list due to different Beasts
-  savedServants.unshift({"id": servantID,"name": servantName,"class": servantList[servantID - 1].class,"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
+  savedServants.unshift({"id": servantID,"name": servantName,"class": servantMap.get(Number(servantID)).class,"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
     "npdamagepercent": $('#NPDamagePercent').val(),"busterup": $('#BusterUpPercentage').val(),"artsup": $('#ArtsUpPercentage').val(),
     "quickup": $('#QuickUpPercentage').val(),"attackup": $('#AttackUpPercentage').val(),"flatattackup": $('#FlatAttackUp').val(),
     "npdamageup": $('#NPDamageUp').val(),"npgain": servantNPGain,"nptype": $('input[name=cardoptions]:checked').val(),"npgainup": $('#NPGainUpPercentage').val(),
@@ -1635,10 +1644,10 @@ function saveEditedServant(index){
       ceLevel = 0;
       ceAtk = 0;
     } else {
-      ceName = CEList[ceID-1].name;
+      ceName = ceMap.get(Number(ceID)).name;
       ceMLB = $("#ceMLB").is(':checked') ? 1 : 0;
       ceLevel = Number($('#ceLevel').val());
-      ceAtk = CEList[ceID-1].atkGrowth[ceLevel-1];
+      ceAtk = ceMap.get(Number(ceID)).atkGrowth[ceLevel-1];
     }
 
     savedServants[index]=({"id": servantID, "name": servantName,"class": $('#inputClass').val(),"attack": $('#attack').val(),"nplevel": $('#inputNPLevel').val(),
@@ -2413,8 +2422,8 @@ function getServantID(name){
 function loadNPPercentages(servantID){
   // set np related stats
   let npmulti = [0,0,0,0,0];
-  if (servantList[servantID - 1].npmultiplier){
-    npmulti = servantList[servantID - 1].npmultiplier.split(',');
+  if (servantMap.get(Number(servantID)).npmultiplier){
+    npmulti = servantMap.get(Number(servantID)).npmultiplier.split(',');
   }
 
   $('#NPDamagePercent').val( Math.round(Number( npmulti[$('#inputNPLevel').val()-1])));
